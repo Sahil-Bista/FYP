@@ -17,15 +17,20 @@ function Home() {
 
   return (
     <div>
-      {users.map(({ name, _id }) => (
-        <span
-          style={{ display: "block" }}
-          onClick={() => navigate(`/chat/${_id}`)}
-          key={_id}
-        >
-          {name}
-        </span>
-      ))}
+      <div>
+        {users.map(({ name, _id }) => (
+          <span
+            style={{ display: "block" }}
+            onClick={() => navigate(`/chat/${_id}`)}
+            key={_id}
+          >
+            {name}
+          </span>
+        ))}
+      </div>
+      <div>
+        <button onClick={() => navigate("/booking")}>Book Now</button>
+      </div>
     </div>
   );
 }

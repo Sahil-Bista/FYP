@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useParams } from "react-router";
-import {} from "lodash";
 import axios from "axios";
 import notificationSound from "./assets/notification.mp3";
 

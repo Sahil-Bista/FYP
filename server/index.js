@@ -90,6 +90,11 @@ app.get('/user/:userId',authentication,async (req,res)=>{
   res.json(user)
 })
 
+app.post('/book',async(req,res)=>{
+  const {name, address, gender, email, contact_number, game_date, time, team_size} = req.body;
+  res.send({name,address,gender, email, contact_number, game_date, time, team_size});
+})
+
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
