@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Calendar } from "primereact/calendar";
-import "primereact/resources/themes/lara-light-indigo/theme.css"; // Choose your preferred theme
-import "primereact/resources/primereact.min.css"; // Core styles
-import "primeicons/primeicons.css"; // Icon styles
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 export function Booking() {
   const [name, setName] = useState("");
@@ -129,3 +129,4 @@ export function Booking() {
     </div>
   );
 }
+ 
