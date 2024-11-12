@@ -77,4 +77,6 @@ const editFutsal = async (req, res) => {
   }
 };
 
-export { getAllFutsals, createFutsal, getParticularFutsal , deleteFutsal, editFutsal};
+
+
+export { getAllFutsals, createFutsal, getParticularFutsal , deleteFutsal};

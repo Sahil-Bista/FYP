@@ -10,7 +10,6 @@ import { login, signup } from "./controllers/usercontroller.js";
 import UserModel from "./model/User.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-import { preBookingconfirmation } from "./controllers/BookingController.js";
 
 dotenv.config();
 
@@ -95,8 +94,6 @@ app.post('/book',async(req,res)=>{
   const {name, address, gender, email, contact_number, game_date, time, team_size} = req.body;
   res.send({name,address,gender, email, contact_number, game_date, time, team_size});
 })
-
-app.post('/booking', preBookingconfirmation);
 
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
