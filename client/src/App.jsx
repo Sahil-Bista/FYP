@@ -1,23 +1,40 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Use createBrowserRouter
 import Signup from "./Signup";
 import Login from "./Login";
 import Home from "./Home";
 import Chat from "./chat";
 import { Booking } from "./Booking";
+import Payment from "./Payment";
+import Success from "./PaymentSuccess";
+import Failure from "./PaymentFailure";
+import Futsal from "./Futsals";
+
+// Define your routes
+const router = createBrowserRouter(
+  [
+    { path: "/register", element: <Signup /> },
+    { path: "/login", element: <Login /> },
+    { path: "/home", element: <Home /> },
+    { path: "/chat/:userId", element: <Chat /> },
+    { path: "/futsal", element: <Futsal /> },
+    { path: "/booking/:futsalId", element: <Booking /> },
+    // { path: "/booking", element: <Booking /> },
+    { path: "/payment/:bookingId", element: <Payment /> },
+    { path: "/payment-success", element: <Success /> },
+    { path: "/payment-failure", element: <Failure /> },
+  ],
+  {
+    future: {
+      v7_startTransition: true, // Enable the future flag for v7 transition behavior
+    },
+  }
+);
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/register" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/chat/:userId" element={<Chat />} />
-        <Route path="/booking" element={<Booking />} />
-      </Routes>
-    </BrowserRouter>
+    // Use RouterProvider instead of BrowserRouter
+    <RouterProvider router={router} />
   );
 }
 

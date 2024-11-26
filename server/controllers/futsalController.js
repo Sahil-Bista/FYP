@@ -1,4 +1,4 @@
-import futsalModel from "../model/futsal";
+import futsalModel from "../model/Futsal.js"
 
 const createFutsal = async (req, res) => {
   try {
@@ -79,4 +79,4 @@ const editFutsal = async (req, res) => {
 
 
 
-export { getAllFutsals, createFutsal, getParticularFutsal , deleteFutsal};
+export { getAllFutsals, createFutsal, getParticularFutsal , deleteFutsal, editFutsal};

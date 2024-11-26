@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useParams } from "react-router";
 import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 export function Booking() {
-  const [name, setName] = useState("");
+  const { futsalId } = useParams();
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
@@ -22,9 +25,10 @@ export function Booking() {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:3001/book",
+        `http://localhost:3001/book/${futsalId}`,
         {
-          name,
+          first_name,
+          last_name,
           address,
           gender,
           email,
@@ -37,21 +41,35 @@ export function Booking() {
         { withCredentials: true }
       )
       .then((result) => {
-        console.log(result);
-        navigate("/home");
+        const bookingId = result.data.booking ? result.data.booking._id : null; // Ensure it's a string
+        if (bookingId) {
+          console.log(bookingId);
+          // Proceed with navigation if bookingId is valid
+          navigate(`/payment/${bookingId}`);
+        } else {
+          console.error("Booking ID not found in the response.");
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   return (
     <div>
       <form>
         <input
           type="text"
           placeholder="Enter your name here"
-          name="name"
-          onChange={(e) => setName(e.target.value)}
+          name="first_name"
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        ></input>
+        <input
+          type="text"
+          placeholder="Enter your name here"
+          name="last_name"
+          onChange={(e) => setLastName(e.target.value)}
           required
         ></input>
         <input
@@ -129,4 +147,3 @@ export function Booking() {
     </div>
   );
 }
- 

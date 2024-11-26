@@ -10,7 +10,10 @@ import { login, signup } from "./controllers/usercontroller.js";
 import UserModel from "./model/User.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-
+import { createFutsal } from "./controllers/futsalController.js";
+import { createBooking } from "./controllers/BookingController.js";
+import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
+import futsalModel from "./model/Futsal.js";
 dotenv.config();
 
 const port = 3001;
@@ -70,8 +73,12 @@ app.get('/secret',authentication,(req,res)=>{
 
 app.get('/all-users',authentication,async (req,res)=>{
   const users = await UserModel.find({_id: {$ne: new Types.ObjectId(req.userId)}})
-
   res.json(users)
+})
+
+app.get('/all-futsals', async(req,res)=>{
+  const futsals = await futsalModel.find({});
+  res.json(futsals)
 })
 
 app.get('/message/:userId',authentication,async (req,res)=>{
@@ -90,12 +97,22 @@ app.get('/user/:userId',authentication,async (req,res)=>{
   res.json(user)
 })
 
-app.post('/book',async(req,res)=>{
-  const {name, address, gender, email, contact_number, game_date, time, team_size} = req.body;
-  res.send({name,address,gender, email, contact_number, game_date, time, team_size});
-})
+
+app.post("/addFutsal",createFutsal);
+
+app.post("/createBooking/:futsalId", createBooking)
+
+app.post("/createBooking/:futsalId", createBooking)
+
+app.post("/check-payment-status",checkPaymentStatus)
+
+app.post("/esewa-payment/:bookingId",initiatePayment)
+
+app.post("/book/:futsalId",createBooking);
 
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+
 
