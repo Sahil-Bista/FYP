@@ -14,6 +14,7 @@ import { createFutsal } from "./controllers/futsalController.js";
 import { createBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
 import futsalModel from "./model/Futsal.js";
+import bookingModel from "./model/Booking.js";
 dotenv.config();
 
 const port = 3001;
@@ -76,10 +77,19 @@ app.get('/all-users',authentication,async (req,res)=>{
   res.json(users)
 })
 
-app.get('/all-futsals', async(req,res)=>{
+app.get('/all-futsals',authentication,async(req,res)=>{
   const futsals = await futsalModel.find({});
   res.json(futsals)
 })
+
+app.get('/all-bookings',authentication,async(req,res)=>{
+  const userId = req.userId;
+  const user = await UserModel.findOne({_id:userId});
+  const user_email = user.email;
+  const bookings = await bookingModel.find({email: {$ne: user_email}});
+  res.json(bookings)
+})
+
 
 app.get('/message/:userId',authentication,async (req,res)=>{
   const {userId} = req.params
@@ -91,24 +101,20 @@ app.get('/message/:userId',authentication,async (req,res)=>{
   res.json(chats)
 })
 
-app.get('/user/:userId',authentication,async (req,res)=>{
+app.get('/user/:userId',async (req,res)=>{
   const {userId} = req.params
   const user = await UserModel.findById(userId)
   res.json(user)
 })
 
 
-app.post("/addFutsal",createFutsal);
-
-app.post("/createBooking/:futsalId", createBooking)
-
-app.post("/createBooking/:futsalId", createBooking)
+app.post("/addFutsal", createFutsal);
 
 app.post("/check-payment-status",checkPaymentStatus)
 
 app.post("/esewa-payment/:bookingId",initiatePayment)
 
-app.post("/book/:futsalId",createBooking);
+app.post("/book/:futsalId",authentication,createBooking);
 
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);

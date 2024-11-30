@@ -9,6 +9,7 @@ import Payment from "./Payment";
 import Success from "./PaymentSuccess";
 import Failure from "./PaymentFailure";
 import Futsal from "./Futsals";
+import BookingList from "./BookingList";
 
 // Define your routes
 const router = createBrowserRouter(
@@ -19,7 +20,7 @@ const router = createBrowserRouter(
     { path: "/chat/:userId", element: <Chat /> },
     { path: "/futsal", element: <Futsal /> },
     { path: "/booking/:futsalId", element: <Booking /> },
-    // { path: "/booking", element: <Booking /> },
+    { path: "/bookingList", element: <BookingList /> },
     { path: "/payment/:bookingId", element: <Payment /> },
     { path: "/payment-success", element: <Success /> },
     { path: "/payment-failure", element: <Failure /> },

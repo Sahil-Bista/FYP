@@ -1,6 +1,8 @@
 import bookingModel from "../model/Booking.js";
 import PaymentModel from "../model/payment.js";
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
+import UserModel from "../model/User.js";
 
 const createBooking = async (req, res) => {
 try{
@@ -17,13 +19,56 @@ try{
     endTime,
     team_size,
   } = req.body;
+
+  const logged_in_user_id = req.userId;
+
+  const verified_user = await UserModel.findOne({
+    _id : logged_in_user_id
+  });
+  const verified_email = verified_user.email;
+
+  if(!verified_email){
+    return res.status(201).json({ message: "Your email id seems incorrect"});
+  }
+
+  if(verified_email !== email){
+    console.log("email not verified")
+    return res.status(201).json({ message: "You can only book games with email Id used for logging in."});
+  }
+
+  const gameDate = new Date(game_date);
+  gameDate.setUTCHours(0, 0, 0, 0);  // Set time to 00:00:00
+
+  const starttimePart = startTime.split("T")[1].split("Z")[0]; // This gives you "06:15:03.123"
+  const startTimeParts = starttimePart.split(":");
+  const startTimeDate = new Date(Date.UTC(2004, 10, 6, parseInt(startTimeParts[0]), parseInt(startTimeParts[1]), 0, 0));
+
+  const endtimePart = endTime.split("T")[1].split("Z")[0];
+  const endTimeParts = endtimePart.split(":");
+  const endTimeDate = new Date(Date.UTC(2004, 10, 6, parseInt(endTimeParts[0]), parseInt(endTimeParts[1]), 0, 0));
   
-  const alreadyBooked = await bookingModel.findOne({game_date:game_date});
-  if(alreadyBooked){
+  const alreadyBooked = await bookingModel.find({
+    game_date: gameDate, 
+    $or: [
+      { 
+        startTime: { $lt: endTimeDate }, 
+        endTime: { $gt: startTimeDate }  
+      },
+      { 
+        startTime: { $lte: startTimeDate }, 
+        endTime: { $gte: endTimeDate } 
+      }
+    ]
+  });
+  
+  if(alreadyBooked.length>0){
+    console.log("alreadyBooked LOL")
     return res.status(201).json({ message: "The time is not available"});
   }
+
   const booking_status = team_size === "Full" ? "Payment pending" : "Waiting to match";
   const booking = await bookingModel.create({
+    userId : `${logged_in_user_id}`,
     futsalId : `${futsalId}`,
     first_name : `${first_name}`,
     last_name: `${last_name}`,
@@ -31,9 +76,9 @@ try{
     gender : `${gender}`,
     email : `${email}`,
     contact_Number : `${contact_number}`,
-    game_date : `${game_date}`,
-    startTime : `${startTime}`,
-    endTime : `${endTime}`,
+    game_date : `${gameDate}`,
+    startTime : `${startTimeDate}`,
+    endTime : `${endTimeDate}`,
     team_size :`${team_size}`,
     booking_status : `${booking_status}`
  });

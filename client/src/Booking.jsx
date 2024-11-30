@@ -15,9 +15,9 @@ export function Booking() {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [contact_number, setContact_Number] = useState("");
-  const [game_date, setGame_date] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [game_date, setGame_date] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
   const [team_size, setTeam_size] = useState("");
   const navigate = useNavigate();
 
@@ -41,6 +41,13 @@ export function Booking() {
         { withCredentials: true }
       )
       .then((result) => {
+        const team_size = result.data.booking
+          ? result.data.booking.team_size
+          : null;
+        if (team_size === "Half-full") {
+          console.log(result.data.booking);
+          return navigate(`/bookingList`);
+        }
         const bookingId = result.data.booking ? result.data.booking._id : null; // Ensure it's a string
         if (bookingId) {
           console.log(bookingId);
@@ -109,12 +116,10 @@ export function Booking() {
         <Calendar
           name="start"
           value={startTime}
-          onChange={(e) => setStartTime(e.value)}
+          onChange={(e) => setStartTime(e.target.value)}
           timeOnly
           showIcon
           icon="pi pi-clock"
-          selectionMode="range"
-          readOnlyInput
           hideOnRangeSelection
           stepMinute={60}
         />
@@ -126,8 +131,6 @@ export function Booking() {
           timeOnly
           showIcon
           icon="pi pi-clock"
-          selectionMode="range"
-          readOnlyInput
           hideOnRangeSelection
           stepMinute={60}
         />
@@ -137,8 +140,8 @@ export function Booking() {
           onChange={(e) => setTeam_size(e.target.value)}
           required
         >
-          <option value="option1">Full</option>
-          <option value="option2">Half-full</option>
+          <option value="Full">Full</option>
+          <option value="Half-full">Half-full</option>
         </select>
         <button type="Submit" onClick={handleSubmit}>
           Confirm Booking

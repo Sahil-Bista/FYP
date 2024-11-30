@@ -14,7 +14,7 @@ const authentication = (req, res, next) => {
     req.user = data.username; 
 
     const decoded = jwtDecode(token);
-  const userId = decoded.id;
+    const userId = decoded.id;
     req.userId = userId;
     next();
   } catch (error) {

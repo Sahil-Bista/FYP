@@ -18,8 +18,8 @@ const bookingSchema = new mongoose.Schema({
     email : String,
     contact_Number : Number,
     game_date : Date,
-    startTime : String,
-    endTime : String,
+    startTime : Date,
+    endTime : Date,
     team_size : String,
     booking_status: String
 })
