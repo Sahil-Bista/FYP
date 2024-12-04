@@ -48,6 +48,7 @@ try{
   const endTimeDate = new Date(Date.UTC(2004, 10, 6, parseInt(endTimeParts[0]), parseInt(endTimeParts[1]), 0, 0));
   
   const alreadyBooked = await bookingModel.find({
+    futsalId : futsalId,
     game_date: gameDate, 
     $or: [
       { 

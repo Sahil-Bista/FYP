@@ -16,7 +16,6 @@ const Payment = () => {
           productId: generateUniqueId(),
         }
       );
-      console.log(bookingId);
       window.location.href = response.data.url;
       //Changes the url of the current browser window for effective navigarion
     } catch (error) {

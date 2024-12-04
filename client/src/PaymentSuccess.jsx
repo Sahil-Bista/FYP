@@ -4,6 +4,7 @@ import axios from "axios";
 import { tokendecode } from "../utils/utils";
 
 const Success = () => {
+  const [futsalId, setFutsalId] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Success = () => {
         }
       );
       if (response.status === 200) {
+        setFutsalId(response.data);
         setIsLoading(false);
         setIsSuccess(true);
       }
@@ -42,7 +44,7 @@ const Success = () => {
       <>
         <h1>Oops!..Error occurred on confirming payment</h1>
         <h2>We will resolve it soon.</h2>
-        <button onClick={() => navigate("/")} className="go-home-button">
+        <button onClick={() => navigate("/home")} className="go-home-button">
           Go to Homepage
         </button>
       </>
@@ -52,7 +54,12 @@ const Success = () => {
     <div>
       <h1>Payment Successful!</h1>
       <p>Thank you for your payment. Your booking has been completed.</p>
-      <button onClick={() => navigate("/Home")}></button>
+      <button
+        onClick={() => navigate(`/bookingList/${futsalId}`)}
+        className="go-home-button"
+      >
+        View List
+      </button>
     </div>
   );
 };

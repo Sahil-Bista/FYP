@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import UserModel from '../model/User.js'
 import  createSecretToken  from '../utils/SecretToken.js';
+// import {body} from 'express-validator';
 const saltRounds = 10;
 
 const signup = async (req,res,next)=>{

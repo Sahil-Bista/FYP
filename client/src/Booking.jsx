@@ -46,7 +46,7 @@ export function Booking() {
           : null;
         if (team_size === "Half-full") {
           console.log(result.data.booking);
-          return navigate(`/bookingList`);
+          return navigate(`/bookingList/${futsalId}`);
         }
         const bookingId = result.data.booking ? result.data.booking._id : null; // Ensure it's a string
         if (bookingId) {
@@ -67,14 +67,14 @@ export function Booking() {
       <form>
         <input
           type="text"
-          placeholder="Enter your name here"
+          placeholder="Enter your first name here"
           name="first_name"
           onChange={(e) => setFirstName(e.target.value)}
           required
         ></input>
         <input
           type="text"
-          placeholder="Enter your name here"
+          placeholder="Enter your last name here"
           name="last_name"
           onChange={(e) => setLastName(e.target.value)}
           required
@@ -86,12 +86,15 @@ export function Booking() {
           onChange={(e) => setAddress(e.target.value)}
           required
         ></input>
-        <input
-          placeholder="Enter your gender here"
+        <label htmlFor="gender">Gender</label>
+        <select
           name="gender"
           onChange={(e) => setGender(e.target.value)}
           required
-        ></input>
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
         <input
           placeholder="Enter your email here"
           name="email"

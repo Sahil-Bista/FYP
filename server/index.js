@@ -3,6 +3,8 @@ import express from "express";
 import mongoose, { Types } from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
+import { fileURLToPath } from 'url';
+import path from "path";
 import cors from "cors";
 import authentication from './middlewares/authentication.js'
 import cookieParser from "cookie-parser";
@@ -10,14 +12,17 @@ import { login, signup } from "./controllers/usercontroller.js";
 import UserModel from "./model/User.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-import { createFutsal } from "./controllers/futsalController.js";
+import { createFutsal, upload } from "./controllers/futsalController.js";
 import { createBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
 import futsalModel from "./model/Futsal.js";
 import bookingModel from "./model/Booking.js";
+import PaymentModel from "./model/payment.js";
 dotenv.config();
 
+
 const port = 3001;
+
 
 const app = express();
 const server = http.createServer(app);
@@ -34,6 +39,14 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
+
+const __filename = fileURLToPath(import.meta.url);
+//so it returns path like server/index.js
+const __dirname = path.dirname(__filename);
+// this returns only upto server and then it is attached to uploads
+
+app.use('/uploads', express.static(path.join(__dirname,'uploads')));
+//This basically helps in serving the file to the frontend
 
 mongoose.connect("mongodb://127.0.0.1:27017/user");
 
@@ -64,6 +77,7 @@ chatEvents.on('saveMessage', async ({msg, sender, reciever}) => {
   })
 })
 
+
 app.post("/login", login);
 
 app.post("/register", signup);
@@ -77,17 +91,28 @@ app.get('/all-users',authentication,async (req,res)=>{
   res.json(users)
 })
 
-app.get('/all-futsals',authentication,async(req,res)=>{
+app.get('/all-futsals',async(req,res)=>{
   const futsals = await futsalModel.find({});
   res.json(futsals)
 })
 
-app.get('/all-bookings',authentication,async(req,res)=>{
-  const userId = req.userId;
-  const user = await UserModel.findOne({_id:userId});
-  const user_email = user.email;
-  const bookings = await bookingModel.find({email: {$ne: user_email}});
-  res.json(bookings)
+app.get('/all-bookings/:futsalId',authentication,async(req,res)=>{
+  const {futsalId} = req.params;
+  const futsal = await futsalModel.findOne({_id:futsalId});
+  const futsal_id = futsal?._id || null;
+  const bookings = await bookingModel.find({futsalId : futsal_id});
+
+  const bookingList = [];
+  for(const booking of bookings){
+    const booking_payment = await PaymentModel.findOne({booking_id : booking._id});
+    const booking_payment_status = booking_payment?.status || null;
+
+    if(booking_payment_status === "COMPLETE" || booking.team_size==="Half-full"){
+      bookingList.push(booking);
+    }
+  }
+  console.log(bookingList);
+  return res.send(bookingList);
 })
 
 
@@ -108,13 +133,14 @@ app.get('/user/:userId',async (req,res)=>{
 })
 
 
-app.post("/addFutsal", createFutsal);
+app.post("/addFutsal",upload.single("image"), createFutsal);
 
 app.post("/check-payment-status",checkPaymentStatus)
 
 app.post("/esewa-payment/:bookingId",initiatePayment)
 
 app.post("/book/:futsalId",authentication,createBooking);
+
 
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);

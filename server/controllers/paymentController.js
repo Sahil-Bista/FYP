@@ -4,6 +4,7 @@ import CryptoJS from "crypto-js";
 import PaymentModel from '../model/payment.js';
 import dotenv from "dotenv";
 import axios from "axios";
+import bookingModel from "../model/Booking.js";
 dotenv.config();
   
 function safeStringify(obj) {
@@ -79,6 +80,10 @@ const checkPaymentStatus = async(req,res) =>{
     if(!transaction){
       return res.status(400).json({ message: "Transaction not found" });
     }
+    const bookingId = transaction.booking_id;
+    const booking = await bookingModel.findOne({_id:bookingId});
+    const futsalId = booking.futsalId;
+    console.log(futsalId);
     const paymentData = {
       product_code : process.env.MERCHANT_ID,
       total_amount : transaction.amount,
@@ -96,7 +101,7 @@ const checkPaymentStatus = async(req,res) =>{
       await transaction.save();
       res
         .status(200)
-        .json({ message: "Transaction status updated successfully" });
+        .json(futsalId);
     }
   }catch(error){
     console.error("Error updating transaction status:", error);

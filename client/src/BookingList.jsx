@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 
 function BookingList() {
-  const [bookings, setBookings] = useState([]);
+  const { futsalId } = useParams();
+  const [pendingbookings, setPendingBookings] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:3001/all-bookings", { withCredentials: true })
+      .get(`http://localhost:3001/all-bookings/${futsalId}`, {
+        withCredentials: true,
+      })
       .then((result) => {
-        setBookings(result.data);
+        console.log(result.data);
+        setPendingBookings(result.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <div>
-      {bookings.map(
+      {pendingbookings.map(
         ({
           first_name,
           last_name,
@@ -26,29 +30,24 @@ function BookingList() {
           startTime,
           endTime,
           userId,
+          team_size,
         }) => (
           <div key={_id} style={{ marginBottom: "10px" }}>
-            <span
-              style={{ display: "block", cursor: "pointer" }}
-              onClick={() => navigate(`/chat/${userId}`)}
-            >
+            <span style={{ display: "block", cursor: "pointer" }}>
               {first_name} {last_name} {email}{" "}
-              {/* Format game_date to local time */}
               {new Date(
                 new Date(game_date).setDate(new Date(game_date).getDate() + 1)
               ).toLocaleDateString()}{" "}
-              {/* Format startTime to local time */}
               {new Date(startTime).toLocaleTimeString()}{" "}
-              {/* Format endTime to local time */}
               {new Date(endTime).toLocaleTimeString()}
-              <button
-                style={{ marginLeft: "10px" }}
-                onClick={() =>
-                  console.log(`Button clicked for ${first_name} ${last_name}`)
-                }
-              >
-                Click Me
-              </button>
+              {team_size === "Half-full" ? (
+                <button
+                  style={{ marginLeft: "10px" }}
+                  onClick={() => navigate(`/chat/${userId}`)}
+                >
+                  Click Me
+                </button>
+              ) : null}
             </span>
           </div>
         )
