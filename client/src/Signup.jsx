@@ -14,8 +14,14 @@ function Signup() {
     axios
       .post("http://localhost:3001/register", { name, email, password })
       .then((result) => {
-        console.log(result);
-        navigate("/login");
+        if (result.status === 201) {
+          console.log(result.data.msg);
+          navigate("/login");
+        }
+        if (result.status === 422) {
+          setError(result.data.msg); // Invalid email domain error message from backend
+          console.log(result.data.msg);
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -37,7 +43,7 @@ function Signup() {
               placeholder="Enter Name"
               autoComplete="off"
               name="name"
-              className="form-control rounded-0"
+              className="rounded-0"
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -51,7 +57,7 @@ function Signup() {
               placeholder="Enter Email"
               autoComplete="off"
               name="email"
-              className="form-control rounded-0"
+              className=" rounded-0"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -64,7 +70,7 @@ function Signup() {
               type="password"
               placeholder="Enter Password"
               name="password"
-              className="form-control rounded-0"
+              className=" rounded-0"
               onChange={(e) => setPassword(e.target.value)}
               required
             />

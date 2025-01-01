@@ -17,7 +17,14 @@ function Futsal() {
   return (
     <div>
       {futsals.map(
-        ({ futsal_name, _id, image, futsal_address, futsal_description }) => (
+        ({
+          futsal_name,
+          _id,
+          image,
+          futsal_address,
+          futsal_description,
+          address_link,
+        }) => (
           <span
             style={{
               display: "flex",
@@ -30,7 +37,7 @@ function Futsal() {
             <div style={{ display: "flex" }}>
               <div>
                 <h3>{futsal_name}</h3>
-                <h4> {futsal_address} </h4>
+                <a href={address_link}> {futsal_address} </a>
                 <p> {futsal_description}</p>
               </div>
               <div>

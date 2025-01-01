@@ -18,6 +18,40 @@ function BookingList() {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleDelete = async (e, _id) => {
+    const bookingId = _id;
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/deleteBooking/${bookingId}`,
+        {},
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        navigate(`/bookingList/${futsalId}`);
+      }
+    } catch (error) {
+      console.log("error sending request", error);
+    }
+  };
+
+  const handleEdit = async (e, _id) => {
+    const bookingId = _id;
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/editBooking/${bookingId}`,
+        {},
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        navigate(`/editBookingList/${bookingId}`);
+      }
+    } catch (error) {
+      console.log("error sending request", error);
+    }
+  };
+
   return (
     <div>
       {pendingbookings.map(
@@ -45,9 +79,16 @@ function BookingList() {
                   style={{ marginLeft: "10px" }}
                   onClick={() => navigate(`/chat/${userId}`)}
                 >
-                  Click Me
+                  Match with opponent
                 </button>
               ) : null}
+              <button key={_id} onClick={(e) => handleEdit(e, _id)}>
+                {" "}
+                Edit{" "}
+              </button>
+              <button key={_id} onClick={(e) => handleDelete(e, _id)}>
+                Delete
+              </button>
             </span>
           </div>
         )

@@ -7,6 +7,7 @@ const futsalSchema = new mongoose.Schema({
     },
     futsal_name : String,
     futsal_address : String,
+    address_link : String,
     futsal_description : String
 })
 const futsalModel = mongoose.model("futsal",futsalSchema);

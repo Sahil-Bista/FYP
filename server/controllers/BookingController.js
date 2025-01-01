@@ -90,41 +90,79 @@ try{
 }
 };
 
-const confirmBooking = async(req,res)=>{
-    try{
-    const {booking_id} = req.params;
-    const {amount,  team_code, user_id} = req.body;
-    const transaction_code = uuidv4();
-    const payment = await PaymentModel.create({
-        user_id : `${user_id}`,
-        booking_id : `${booking_id}`,
-        amount : `${amount}`,
-        transaction_code : `${transaction_code}`,
-        team_code : `${team_code}`
-    })
+// const confirmBooking = async(req,res)=>{
+//     try{
+//     const {booking_id} = req.params;
+//     const {amount,  team_code, user_id} = req.body;
+//     const transaction_code = uuidv4();
+//     const payment = await PaymentModel.create({
+//         user_id : `${user_id}`,
+//         booking_id : `${booking_id}`,
+//         amount : `${amount}`,
+//         transaction_code : `${transaction_code}`,
+//         team_code : `${team_code}`
+//     })
 
-    const updatedBooking = await bookingModel.findByIdAndUpdate(
-        booking_id,  
-        { booking_status: "Booked" },  
-        { new: true }  
-      );
+//     const updatedBooking = await bookingModel.findByIdAndUpdate(
+//         booking_id,  
+//         { booking_status: "Booked" },  
+//         { new: true }  
+//       );
   
-      if (!updatedBooking) {
-        return res.status(404).json({
-          message: "Booking not found.",
-        });
-      }
+//       if (!updatedBooking) {
+//         return res.status(404).json({
+//           message: "Booking not found.",
+//         });
+//       }
   
-      res.status(201).json({
-        message: "Payment successful and booking status updated.",
-        payment,
-        updatedBooking,
-      });
+//       res.status(201).json({
+//         message: "Payment successful and booking status updated.",
+//         payment,
+//         updatedBooking,
+//       });
     
-    }catch(error){
-        console.log(error);
-        res.status(500).json({ message: "Error making payment" });
-    }
+//     }catch(error){
+//         console.log(error);
+//         res.status(500).json({ message: "Error making payment" });
+//     }
+// }
+
+const EditBooking = async(req,res)=>{
+  const logged_in_user_id = req.userId;
+  const {bookingId} = req.params;
+  const booking = await bookingModel.findOne({_id:bookingId});
+  const booking_email = booking?.email || null;
+  const booker_user = await UserModel.findOne({email: booking_email});
+  const booker_user_id = booker_user?._id || null;
+  console.log(booker_user_id);
+  console.log("logged",logged_in_user_id);
+  if (logged_in_user_id == booker_user_id){
+    console.log(deleted_bookig);
+    return res.status(200).json({booking});
+  }else{
+    console.log("HI");
+    return res.json({message : "You are not authorized to delete this booking"});
+  }
+
 }
 
-export {createBooking, confirmBooking};
+const deleteBooking = async(req,res) => {
+  const logged_in_user_id = req.userId;
+  const {bookingId} = req.params;
+  const booking = await bookingModel.findOne({_id:bookingId});
+  const booking_email = booking?.email || null;
+  const booker_user = await UserModel.findOne({email: booking_email});
+  const booker_user_id = booker_user?._id || null;
+  console.log(booker_user_id);
+  console.log("logged",logged_in_user_id);
+  if (logged_in_user_id == booker_user_id){
+    const deleted_bookig = await bookingModel.deleteOne({_id:bookingId});
+    console.log(deleted_bookig);
+    return res.status(200).json({message : "Booking deleted successfully"});
+  }else{
+    console.log("HI");
+    return res.json({message : "You are not authorized to delete this booking"});
+  }
+}
+
+export {createBooking,deleteBooking};

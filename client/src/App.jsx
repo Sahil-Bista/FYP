@@ -27,12 +27,12 @@ const router = createBrowserRouter(
     { path: "/payment/:bookingId", element: <Payment /> },
     { path: "/payment-success", element: <Success /> },
     { path: "/payment-failure", element: <Failure /> },
-  ],
-  {
-    future: {
-      v7_startTransition: true, // Enable the future flag for v7 transition behavior
-    },
-  }
+  ]
+  // {
+  //   future: {
+  //     v7_startTransition: true, // Enable the future flag for v7 transition behavior
+  //   },
+  // }
 );
 
 function App() {

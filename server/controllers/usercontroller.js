@@ -7,6 +7,22 @@ const saltRounds = 10;
 const signup = async (req,res,next)=>{
     try{
         let {name,email,password} = req.body;
+        let role = '';
+
+        const regexUserEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+        const regexVendorEmail = /^[a-zA-Z0-9._%+-]+@rivalvendor\.com$/;
+        const regexAdminEmail = /^[a-zA-Z0-9._%+-]+@rivaladmin\.com$/;
+
+
+        if(regexUserEmail.test(email)){
+          role = 'USER';
+        }else if(regexVendorEmail.test(email)){
+          role='VENDOR'
+        }else if(regexAdminEmail.test(email)){
+          role='ADMIN'
+        }else{
+          return res.status(422).json({msg:'User email domain must be @gmail.com'})
+        }
 
         const existingUser = await UserModel.findOne({email});
         if(existingUser){
@@ -16,7 +32,8 @@ const signup = async (req,res,next)=>{
         const user = await UserModel.create({
           name : `${name}`,
           email : `${email}`,
-          password : `${hashedPassword}`
+          password : `${hashedPassword}`,
+          role : `${role}`
         });
         res.status(201).json({message : "User signed in successfully", user})
     }catch(error){

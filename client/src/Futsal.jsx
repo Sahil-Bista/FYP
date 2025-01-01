@@ -6,6 +6,7 @@ export default function Futsals() {
   const [image, setImage] = useState(null);
   const [futsalName, setFutsalName] = useState("");
   const [futsalAddress, setFutsalAddress] = useState("");
+  const [addressLink, setAddressLink] = useState("");
   const [futsalDescription, setFutsalDescription] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -13,6 +14,7 @@ export default function Futsals() {
     const formData = new FormData();
     formData.append("image", image); // assuming 'image' is a file input
     formData.append("futsalName", futsalName);
+    formData.append("addressLink", addressLink);
     formData.append("futsalAddress", futsalAddress);
     formData.append("futsalDescription", futsalDescription);
 
@@ -40,6 +42,7 @@ export default function Futsals() {
           name="image"
           onChange={(e) => setImage(e.target.files[0])}
           //file-list is an array like object that js uses to store files
+          required
         ></input>
         <input
           type="text"
@@ -53,6 +56,13 @@ export default function Futsals() {
           placeholder="Enter Futsal Address"
           name="futsal_address"
           onChange={(e) => setFutsalAddress(e.target.value)}
+          required
+        ></input>
+        <input
+          type="text"
+          placeholder="Enter Futsal Address"
+          name="address_link"
+          onChange={(e) => setAddressLink(e.target.value)}
           required
         ></input>
         <input

@@ -32,12 +32,13 @@ const upload = multer({
 
 const createFutsal = async (req, res) => {
   try {
-    const { futsalName, futsalAddress, futsalDescription } = req.body;
+    const { futsalName, futsalAddress, futsalDescription , addressLink} = req.body;
     const image = req.file.path;
     const futsal = await futsalModel.create({
       image : `${image}`,
       futsal_name: `${futsalName}`,
       futsal_address: `${futsalAddress}`,
+      address_link :`${addressLink}`,
       futsal_description: `${futsalDescription}`,
     });
     res.status(201).json({ message: "Futsal created successfully", futsal });
