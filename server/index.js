@@ -53,15 +53,34 @@ mongoose.connect("mongodb://127.0.0.1:27017/user");
 const chatEvents = new EventEmitter()
 
 io.on("connection", (socket) => {
-  socket.on("message", ({room,msg, sender, reciever}) => {
+  socket.on("message", ({room, msg, sender, reciever}) => {
     console.log({room,msg});
     socket.to(room).emit("message",msg);
-    chatEvents.emit('saveMessage', {msg, sender, reciever})
+    chatEvents.emit('saveMessage', {msg, sender, reciever,room})
   });
 
-  socket.on("join-room",(room)=>{
+  socket.on("join-room",async (room,userId,myUserId)=>{
     socket.join(room);
-    console.log(`User joined room ${room}`);
+    try{
+      const existingRoom = await ChatModel.findOne({
+        senderId: new Types.ObjectId(userId),
+        receiverId: new Types.ObjectId(myUserId),
+        roomId: room,
+        type: "Room-joined message",
+      });
+
+      if(!existingRoom){
+      await ChatModel.create({
+        senderId :  new Types.ObjectId(userId),
+        receiverId : new Types.ObjectId(myUserId),
+        roomId: room,
+        message: `You have matched with user: ${userId}`,
+        type:"Room-joined message"
+      })
+    }
+    }catch(error){
+      console.log("Error creating message",error);
+    }
   });
 
   socket.on("disconnect", () => {
@@ -69,11 +88,13 @@ io.on("connection", (socket) => {
   });
 });
 
-chatEvents.on('saveMessage', async ({msg, sender, reciever}) => {
+chatEvents.on('saveMessage', async ({msg, sender, reciever,room}) => {
   await ChatModel.create({
     senderId: sender,
     receiverId: reciever,
-    message: msg
+    roomId: room,
+    message: msg,
+    type: "Normal Message"
   })
 })
 
@@ -124,12 +145,64 @@ app.get('/message/:userId',authentication,async (req,res)=>{
   res.json(chats)
 })
 
-app.get('/user/:userId',async (req,res)=>{
-  const {userId} = req.params
-  const user = await UserModel.findById(userId)
-  res.json(user)
+app.get('/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+});
+
+app.get('/room/:myUserId', async(req,res)=>{
+  const {myUserId} = req.params;
+  const userInvolvedMessages = await ChatModel.find({
+    $and: [
+      { 
+        $or: [
+          { senderId: new Types.ObjectId(myUserId) },
+          { receiverId: new Types.ObjectId(myUserId) }
+        ]
+      },
+      { type: "Room-joined message"}
+    ]
+  });
+  const matchedUserIds = userInvolvedMessages.reduce((uniqueIds, message) => {
+    const otherUserId = message.senderId.toString() === myUserId 
+      ? message.receiverId.toString() 
+      : message.senderId.toString();
+
+    if (!uniqueIds.includes(otherUserId)) {
+      uniqueIds.push(otherUserId);
+    }
+
+    return uniqueIds;
+  }, []);
+
+  // Fetch details of the matched users
+  const matchedUsers = await UserModel.find({ _id: { $in: matchedUserIds } }).exec();
+
+  // Respond with the list of matched users
+  res.json(matchedUsers);
 })
 
+app.post("/chat/search", async (req,res)=>{
+  try{
+  const {searchQuery} = req.body;
+  const user = searchQuery.trim();
+  if(!user){
+    return res.status(400).json({error: "User name is required"});
+  }
+    const foundUser = await UserModel.find({
+      name: { $regex: new RegExp(user, 'i') }
+    });
+  res.json(foundUser);
+}catch(error){
+  console.log(error);
+  return res.status(500),json({error});
+}
+})
 
 app.post("/addFutsal",upload.single("image"), createFutsal);
 

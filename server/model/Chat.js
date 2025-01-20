@@ -9,7 +9,9 @@ const chatSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: 'UserModel',
   },
-  message : String
+  roomId: String,
+  message : String,
+  type:String
 }, {
   timestamps: true
 })

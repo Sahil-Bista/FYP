@@ -101,9 +101,7 @@ const editFutsal = async (req, res) => {
     if (!updatedFutsal) {
       return res.status(404).json({ message: 'Futsal not found' });
     }
-
     res.status(200).json({ message: 'Futsal updated successfully', futsal: updatedFutsal });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error" });

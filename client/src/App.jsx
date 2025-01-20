@@ -21,6 +21,7 @@ const router = createBrowserRouter(
     { path: "/chat/:userId", element: <Chat /> },
     { path: "/futsal", element: <Futsal /> },
     { path: "/futsals", element: <Futsals /> },
+    { path: "/editBookingList/:bookingId", element: <Futsals /> },
     { path: "/booking/:futsalId", element: <Booking /> },
     { path: "/bookingList", element: <BookingList /> },
     { path: "/bookingList/:futsalId", element: <BookingList /> },
