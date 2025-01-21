@@ -70,7 +70,16 @@ function Chat() {
 
           setLastMessages((prevMessages) => ({
             ...prevMessages,
-            [user._id]: { message: lastMessage, time: formattedTime },
+            [user._id]: {
+              message:
+                lastMessage && lastMessage.type !== "Room-joined message"
+                  ? lastMessage
+                  : null,
+              time:
+                lastMessage && lastMessage.type !== "Room-joined message"
+                  ? formattedTime
+                  : null,
+            },
           }));
         })
         .catch((err) => console.log(err));
@@ -259,7 +268,6 @@ function Chat() {
                         marginTop: "5px",
                       }}
                     >
-                      {/* Last message text */}
                       <div
                         className="lastMessage"
                         style={{
@@ -272,7 +280,6 @@ function Chat() {
                       >
                         {lastMessages[user._id]?.message.message}
                       </div>
-                      {/* Message time */}
                       <div
                         className="messageTime"
                         style={{
@@ -288,7 +295,17 @@ function Chat() {
                       </div>
                     </div>
                   ) : (
-                    <div>No messages yet</div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#6c757d",
+                        position: "absolute",
+                        bottom: "15px",
+                        left: "25px",
+                      }}
+                    >
+                      No messages yet
+                    </div>
                   )}
                 </div>
               </div>
@@ -312,7 +329,6 @@ function Chat() {
                 height: "50px",
               }}
             >
-              {/* Left: User profile and username */}
               <div
                 style={{
                   display: "flex",
@@ -326,7 +342,6 @@ function Chat() {
                 {currentUser?.name}
               </div>
 
-              {/* Right: Ellipsis */}
               <div style={{ marginRight: "10px" }}>
                 <i className="fas fa-ellipsis-v"></i>
               </div>

@@ -60,7 +60,7 @@ export default function Futsals() {
         ></input>
         <input
           type="text"
-          placeholder="Enter Futsal Address"
+          placeholder="Enter Futsal address link"
           name="address_link"
           onChange={(e) => setAddressLink(e.target.value)}
           required
