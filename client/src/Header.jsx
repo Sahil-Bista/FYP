@@ -7,9 +7,9 @@ function Header() {
       style={{
         display: "flex",
         flexDirection: "row",
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
         alignItems: "center",
-        padding: "20px 86px",
+        padding: "20px 30px",
         gap: "60px",
         position: "sticky",
         width: "100%",
@@ -19,6 +19,14 @@ function Header() {
         zIndex: "10",
       }}
     >
+      <img
+        src={logo}
+        alt="logo"
+        style={{
+          height: "35px",
+          width: "40px",
+        }}
+      ></img>
       <nav>
         <ul
           style={{

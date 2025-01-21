@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import "reactjs-popup/dist/index.css";
+import axios from "axios";
 
 export default function AddFutsal() {
   const [image, setImage] = useState(null);
@@ -82,7 +83,7 @@ export default function AddFutsal() {
                     cursor: "pointer",
                   }}
                 >
-                  <i class="fa-solid fa-x"></i>
+                  <i className="fa-solid fa-x"></i>
                 </button>
               </div>
             </div>
@@ -108,7 +109,7 @@ export default function AddFutsal() {
                   color: "white",
                 }}
               >
-                <label for="image">Add Picture</label>
+                <label htmlFor="image">Add Picture</label>
                 <input
                   style={{
                     width: "996px",
@@ -136,7 +137,7 @@ export default function AddFutsal() {
                   color: "white",
                 }}
               >
-                <label for="name">Futsal Name</label>
+                <label htmlFor="name">Futsal Name</label>
                 <input
                   style={{
                     width: "996px",
@@ -165,7 +166,7 @@ export default function AddFutsal() {
                   color: "white",
                 }}
               >
-                <label for="address">Futsal Address</label>
+                <label htmlFor="address">Futsal Address</label>
                 <input
                   style={{
                     width: "996px",
@@ -194,7 +195,7 @@ export default function AddFutsal() {
                   color: "white",
                 }}
               >
-                <label for="link">Address link(from google maps)</label>
+                <label htmlFor="link">Address link(from google maps)</label>
                 <input
                   style={{
                     width: "996px",
@@ -223,7 +224,7 @@ export default function AddFutsal() {
                   color: "white",
                 }}
               >
-                <label for="description"> Description </label>
+                <label htmlFor="description"> Description </label>
                 <textarea
                   style={{
                     width: "996px",

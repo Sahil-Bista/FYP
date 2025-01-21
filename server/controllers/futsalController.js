@@ -34,6 +34,16 @@ const createFutsal = async (req, res) => {
   try {
     const { futsalName, futsalAddress, futsalDescription , addressLink} = req.body;
     const image = req.file.path;
+
+    const existingFutsal = await futsalModel.findOne({
+      futsal_name : futsalName,
+      address_link: addressLink
+    })
+
+    if(existingFutsal){
+      return res.status(400).json({message: "Futsal with the same name and address already exists in the system"})
+    }
+    
     const futsal = await futsalModel.create({
       image : `${image}`,
       futsal_name: `${futsalName}`,

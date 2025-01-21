@@ -64,7 +64,7 @@ function Futsal() {
         >
           <Header />
         </div>
-        <div style={{ color: "white", marginLeft: "50px", fontSize: "28px" }}>
+        <div style={{ color: "white", marginLeft: "30px", fontSize: "28px" }}>
           FUTSAL AVAILABLE FOR BOOKING
         </div>
         <br></br>
@@ -102,8 +102,8 @@ function Futsal() {
                     alignItems: "flex-start",
                     padding: "20px",
                     gap: "10px",
-                    width: "409.33px",
-                    height: "356px",
+                    width: "390.33px",
+                    height: "300px",
                     background: "rgba(0, 0, 0, 0.4)",
                     borderRadius: "40px",
                     flex: "none",
@@ -115,8 +115,8 @@ function Futsal() {
                   <div
                     className="image-container"
                     style={{
-                      width: "369.33px",
-                      height: "200px",
+                      width: "349.33px",
+                      minHeight: "150px",
                       borderRadius: "12px",
                     }}
                   >
@@ -142,7 +142,7 @@ function Futsal() {
                         style={{ fontSize: "16px", color: "white" }}
                         href={address_link}
                       >
-                        <i class="fa-solid fa-location-pin"></i>
+                        <i className="fa-solid fa-location-pin"></i>
                         {futsal_address}{" "}
                       </a>
                       <p style={{ fontSize: "16px" }}> {futsal_description}</p>
