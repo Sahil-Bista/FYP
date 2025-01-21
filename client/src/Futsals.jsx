@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import backgroundImage from "./assets/background.jpg";
+import AddFutsal from "./AddFutsal";
 
 function Futsal() {
   const [futsals, setFutsals] = useState([]);
