@@ -4,43 +4,38 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Home from "./Home";
 import Chat from "./chat";
-import { Booking } from "./Booking";
+// import { Booking } from "./Booking";
 import Payment from "./Payment";
 import Success from "./PaymentSuccess";
 import Failure from "./PaymentFailure";
 import Futsal from "./Futsals";
 import BookingList from "./BookingList";
 import Futsals from "./Futsal";
+import RegistrationChoice from "./RegistrationChoices";
+import PendingFutsals from "./PendingFutsals";
+import MyFutsal from "./MyFutsal";
 
 // Define your routes
-const router = createBrowserRouter(
-  [
-    { path: "/register", element: <Signup /> },
-    { path: "/login", element: <Login /> },
-    { path: "/home", element: <Home /> },
-    { path: "/chat/:userId", element: <Chat /> },
-    { path: "/futsal", element: <Futsal /> },
-    { path: "/futsals", element: <Futsals /> },
-    { path: "/editBookingList/:bookingId", element: <Futsals /> },
-    { path: "/booking/:futsalId", element: <Booking /> },
-    { path: "/bookingList", element: <BookingList /> },
-    { path: "/bookingList/:futsalId", element: <BookingList /> },
-    { path: "/payment/:bookingId", element: <Payment /> },
-    { path: "/payment-success", element: <Success /> },
-    { path: "/payment-failure", element: <Failure /> },
-  ]
-  // {
-  //   future: {
-  //     v7_startTransition: true, // Enable the future flag for v7 transition behavior
-  //   },
-  // }
-);
+const router = createBrowserRouter([
+  { path: "/registerAs", element: <RegistrationChoice /> },
+  { path: "/register/:userRole", element: <Signup /> },
+  { path: "/login", element: <Login /> },
+  { path: "/home", element: <Home /> },
+  { path: "/chat/:userId", element: <Chat /> },
+  { path: "/futsal", element: <Futsal /> },
+  { path: "/futsals/:userId", element: <Futsals /> },
+  { path: "/editBookingList/:bookingId", element: <Futsals /> },
+  { path: "/bookingList", element: <BookingList /> },
+  { path: "/bookingList/:futsalId", element: <BookingList /> },
+  { path: "/payment/:bookingId", element: <Payment /> },
+  { path: "/payment-success", element: <Success /> },
+  { path: "/payment-failure", element: <Failure /> },
+  { path: "/pending-futsals", element: <PendingFutsals /> },
+  { path: "my-futsal", element: <MyFutsal /> },
+]);
 
 function App() {
-  return (
-    // Use RouterProvider instead of BrowserRouter
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

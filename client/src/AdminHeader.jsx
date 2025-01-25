@@ -38,7 +38,7 @@ function Header() {
         >
           <li style={{ marginRight: "20px" }}>
             <a
-              href="/home"
+              href="#"
               style={{
                 color: "#fff",
                 textDecoration: "none",
@@ -50,26 +50,26 @@ function Header() {
           </li>
           <li style={{ marginRight: "20px" }}>
             <a
-              href="#"
+              href="/futsal"
               style={{
                 color: "#fff",
                 textDecoration: "none",
                 fontSize: 14,
               }}
             >
-              MATCHUP
+              FUTSALS
             </a>
           </li>
           <li style={{ marginRight: "20px" }}>
             <a
-              href="#"
+              href="/pending-futsals"
               style={{
                 color: "#fff",
                 textDecoration: "none",
                 fontSize: 14,
               }}
             >
-              BOOKING
+              PENDING FUTSALS
             </a>
           </li>
           <li style={{ marginRight: "20px" }}>

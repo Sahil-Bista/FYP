@@ -12,10 +12,11 @@ const authentication = (req, res, next) => {
   try {
     const data = jwt.verify(token, secret_key);
     req.user = data.username; 
-
     const decoded = jwtDecode(token);
-    const userId = decoded.id;
+    const userId = decoded.id.userId;
+    const userRole = decoded.id.userRole;
     req.userId = userId;
+    req.userRole = userRole;
     next();
   } catch (error) {
     console.log("Token verification error:", error.message); 

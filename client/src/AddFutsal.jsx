@@ -50,7 +50,8 @@ export default function AddFutsal() {
           borderRadius: "8px",
         }}
         trigger={<button> Add Futsal </button>}
-        position="right center"
+        modal
+        nested
       >
         {(close) => (
           <form encType="multipart/form-data" onSubmit={handleSubmit}>

@@ -1,17 +1,13 @@
 import bookingModel from "../model/Booking.js";
-import PaymentModel from "../model/payment.js";
-import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
 import UserModel from "../model/User.js";
 
 const createBooking = async (req, res) => {
 try{
-  const { futsalId } = req.params;
   const {
+    futsalId,
     first_name,
     last_name,
     address,
-    gender,
     email,
     contact_number,
     game_date,
@@ -19,6 +15,7 @@ try{
     endTime,
     team_size,
   } = req.body;
+ 
 
   const logged_in_user_id = req.userId;
 
@@ -32,6 +29,8 @@ try{
   }
 
   if(verified_email !== email){
+    console.log(email);
+    console.log(verified_email)
     console.log("email not verified")
     return res.status(201).json({ message: "You can only book games with email Id used for logging in."});
   }
@@ -74,7 +73,6 @@ try{
     first_name : `${first_name}`,
     last_name: `${last_name}`,
     address : `${address}`,
-    gender : `${gender}`,
     email : `${email}`,
     contact_Number : `${contact_number}`,
     game_date : `${gameDate}`,

@@ -1,30 +1,23 @@
 import bcrypt from "bcrypt";
 import UserModel from '../model/User.js'
 import  createSecretToken  from '../utils/SecretToken.js';
-// import {body} from 'express-validator';
+
 const saltRounds = 10;
 
-const signup = async (req,res,next)=>{
+const signup = async (req,res)=>{
     try{
         let {name,email,password} = req.body;
-        let role = '';
+        let {userRole} = req.params;
 
         const regexUserEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-        const regexVendorEmail = /^[a-zA-Z0-9._%+-]+@rivalvendor\.com$/;
-        const regexAdminEmail = /^[a-zA-Z0-9._%+-]+@rivaladmin\.com$/;
 
-
-        if(regexUserEmail.test(email)){
-          role = 'USER';
-        }else if(regexVendorEmail.test(email)){
-          role='VENDOR'
-        }else if(regexAdminEmail.test(email)){
-          role='ADMIN'
-        }else{
+        if(!regexUserEmail.test(email)){
+          console.log("invalid email");
           return res.status(422).json({msg:'User email domain must be @gmail.com'})
         }
 
         const existingUser = await UserModel.findOne({email});
+
         if(existingUser){
           return res.status(400).json({msg : 'Email already exists'});
         }
@@ -33,7 +26,7 @@ const signup = async (req,res,next)=>{
           name : `${name}`,
           email : `${email}`,
           password : `${hashedPassword}`,
-          role : `${role}`
+          role : `${userRole}`
         });
         res.status(201).json({message : "User signed in successfully", user})
     }catch(error){
@@ -45,23 +38,19 @@ const login = async (req, res) => {
     try {
       const { email, password } = req.body;
       const user = await UserModel.findOne({ email });
-
       if (!user) {
         return res.json({ message:" Incorrect email or password " });
       }
-  
       const isPasswordValid = await bcrypt.compare(password, user.password);
-  
       if (!isPasswordValid) {
         return res.json({ message: "The password is invalid" });
       }
-
-      const token = createSecretToken(user._id);
+      const token = createSecretToken({userId: user._id, userRole: user.role});
       res.cookie("token", token, {
         withCredentials: true,
         httpOnly: false,
       });
-      res.status(201).json({ message: "User logged in successfully", data: "Success", userId: user._id });  
+      res.status(201).json({ message: "User logged in successfully", data: "Success", userId: user._id, userRole: user.role });  
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });

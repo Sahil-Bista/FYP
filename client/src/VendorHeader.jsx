@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./assets/logo.png";
 
-function Header() {
+export default function VendorHeader() {
   return (
     <div
       style={{
@@ -38,7 +38,7 @@ function Header() {
         >
           <li style={{ marginRight: "20px" }}>
             <a
-              href="/home"
+              href="#"
               style={{
                 color: "#fff",
                 textDecoration: "none",
@@ -57,31 +57,19 @@ function Header() {
                 fontSize: 14,
               }}
             >
-              MATCHUP
+              BOOKINGS
             </a>
           </li>
           <li style={{ marginRight: "20px" }}>
             <a
-              href="#"
+              href="/my-futsal"
               style={{
                 color: "#fff",
                 textDecoration: "none",
                 fontSize: 14,
               }}
             >
-              BOOKING
-            </a>
-          </li>
-          <li style={{ marginRight: "20px" }}>
-            <a
-              href="#"
-              style={{
-                color: "#fff",
-                textDecoration: "none",
-                fontSize: 14,
-              }}
-            >
-              CHAT
+              MY FUTSAL
             </a>
           </li>
           <li>
@@ -105,5 +93,3 @@ function Header() {
     </div>
   );
 }
-
-export default Header;

@@ -12,7 +12,7 @@ import { login, signup } from "./controllers/usercontroller.js";
 import UserModel from "./model/User.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-import { createFutsal, upload } from "./controllers/futsalController.js";
+import { createFutsal, upload, getAllFutsals, getVendorSpecificFutsal, deleteFutsal } from "./controllers/futsalController.js";
 import { createBooking, deleteBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
 import futsalModel from "./model/Futsal.js";
@@ -101,7 +101,7 @@ chatEvents.on('saveMessage', async ({msg, sender, reciever,room}) => {
 
 app.post("/login", login);
 
-app.post("/register", signup);
+app.post("/register/:userRole", signup);
 
 
 app.get('/all-users',authentication,async (req,res)=>{
@@ -110,9 +110,11 @@ app.get('/all-users',authentication,async (req,res)=>{
 })
 
 app.get('/all-futsals',authentication,async(req,res)=>{
-  const futsals = await futsalModel.find({});
-  res.json(futsals)
+  const futsals = await futsalModel.find({isValid:false});
+  res.json(futsals);
 })
+
+app.get('/futsal/:user',authentication, getVendorSpecificFutsal)
 
 app.get('/all-bookings/:futsalId',authentication,async(req,res)=>{
   const logged_in_user_id = req.userId;
@@ -134,6 +136,24 @@ app.get('/all-bookings/:futsalId',authentication,async(req,res)=>{
   return res.send(bookingList);
 })
 
+app.post("/validateFutsal/:futsalId", authentication, async(req,res)=>{
+  try{
+    const {futsalId} = req.params;
+    const futsal = await futsalModel.findOne({_id: futsalId});
+    if(!futsal){
+      return res.status(404).json({ error: "Futsal not found" });
+    }
+    const updatedFutsal = await futsalModel.findByIdAndUpdate(futsalId, {isValid :true}, {new:true});
+    console.log(updatedFutsal);
+    const vendor = futsal.vendorId;
+    const user = await UserModel.findByIdAndUpdate({_id:vendor},{role:"VENDOR"},{new:true}); 
+    console.log(user); 
+    return res.status(200).json({ msg: "Futsal updated successfully", updatedFutsal });
+  }catch(error){
+    console.log(error);
+    return res.status(500),json({error});
+  }
+})
 
 app.get('/message/:userId',authentication,async (req,res)=>{
   const {userId} = req.params
@@ -200,17 +220,21 @@ app.post("/chat/search", async (req,res)=>{
   res.json(foundUser);
 }catch(error){
   console.log(error);
-  return res.status(500),json({error});
+  return res.status(500).json({error});
 }
 })
 
-app.post("/addFutsal",upload.single("image"), createFutsal);
+app.get("/futsal", authentication, getAllFutsals)
+
+app.delete("/deleteFutsal/:futsalId", authentication, deleteFutsal)
+
+app.post("/addFutsal/:userId",upload.single("image"), createFutsal);
 
 app.post("/check-payment-status",checkPaymentStatus)
 
 app.post("/esewa-payment/:bookingId",initiatePayment)
 
-app.post("/book/:futsalId",authentication,createBooking);
+app.post("/book",authentication,createBooking);
 
 app.post("/deleteBooking/:bookingId",authentication,deleteBooking);
 

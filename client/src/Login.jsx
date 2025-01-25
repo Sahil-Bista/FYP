@@ -20,9 +20,14 @@ function Login() {
         console.log(result);
         if (result.data.data === "Success") {
           localStorage.setItem("userId", result.data.userId);
+          localStorage.setItem("userRole", result.data.userRole);
+          // if (result.data.userRole == "PENDING_VENDOR") {
+          //   navigate(`/futsals/${result.data.userId}`);
+          // } else {
           navigate("/home");
+          // }
         } else {
-          navigate("/register");
+          navigate("/registerAs");
           alert("You are not registered to this service");
         }
       })
@@ -67,7 +72,7 @@ function Login() {
         </form>
         <p>Don&apos;t have an account?</p>
         <Link
-          to="/register"
+          to="/registerAs"
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
         >
           Sign Up

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -8,14 +8,18 @@ function Signup() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const { userRole } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/register", { name, email, password })
+      .post(`http://localhost:3001/register/${userRole}`, {
+        name,
+        email,
+        password,
+      })
       .then((result) => {
         if (result.status === 201) {
-          console.log(result.data.msg);
           navigate("/login");
         }
         if (result.status === 422) {
@@ -24,6 +28,11 @@ function Signup() {
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  const closePopUp = () => {
+    setShowPopUp(false);
+    navigate("/home");
   };
 
   return (
