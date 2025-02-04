@@ -139,8 +139,12 @@ function Chat() {
   }, [userId, myUserId]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    //showed preventDefault error after adding the function triggering upon enter key press
+    if (e) {
+      e.preventDefault();
+    }
     if (!searchQuery.trim()) {
+      console.log("if");
       axios
         .get(`http://localhost:3001/room/${myUserId}`, {
           withCredentials: true,
@@ -153,6 +157,7 @@ function Chat() {
           console.log(err);
         });
     }
+    console.log("hi");
     axios
       .post(
         `http://localhost:3001/chat/search`,
@@ -160,11 +165,18 @@ function Chat() {
         { withCredentials: true }
       )
       .then((result) => {
+        console.log(result.data);
         setSearchedUser(result.data);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   return (
@@ -194,6 +206,7 @@ function Chat() {
               placeholder="Search people"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyPress}
               style={{
                 width: "100%",
                 padding: "10px",

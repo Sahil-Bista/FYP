@@ -73,6 +73,8 @@ export default function PopupGfg({ futsalId }) {
               borderRadius: "40px",
               color: "white",
               fontSize: "14px",
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 500,
               marginRight: "5px",
             }}
           >
@@ -85,217 +87,255 @@ export default function PopupGfg({ futsalId }) {
       >
         {(close) => (
           <div
+            className="white"
             style={{
-              width: "1000px",
-              height: "430px",
+              display: "flex",
               backgroundColor: "black",
             }}
           >
             <div
               style={{
                 display: "flex",
-                padding: "30px",
-                position: "relative",
+                padding: "20px",
                 left: "30px",
               }}
             >
               <form>
-                <div style={{ marginBottom: "30px" }}>
-                  <h2 style={{ color: "white" }}>Book your game!!</h2>
-                </div>
                 <div
-                  style={{
-                    display: "flex",
-                    gap: "150px",
-                    justifyContent: "space-around",
-                    marginBottom: "20px",
-                  }}
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
-                    }}
-                  >
-                    <label htmlFor="first_name">First Name</label>
-                    <input
-                      type="text"
-                      id="first_name"
-                      placeholder="Enter your first name here"
-                      name="first_name"
-                      onChange={(e) => setFirstName(e.target.value)}
-                      required
-                    ></input>
+                  <div style={{ marginBottom: "30px" }}>
+                    <h2 style={{ color: "white" }}>Book your game!!</h2>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
-                    }}
-                  >
-                    <label htmlFor="last_name">Last Name</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your last name here"
-                      name="last_name"
-                      id="last_name"
-                      onChange={(e) => setLastName(e.target.value)}
-                      required
-                    ></input>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
-                    }}
-                  >
-                    <label htmlFor="address">Address</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your address here"
-                      name="address"
-                      id="address"
-                      onChange={(e) => setAddress(e.target.value)}
-                      required
-                    ></input>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "150px",
-                    justifyContent: "space-around",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
-                    }}
-                  >
-                    <label htmlFor="email">Email</label>
-                    <input
-                      placeholder="Enter your email here"
-                      name="email"
-                      type="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    ></input>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
-                    }}
-                  >
-                    <label htmlFor="contact_number">Contact Number</label>
-                    <input
-                      placeholder="Contact Number"
-                      name="contact_number"
-                      onChange={(e) => setContact_Number(e.target.value)}
-                      required
-                    ></input>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
-                    }}
-                  >
-                    <label htmlFor="team_size">Team Size</label>
-                    <select
+                  <div>
+                    <button
                       style={{
-                        height: "30px",
-                        width: "190px",
+                        position: "absolute",
+                        top: "25x",
+                        right: "30px",
+                        color: "white",
+                        backgroundColor: "black",
+                        border: "1px solid black",
+                        fontSize: "25px",
                       }}
-                      name="team_size"
-                      onChange={(e) => setTeam_size(e.target.value)}
-                      required
+                      onClick={() => close()}
                     >
-                      <option value="Full">Full</option>
-                      <option value="Half-full">Half-full</option>
-                    </select>
+                      {" "}
+                      <i className="fa-solid fa-x"></i>
+                    </button>
                   </div>
                 </div>
                 <div
-                  style={{
-                    display: "flex",
-                    gap: "150px",
-                    justifyContent: "space-around",
-                    marginBottom: "40px",
-                  }}
+                  className="form-content"
+                  style={{ display: "flex", flexDirection: "column" }}
                 >
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
+                      gap: "40px",
+                      justifyContent: "space-around",
+                      marginBottom: "20px",
+                      flexWrap: "wrap",
                     }}
                   >
-                    <label htmlFor="date">Date</label>
-                    <Calendar
-                      style={{ height: "30px", width: "190px" }}
-                      name="date"
-                      value={game_date}
-                      onChange={(e) => setGame_date(e.target.value)}
-                      showIcon
-                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="first_name">First Name</label>
+                      <input
+                        type="text"
+                        id="first_name"
+                        placeholder="Enter your first name here"
+                        name="first_name"
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                      ></input>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="last_name">Last Name</label>
+                      <input
+                        type="text"
+                        placeholder="Enter your last name here"
+                        name="last_name"
+                        id="last_name"
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                      ></input>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="address">Address</label>
+                      <input
+                        type="text"
+                        placeholder="Enter your address here"
+                        name="address"
+                        id="address"
+                        onChange={(e) => setAddress(e.target.value)}
+                        required
+                      ></input>
+                    </div>
                   </div>
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
+                      gap: "40px",
+                      justifyContent: "space-around",
+                      marginBottom: "20px",
+                      flexWrap: "wrap",
                     }}
                   >
-                    <label htmlFor="start">Start Time</label>
-                    <Calendar
-                      style={{ height: "30px", width: "190px" }}
-                      name="start"
-                      value={startTime}
-                      onChange={(e) => setStartTime(e.target.value)}
-                      timeOnly
-                      showIcon
-                      icon="pi pi-clock"
-                      hideOnRangeSelection
-                      stepMinute={60}
-                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="email">Email</label>
+                      <input
+                        placeholder="Enter your email here"
+                        name="email"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      ></input>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="contact_number">Contact Number</label>
+                      <input
+                        maxLength={10}
+                        placeholder="Enter Contact Number"
+                        name="contact_number"
+                        onChange={(e) => setContact_Number(e.target.value)}
+                        required
+                      ></input>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="team_size">Team Size</label>
+                      <select
+                        style={{
+                          height: "30px",
+                          width: "190px",
+                        }}
+                        name="team_size"
+                        value={team_size}
+                        onChange={(e) => setTeam_size(e.target.value)}
+                        required
+                      >
+                        <option value="Full">Full</option>
+                        <option value="Half-full">Half-full</option>
+                      </select>
+                    </div>
                   </div>
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      color: "white",
-                      gap: "4px",
+                      gap: "40px",
+                      justifyContent: "space-around",
+                      marginBottom: "40px",
+                      flexWrap: "wrap",
                     }}
                   >
-                    <label htmlFor="end">End time</label>
-                    <Calendar
-                      style={{ height: "30px", width: "190px" }}
-                      name="end"
-                      value={endTime}
-                      onChange={(e) => setEndTime(e.value)}
-                      timeOnly
-                      showIcon
-                      icon="pi pi-clock"
-                      hideOnRangeSelection
-                      stepMinute={60}
-                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="date">Date</label>
+                      <Calendar
+                        style={{ height: "30px", width: "190px" }}
+                        name="date"
+                        value={game_date}
+                        onChange={(e) => setGame_date(e.target.value)}
+                        showIcon
+                        required
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="start">Start Time</label>
+                      <Calendar
+                        style={{ height: "30px", width: "190px" }}
+                        name="start"
+                        value={startTime}
+                        onChange={(e) => setStartTime(e.target.value)}
+                        timeOnly
+                        showIcon
+                        icon="pi pi-clock"
+                        hideOnRangeSelection
+                        stepMinute={60}
+                        required
+                        // Expects a valid date object
+                        minDate={new Date(new Date().setHours(6, 0, 0, 0))}
+                        maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        color: "white",
+                        gap: "4px",
+                      }}
+                    >
+                      <label htmlFor="end">End time</label>
+                      <Calendar
+                        required
+                        style={{ height: "30px", width: "190px" }}
+                        name="end"
+                        value={endTime}
+                        onChange={(e) => setEndTime(e.value)}
+                        timeOnly
+                        showIcon
+                        icon="pi pi-clock"
+                        hideOnRangeSelection
+                        stepMinute={60}
+                        minDate={new Date(new Date().setHours(7, 0, 0, 0))}
+                        maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div style={{ display: "flex", justifyContent: "right" }}>
@@ -317,26 +357,15 @@ export default function PopupGfg({ futsalId }) {
                 </div>
               </form>
             </div>
-            <div>
-              <button
-                style={{
-                  position: "absolute",
-                  top: "35px",
-                  right: "70px",
-                  color: "white",
-                  backgroundColor: "black",
-                  border: "1px solid black",
-                  fontSize: "25px",
-                }}
-                onClick={() => close()}
-              >
-                {" "}
-                <i className="fa-solid fa-x"></i>
-              </button>
-            </div>
           </div>
         )}
       </Popup>
     </div>
   );
 }
+
+// @media (max-width: 768px) {
+//   .form-row {
+//     flex-direction: column;
+//     gap: 10px;
+//   }

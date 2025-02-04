@@ -2,10 +2,26 @@ import axios from "axios";
 // import { v4 as uuidv4 } from "uuid";
 import { generateUniqueId } from "../utils/utils";
 import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 
 const Payment = () => {
   const { bookingId } = useParams();
-  const amount = 500;
+  const [amount, setAmount] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/booking/${bookingId}`, {
+        withCredentials: true,
+      })
+      .then((result) => {
+        console.log(result.data.booking.booking_amount);
+        setAmount(result.data.booking.booking_amount);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const handlePayment = async (e) => {
     e.preventDefault();
     try {

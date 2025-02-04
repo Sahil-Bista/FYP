@@ -80,7 +80,15 @@ function Futsal() {
         >
           <Header />
         </div>
-        <div style={{ color: "white", marginLeft: "30px", fontSize: "28px" }}>
+        <div
+          style={{
+            color: "white",
+            marginLeft: "60px",
+            fontSize: "28px",
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 600,
+          }}
+        >
           FUTSAL AVAILABLE FOR BOOKING
         </div>
         <br></br>
@@ -110,6 +118,7 @@ function Futsal() {
                   futsal_address,
                   futsal_description,
                   address_link,
+                  isOpen,
                 }) => (
                   <div
                     className="card"
@@ -120,7 +129,7 @@ function Futsal() {
                       padding: "20px",
                       gap: "10px",
                       width: "390.33px",
-                      height: "300px",
+                      height: "340px",
                       background: "rgba(0, 0, 0, 0.4)",
                       borderRadius: "40px",
                       flex: "none",
@@ -133,7 +142,8 @@ function Futsal() {
                       className="image-container"
                       style={{
                         width: "349.33px",
-                        minHeight: "150px",
+                        minHeight: "160px",
+                        height: "160px",
                         borderRadius: "12px",
                       }}
                     >
@@ -151,8 +161,23 @@ function Futsal() {
                       )}
                     </div>
                     <div style={{ marginBottom: "10px", paddingBottom: "3px" }}>
-                      <div style={{ color: "white" }}>
-                        <h4 style={{ marginBottom: "4px", color: "#DCDCDC" }}>
+                      <div
+                        style={{
+                          color: "white",
+                          fontSize: "16px",
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 500,
+                        }}
+                      >
+                        <h4
+                          style={{
+                            marginBottom: "4px",
+                            color: "white",
+                            fontSize: "20px",
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontWeight: 500,
+                          }}
+                        >
                           {futsal_name}
                         </h4>
                         <a
@@ -162,11 +187,20 @@ function Futsal() {
                           <i className="fa-solid fa-location-pin"></i>
                           {futsal_address}{" "}
                         </a>
-                        <p style={{ fontSize: "16px" }}>
+                        <p style={{ fontSize: "16px", marginBottom: "0px" }}>
                           {" "}
                           {futsal_description}
                         </p>
+                        {isOpen === false ? (
+                          <p style={{ color: "red" }}>
+                            Futsal Closed For Today
+                          </p>
+                        ) : (
+                          <p></p>
+                        )}
                       </div>
+                    </div>
+                    <div>
                       <div
                         style={{
                           display: "flex",
@@ -189,6 +223,8 @@ function Futsal() {
                               color: "white",
                               fontSize: "14px",
                               marginRight: "4px",
+                              fontFamily: "'DM Sans', sans-serif",
+                              fontWeight: 500,
                             }}
                             onClick={() => {
                               handleDelete(_id);
@@ -202,7 +238,7 @@ function Futsal() {
                         <button
                           style={{
                             boxSizing: "border-box",
-                            width: "120px",
+                            width: "132px",
                             minWidth: "100px",
                             height: "35px",
                             background: "rgba(255, 255, 255, 0.2)",
@@ -210,6 +246,8 @@ function Futsal() {
                             borderRadius: "40px",
                             color: "white",
                             fontSize: "14px",
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontWeight: 500,
                           }}
                           onClick={() => navigate(`/bookingList/${_id}`)}
                         >

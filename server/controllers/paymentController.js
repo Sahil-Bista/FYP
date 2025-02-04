@@ -64,8 +64,6 @@ function safeStringify(obj) {
           return res.send({
             url: reqPayment.request.res.responseUrl,
           });
-         
-
         }
     } catch (error) {
         console.error("Error initiating payment:",error);
@@ -89,6 +87,7 @@ const checkPaymentStatus = async(req,res) =>{
       total_amount : transaction.amount,
       transaction_uuid : transaction.product_id,
     };
+
     const response = await axios.get(
       process.env.ESEWAPAYMENT_STATUS_CHECK_URL,
       {
@@ -99,6 +98,7 @@ const checkPaymentStatus = async(req,res) =>{
     if(paymentStatusCheck.status = 200){
       transaction.status = paymentStatusCheck.data.status;
       await transaction.save();
+      await bookingModel.findByIdAndUpdate(bookingId, {booking_status: "Booked" },{new:true})
       res
         .status(200)
         .json(futsalId);

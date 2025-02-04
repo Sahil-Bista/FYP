@@ -1,5 +1,5 @@
 import http from "http";
-import express from "express";
+import express, { raw } from "express";
 import mongoose, { Types } from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
@@ -12,12 +12,13 @@ import { login, signup } from "./controllers/usercontroller.js";
 import UserModel from "./model/User.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-import { createFutsal, upload, getAllFutsals, getVendorSpecificFutsal, deleteFutsal } from "./controllers/futsalController.js";
-import { createBooking, deleteBooking } from "./controllers/BookingController.js";
+import { createFutsal, upload, getAllFutsals,editStatus, getVendorSpecificFutsal, deleteFutsal, getFutsalById, editFutsal } from "./controllers/futsalController.js";
+import { createBooking, deleteBooking, getFilteredBooking, getParticularBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
 import futsalModel from "./model/Futsal.js";
 import bookingModel from "./model/Booking.js";
 import PaymentModel from "./model/payment.js";
+import { auth } from "google-auth-library";
 dotenv.config();
 
 
@@ -122,19 +123,21 @@ app.get('/all-bookings/:futsalId',authentication,async(req,res)=>{
   const futsal = await futsalModel.findOne({_id:futsalId});
   const futsal_id = futsal?._id || null;
   const bookings = await bookingModel.find({futsalId : futsal_id});
-
-
   const bookingList = [];
   for(const booking of bookings){
     const booking_payment = await PaymentModel.findOne({booking_id : booking._id});
     const booking_payment_status = booking_payment?.status || null;
-
     if(booking_payment_status === "COMPLETE" || (booking.team_size==="Half-full" && booking.userId != logged_in_user_id)){
       bookingList.push(booking);
     }
   }
   return res.send(bookingList);
 })
+
+app.get('/booking/:bookingId', authentication, getParticularBooking)
+
+app.post('/searchBookings/:futsalId',authentication, getFilteredBooking)
+
 
 app.post("/validateFutsal/:futsalId", authentication, async(req,res)=>{
   try{
@@ -144,10 +147,8 @@ app.post("/validateFutsal/:futsalId", authentication, async(req,res)=>{
       return res.status(404).json({ error: "Futsal not found" });
     }
     const updatedFutsal = await futsalModel.findByIdAndUpdate(futsalId, {isValid :true}, {new:true});
-    console.log(updatedFutsal);
     const vendor = futsal.vendorId;
     const user = await UserModel.findByIdAndUpdate({_id:vendor},{role:"VENDOR"},{new:true}); 
-    console.log(user); 
     return res.status(200).json({ msg: "Futsal updated successfully", updatedFutsal });
   }catch(error){
     console.log(error);
@@ -188,16 +189,16 @@ app.get('/room/:myUserId', async(req,res)=>{
       { type: "Room-joined message"}
     ]
   });
-  const matchedUserIds = userInvolvedMessages.reduce((uniqueIds, message) => {
+  const matchedUserIds = userInvolvedMessages.reduce((uniqueUserIds, message) => {
     const otherUserId = message.senderId.toString() === myUserId 
       ? message.receiverId.toString() 
       : message.senderId.toString();
 
-    if (!uniqueIds.includes(otherUserId)) {
-      uniqueIds.push(otherUserId);
+    if (!uniqueUserIds.includes(otherUserId)) {
+      uniqueUserIds.push(otherUserId);
     }
 
-    return uniqueIds;
+    return uniqueUserIds;
   }, []);
 
   // Fetch details of the matched users
@@ -207,28 +208,69 @@ app.get('/room/:myUserId', async(req,res)=>{
   res.json(matchedUsers);
 })
 
-app.post("/chat/search", async (req,res)=>{
-  try{
-  const {searchQuery} = req.body;
-  const user = searchQuery.trim();
-  if(!user){
-    return res.status(400).json({error: "User name is required"});
-  }
+app.post("/chat/search",authentication, async (req, res) => {
+  try {
+    const myUserId = req.userId;
+    const { searchQuery } = req.body;
+    const user = searchQuery.trim();
+    if (!user) {
+      return res.status(400).json({ error: "User name is required" });
+    }
     const foundUser = await UserModel.find({
-      name: { $regex: new RegExp(user, 'i') }
+      name: { $regex: new RegExp(user, "i") },
     });
-  res.json(foundUser);
-}catch(error){
-  console.log(error);
-  return res.status(500).json({error});
-}
-})
+    const foundUserIds = foundUser.map(user => user._id.toString());
+    const userInvolvedMessages = await ChatModel.find({
+      $and: [
+        { 
+          $or: [
+            { senderId: new Types.ObjectId(myUserId) },
+            { receiverId: new Types.ObjectId(myUserId) }
+          ]
+        },
+        { type: "Room-joined message"}
+      ]
+    });
+    const matchedUserIds = userInvolvedMessages.reduce((uniqueUserIds, message) => {
+      const otherUserId = message.senderId.toString() === myUserId 
+        ? message.receiverId.toString() 
+        : message.senderId.toString();
+  
+      if (!uniqueUserIds.includes(otherUserId)) {
+        uniqueUserIds.push(otherUserId);
+      }
+      return uniqueUserIds;
+    }, []);
+    const matchedUserIdsWithChat = foundUserIds
+    .filter(userId => matchedUserIds.includes(userId))
+    .map(userId => new Types.ObjectId(userId))
+    console.log("matchedUserIdsWithChat",matchedUserIdsWithChat);
+    const foundUsers = [];
+    for (var mUsers of matchedUserIdsWithChat){
+      const mUsersFull = await UserModel.find({_id:mUsers})
+      for (var element of mUsersFull){
+        foundUsers.push(element);
+      }
+    }
+    console.log("foundUser", foundUsers)
+    res.json(foundUsers);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+});
 
 app.get("/futsal", authentication, getAllFutsals)
+
+app.get("/futsals/:futsalId", authentication, getFutsalById)
+
+app.patch("/futsal/:futsalId", authentication, editFutsal)
 
 app.delete("/deleteFutsal/:futsalId", authentication, deleteFutsal)
 
 app.post("/addFutsal/:userId",upload.single("image"), createFutsal);
+
+app.patch("/futsal/editStatus/:futsalId", authentication, editStatus)
 
 app.post("/check-payment-status",checkPaymentStatus)
 

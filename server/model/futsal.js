@@ -14,6 +14,8 @@ const futsalSchema = new mongoose.Schema({
         type: Types.ObjectId,
         ref : UserModel
     },
+    futsal_contact : Number,
+    isOpen : Boolean,
     isValid : Boolean
 })
 const futsalModel = mongoose.model("futsal",futsalSchema);

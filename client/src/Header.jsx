@@ -42,7 +42,9 @@ function Header() {
               style={{
                 color: "#fff",
                 textDecoration: "none",
-                fontSize: 14,
+                fontSize: "14px",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
               }}
             >
               HOME
@@ -54,7 +56,9 @@ function Header() {
               style={{
                 color: "#fff",
                 textDecoration: "none",
-                fontSize: 14,
+                fontSize: "14px",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
               }}
             >
               MATCHUP
@@ -66,7 +70,9 @@ function Header() {
               style={{
                 color: "#fff",
                 textDecoration: "none",
-                fontSize: 14,
+                fontSize: "14px",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
               }}
             >
               BOOKING
@@ -78,7 +84,9 @@ function Header() {
               style={{
                 color: "#fff",
                 textDecoration: "none",
-                fontSize: 14,
+                fontSize: "14px",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
               }}
             >
               CHAT
@@ -88,13 +96,15 @@ function Header() {
             <a
               href="#"
               style={{
+                fontSize: "14px",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 500,
                 color: "#fff",
                 textDecoration: "none",
                 background: "#121212",
                 padding: "10px 20px",
                 border: "1px white solid",
                 borderRadius: "40px",
-                fontSize: 14,
               }}
             >
               LOG OUT

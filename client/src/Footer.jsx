@@ -34,10 +34,11 @@ const Footer = () => {
             <p
               style={{
                 fontSize: "24px",
-                fontWeight: "bold",
-                marginTop: "20px",
+                marginTop: "10px",
                 marginBottom: "30px",
                 marginLeft: "32px",
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: "700",
               }}
             >
               RIVALS <br></br>FUTSAL
@@ -50,22 +51,58 @@ const Footer = () => {
                 }}
               >
                 <li style={{ marginRight: "70px" }}>
-                  <a href="#" style={{ color: "#fff", textDecoration: "none" }}>
+                  <a
+                    href="#"
+                    style={{
+                      color: "#fff",
+                      textDecoration: "none",
+                      fontSize: "14px",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 500,
+                    }}
+                  >
                     BOOKING
                   </a>
                 </li>
                 <li style={{ marginRight: "70px" }}>
-                  <a href="#" style={{ color: "#fff", textDecoration: "none" }}>
+                  <a
+                    href="#"
+                    style={{
+                      color: "#fff",
+                      textDecoration: "none",
+                      fontSize: "14px",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 500,
+                    }}
+                  >
                     CONTACT US
                   </a>
                 </li>
                 <li style={{ marginRight: "70px" }}>
-                  <a href="#" style={{ color: "#fff", textDecoration: "none" }}>
+                  <a
+                    href="#"
+                    style={{
+                      color: "#fff",
+                      textDecoration: "none",
+                      fontSize: "14px",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 500,
+                    }}
+                  >
                     MATCH UPS
                   </a>
                 </li>
                 <li style={{ marginRight: "70px" }}>
-                  <a href="#" style={{ color: "#fff", textDecoration: "none" }}>
+                  <a
+                    href="#"
+                    style={{
+                      color: "#fff",
+                      textDecoration: "none",
+                      fontSize: "14px",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 500,
+                    }}
+                  >
                     PRIVACY
                   </a>
                 </li>
@@ -102,8 +139,10 @@ const Footer = () => {
         <div
           style={{
             marginTop: "20px",
-            fontSize: "0.8rem",
             marginLeft: "80px",
+            fontSize: "14px",
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 500,
           }}
         >
           &copy; 2024 RIVALS FUTSAL. All Rights Reserved.

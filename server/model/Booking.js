@@ -20,7 +20,8 @@ const bookingSchema = new mongoose.Schema({
     startTime : Date,
     endTime : Date,
     team_size : String,
-    booking_status: String
+    booking_status: String,
+    booking_amount : Number
 })
 
 const bookingModel = mongoose.model("booking",bookingSchema);
