@@ -19,7 +19,6 @@ const createBooking = async (req, res) => {
     } = req.body;
 
     const logged_in_user_id = req.userId;
-
     const contact_Number_Validity = /^98\d{8}$/.test(contact_number);
     if(!contact_Number_Validity){
       console.log("Must start with 98 and be upto 10 digits");
@@ -38,7 +37,7 @@ const createBooking = async (req, res) => {
     if (verified_email !== email) {
       console.log("email not verified");
       return res
-        .status(201)
+        .status(400)
         .json({
           message: "You can only book games with email Id used for logging in.",
         });
@@ -75,12 +74,12 @@ const createBooking = async (req, res) => {
     const gameDuration = endTimeDate - startTimeDate;
     if(gameDuration < 3600000){
       console.log("Less than 1 hour cannot be the game time")
-      return res.status(301).json({message : "Game duration cannot be less than an hour"})
+      return res.status(402).json({message : "Game duration cannot be less than an hour"})
     }
 
     if (team_size === "Half-full" && gameDuration > 3600000) {
       return res
-        .status(401)
+        .status(400)
         .json({
           message:
             "You cannot book for more than an hour with half-full team size",
@@ -115,10 +114,10 @@ const createBooking = async (req, res) => {
    
     if (timeGap <= 3600000) {
       console.log(
-        "The cuurent time must be at least an hour ahead of the game start time"
+        "The booking time must be at least an hour away from now"
       );
       return res
-        .status(401)
+        .status(400)
         .json({
           message:
             "The current time must be at least an hour before the game start time.",

@@ -5,6 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import backgroundImage from "./assets/background.jpg";
 import BookFutsal from "./BookFutsal";
+import FutsalBook from "./FutsalBook";
 
 function Futsal() {
   const userRole = localStorage.getItem("userRole");
@@ -233,7 +234,7 @@ function Futsal() {
                             Delete Futsal
                           </button>
                         ) : (
-                          <BookFutsal futsalId={_id} />
+                          <FutsalBook futsalId={_id} />
                         )}
                         <button
                           style={{

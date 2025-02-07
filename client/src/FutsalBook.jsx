@@ -7,43 +7,56 @@ import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import * as Yup from "yup";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PopupGfg({ futsalId }) {
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact_number, setContact_Number] = useState("");
-  const [game_date, setGame_date] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [team_size, setTeam_size] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
+  const validationSchema = Yup.object().shape({
+    first_name: Yup.string().required("First name is required"),
+    last_name: Yup.string().required("Last name is required"),
+    address: Yup.string().required("Address is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    contact_number: Yup.string()
+      .matches(/^98\d{8}$/, "Invalid Phone Number")
+      .required("First name is required"),
+    game_date: Yup.date().required("Game date is required"),
+    startTime: Yup.date().required("Start time is required"),
+    endTime: Yup.date().required("End time is required"),
+    team_size: Yup.string().required("Team size is required"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    await axios
       .post(
         `http://localhost:3001/book`,
         {
           futsalId,
-          first_name,
-          last_name,
-          address,
-          email,
-          contact_number,
-          game_date,
-          startTime,
-          endTime,
-          team_size,
+          ...data,
         },
         { withCredentials: true }
       )
       .then((result) => {
+        console.log("hello");
         const team_size = result.data.booking
           ? result.data.booking.team_size
           : null;
-        console.log("Hllo");
         if (team_size === "Half-full") {
           return navigate(`/bookingList/${futsalId}`);
         }
@@ -56,9 +69,18 @@ export default function PopupGfg({ futsalId }) {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err);
+        if (err.response?.data?.message) {
+          const message = err.response.data.message;
+          console.log(message);
+          toast.error(message, { autoClose: 5000 }); // Display error message via toast
+        } else {
+          // If there's no message, show a general error
+          toast.error("An unexpected error occurred. Please try again.");
+        }
       });
   };
+
   return (
     <div>
       <Popup
@@ -78,7 +100,6 @@ export default function PopupGfg({ futsalId }) {
               marginRight: "5px",
             }}
           >
-            {" "}
             BOOK NOW{" "}
           </button>
         }
@@ -100,10 +121,11 @@ export default function PopupGfg({ futsalId }) {
                 left: "30px",
               }}
             >
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
+                  <ToastContainer />
                   <div style={{ marginBottom: "30px" }}>
                     <h2 style={{ color: "white" }}>Book your game!!</h2>
                   </div>
@@ -148,13 +170,15 @@ export default function PopupGfg({ futsalId }) {
                     >
                       <label htmlFor="first_name">First Name</label>
                       <input
+                        {...register("first_name")}
                         type="text"
                         id="first_name"
                         placeholder="Enter your first name here"
                         name="first_name"
-                        onChange={(e) => setFirstName(e.target.value)}
-                        required
                       ></input>
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.first_name?.message}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -166,13 +190,15 @@ export default function PopupGfg({ futsalId }) {
                     >
                       <label htmlFor="last_name">Last Name</label>
                       <input
+                        {...register("last_name")}
                         type="text"
                         placeholder="Enter your last name here"
                         name="last_name"
                         id="last_name"
-                        onChange={(e) => setLastName(e.target.value)}
-                        required
                       ></input>
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.last_name?.message}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -184,13 +210,15 @@ export default function PopupGfg({ futsalId }) {
                     >
                       <label htmlFor="address">Address</label>
                       <input
+                        {...register("address")}
                         type="text"
                         placeholder="Enter your address here"
                         name="address"
                         id="address"
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
                       ></input>
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.address?.message}
+                      </p>
                     </div>
                   </div>
                   <div
@@ -212,12 +240,14 @@ export default function PopupGfg({ futsalId }) {
                     >
                       <label htmlFor="email">Email</label>
                       <input
+                        {...register("email")}
                         placeholder="Enter your email here"
                         name="email"
                         type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
                       ></input>
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.email?.message}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -229,12 +259,14 @@ export default function PopupGfg({ futsalId }) {
                     >
                       <label htmlFor="contact_number">Contact Number</label>
                       <input
+                        {...register("contact_number")}
                         maxLength={10}
                         placeholder="Enter Contact Number"
                         name="contact_number"
-                        onChange={(e) => setContact_Number(e.target.value)}
-                        required
                       ></input>
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.contact_number?.message}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -246,18 +278,21 @@ export default function PopupGfg({ futsalId }) {
                     >
                       <label htmlFor="team_size">Team Size</label>
                       <select
+                        {...register("team_size")}
                         style={{
                           height: "30px",
                           width: "190px",
                         }}
                         name="team_size"
-                        value={team_size}
-                        onChange={(e) => setTeam_size(e.target.value)}
-                        required
+                        id="team_size"
                       >
+                        <option value="">Select Team Size</option>
                         <option value="Full">Full</option>
                         <option value="Half-full">Half-full</option>
                       </select>
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.team_size?.message}
+                      </p>
                     </div>
                   </div>
                   <div
@@ -278,14 +313,21 @@ export default function PopupGfg({ futsalId }) {
                       }}
                     >
                       <label htmlFor="date">Date</label>
-                      <Calendar
-                        style={{ height: "30px", width: "190px" }}
-                        name="date"
-                        value={game_date}
-                        onChange={(e) => setGame_date(e.target.value)}
-                        showIcon
-                        required
+                      <Controller
+                        name="game_date"
+                        control={control}
+                        render={({ field }) => (
+                          <Calendar
+                            {...field}
+                            style={{ height: "30px", width: "190px" }}
+                            showIcon
+                            onChange={(e) => field.onChange(e.value)}
+                          />
+                        )}
                       />
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.game_date?.message}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -296,21 +338,27 @@ export default function PopupGfg({ futsalId }) {
                       }}
                     >
                       <label htmlFor="start">Start Time</label>
-                      <Calendar
-                        style={{ height: "30px", width: "190px" }}
-                        name="start"
-                        value={startTime}
-                        onChange={(e) => setStartTime(e.target.value)}
-                        timeOnly
-                        showIcon
-                        icon="pi pi-clock"
-                        hideOnRangeSelection
-                        stepMinute={60}
-                        required
-                        // Expects a valid date object
-                        minDate={new Date(new Date().setHours(6, 0, 0, 0))}
-                        maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
+                      <Controller
+                        name="startTime"
+                        control={control}
+                        render={({ field }) => (
+                          <Calendar
+                            {...field}
+                            style={{ height: "30px", width: "190px" }}
+                            timeOnly
+                            showIcon
+                            icon="pi pi-clock"
+                            hideOnRangeSelection
+                            stepMinute={60}
+                            minDate={new Date(new Date().setHours(6, 0, 0, 0))}
+                            maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
+                            onChange={(e) => field.onChange(e.value)}
+                          />
+                        )}
                       />
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.startTime?.message}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -321,20 +369,27 @@ export default function PopupGfg({ futsalId }) {
                       }}
                     >
                       <label htmlFor="end">End time</label>
-                      <Calendar
-                        required
-                        style={{ height: "30px", width: "190px" }}
-                        name="end"
-                        value={endTime}
-                        onChange={(e) => setEndTime(e.value)}
-                        timeOnly
-                        showIcon
-                        icon="pi pi-clock"
-                        hideOnRangeSelection
-                        stepMinute={60}
-                        minDate={new Date(new Date().setHours(7, 0, 0, 0))}
-                        maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
+                      <Controller
+                        name="endTime"
+                        control={control}
+                        render={({ field }) => (
+                          <Calendar
+                            {...field}
+                            style={{ height: "30px", width: "190px" }}
+                            timeOnly
+                            showIcon
+                            icon="pi pi-clock"
+                            hideOnRangeSelection
+                            stepMinute={60}
+                            minDate={new Date(new Date().setHours(7, 0, 0, 0))}
+                            maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
+                            onChange={(e) => field.onChange(e.value)}
+                          />
+                        )}
                       />
+                      <p style={{ color: "red", paddingBottom: "0px" }}>
+                        {errors.endTime?.message}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -350,7 +405,6 @@ export default function PopupGfg({ futsalId }) {
                       color: "white",
                     }}
                     type="Submit"
-                    onClick={handleSubmit}
                   >
                     Confirm
                   </button>
