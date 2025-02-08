@@ -4,7 +4,6 @@ import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import backgroundImage from "./assets/background.jpg";
-import BookFutsal from "./BookFutsal";
 import FutsalBook from "./FutsalBook";
 
 function Futsal() {

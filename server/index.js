@@ -110,7 +110,7 @@ app.get('/all-users',authentication,async (req,res)=>{
   res.json(users)
 })
 
-app.get('/all-futsals',authentication,async(req,res)=>{
+app.get('/pending-futsals',authentication,async(req,res)=>{
   const futsals = await futsalModel.find({isValid:false});
   res.json(futsals);
 })

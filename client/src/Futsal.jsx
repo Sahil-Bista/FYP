@@ -1,30 +1,62 @@
 import axios from "axios";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import backgroundImage from "./assets/background.jpg";
 import VendorHeader from "./VendorHeader";
 import Footer from "./Footer";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Futsals() {
-  const [image, setImage] = useState(null);
-  const [futsalName, setFutsalName] = useState("");
-  const [futsalAddress, setFutsalAddress] = useState("");
-  const [addressLink, setAddressLink] = useState("");
-  const [futsalDescription, setFutsalDescription] = useState("");
-  const [futsalContact, setFutsalContact] = useState("");
   const { userId } = useParams();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("futsalName", futsalName);
-    formData.append("addressLink", addressLink);
-    formData.append("futsalAddress", futsalAddress);
-    formData.append("futsalDescription", futsalDescription);
-    formData.append("futsalContact", futsalContact);
+  const validFileExtensions = ["image/png", "image/jpeg", "image/jpg"];
 
-    axios
+  function isValidFileType(fileType) {
+    return validFileExtensions.includes(fileType);
+  }
+
+  const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+  const validationSchema = Yup.object().shape({
+    image: Yup.mixed()
+      .required("Image is required")
+      .test("File type", "Only png, jpeg and jpg are allowed", (value) => {
+        //
+        return value && isValidFileType(value[0]?.type);
+      })
+      .test("File Size", "Max allowed size is 5MB", (value) => {
+        return value && value[0]?.size <= MAX_FILE_SIZE;
+      }),
+    futsalName: Yup.string().required("Futsal Name is required"),
+    addressLink: Yup.string().url().required("Valid address link required"),
+    futsalAddress: Yup.string().required("Futsal Address is required"),
+    futsalDescription: Yup.string()
+      .max(50, "Description cannor exceed 50 characters")
+      .required("Futsal Description is required"),
+    futsalContact: Yup.string()
+      .matches(/^98\d{8}$/, "Invalid Phone Number")
+      .required("Valid contact is required"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(validationSchema) });
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    formData.append("futsalName", data.futsalName);
+    formData.append("addressLink", data.addressLink);
+    formData.append("futsalAddress", data.futsalAddress);
+    formData.append("futsalDescription", data.futsalDescription);
+    formData.append("futsalContact", data.futsalContact);
+
+    await axios
       .post(`http://localhost:3001/addFutsal/${userId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data", // This is required for file uploads
@@ -35,10 +67,17 @@ export default function Futsals() {
         navigate("/home");
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response?.data?.message) {
+          const message = error.response.data.message;
+          console.log(message);
+          toast.error(message, { autoClose: 5000 });
+        } else {
+          toast.error("An unexpected error occured.Please try again");
+        }
       });
   };
 
+  console.log("validation", errors);
   return (
     <div
       style={{
@@ -46,7 +85,6 @@ export default function Futsals() {
         backgroundSize: "cover",
         height: "100%",
         width: "100%",
-        // position: "absolute",
         zIndex: "0",
         display: "flex",
         flexDirection: "column",
@@ -56,7 +94,7 @@ export default function Futsals() {
       <div
         style={{
           position: "absolute",
-          top: "20px",
+          top: 0,
           left: 0,
           height: "100%",
           width: "100%",
@@ -69,6 +107,7 @@ export default function Futsals() {
           position: "relative",
           zIndex: "2",
           flex: "1",
+          overflowY: "auto",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -85,48 +124,41 @@ export default function Futsals() {
           <div
             className="content"
             style={{
-              position: "relative",
-              left: "375px",
-              top: "0px",
-              width: "750px",
-              height: "550px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "90%",
+              margin: "auto",
+              maxWidth: "750px",
               backgroundColor: "black",
               opacity: 0.7,
               zIndex: "2",
+              justifyContent: "center",
             }}
           >
-            <form encType="multipart/form-data" onSubmit={handleSubmit}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "25px",
-                  justifyContent: "space-between",
-                  marginBottom: "15x",
-                }}
-              >
-                <div>
-                  <h2
-                    style={{
-                      color: "white",
-                      marginLeft: "40px",
-                    }}
-                  >
-                    {" "}
-                    &nbsp; Enter Futsal Details Below:
-                  </h2>
-                </div>
+            <form
+              encType="multipart/form-data"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div style={{ marginTop: "25px" }}>
+                <h2
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  {" "}
+                  &nbsp; Enter Futsal Details Below:
+                </h2>
               </div>
+              <ToastContainer />
               <div
                 className="input fields container"
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "flex-start",
                   padding: "10px",
-                  margin: "10px",
-                  marginLeft: "50px",
                   gap: "16px",
+                  width: "100%",
                 }}
               >
                 <div
@@ -134,7 +166,6 @@ export default function Futsals() {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    gap: "87px",
                   }}
                 >
                   <div
@@ -149,14 +180,10 @@ export default function Futsals() {
                     }}
                   >
                     <label htmlFor="image">Add Picture: </label>
-                    <input
-                      // style={{ width: "100px" }}
-                      type="file"
-                      id="image"
-                      name="image"
-                      onChange={(e) => setImage(e.target.files[0])}
-                      required
-                    ></input>
+                    <input {...register("image")} type="file"></input>
+                    <p style={{ color: "red", paddingBottom: "0px" }}>
+                      {errors.image?.message}
+                    </p>
                   </div>
                   <div
                     style={{
@@ -170,15 +197,15 @@ export default function Futsals() {
                   >
                     <label htmlFor="contact">Contact Number: </label>
                     <input
+                      {...register("futsalContact")}
                       style={{ width: "250px" }}
                       placeholder="Enter you contact Number here"
                       type="text"
-                      id="contact"
-                      name="contact"
                       maxLength={10}
-                      onChange={(e) => setFutsalContact(e.target.value)}
-                      required
                     ></input>
+                    <p style={{ color: "red", paddingBottom: "0px" }}>
+                      {errors.futsalContact?.message}
+                    </p>
                   </div>
                 </div>
                 <div
@@ -201,14 +228,14 @@ export default function Futsals() {
                   >
                     <label htmlFor="name">Futsal Name</label>
                     <input
+                      {...register("futsalName")}
                       style={{ width: "210px" }}
                       type="text"
                       placeholder="Enter Futsal Name"
-                      id="name"
-                      name="futsal_name"
-                      onChange={(e) => setFutsalName(e.target.value)}
-                      required
                     ></input>
+                    <p style={{ color: "red", paddingBottom: "0px" }}>
+                      {errors.futsalName?.message}
+                    </p>
                   </div>
                   <div
                     style={{
@@ -223,14 +250,14 @@ export default function Futsals() {
                   >
                     <label htmlFor="address">Futsal Address</label>
                     <input
+                      {...register("futsalAddress")}
                       style={{ width: "250px" }}
                       type="text"
-                      id="address"
                       placeholder="Enter Futsal Address"
-                      name="futsal_address"
-                      onChange={(e) => setFutsalAddress(e.target.value)}
-                      required
                     ></input>
+                    <p style={{ color: "red", paddingBottom: "0px" }}>
+                      {errors.futsalAddress?.message}
+                    </p>
                   </div>
                 </div>
                 <div
@@ -254,14 +281,14 @@ export default function Futsals() {
                   >
                     <label htmlFor="link">Address link(from google maps)</label>
                     <input
+                      {...register("addressLink")}
                       style={{ width: "630px" }}
                       type="text"
-                      id="link"
                       placeholder="Enter Futsal address link"
-                      name="address_link"
-                      onChange={(e) => setAddressLink(e.target.value)}
-                      required
                     ></input>
+                    <p style={{ color: "red", paddingBottom: "0px" }}>
+                      {errors.addressLink?.message}
+                    </p>
                   </div>
                 </div>
                 <div
@@ -278,14 +305,13 @@ export default function Futsals() {
                 >
                   <label htmlFor="description"> Description </label>
                   <textarea
-                    maxLength={50}
+                    {...register("futsalDescription")}
                     style={{ width: "630px", height: "90px" }}
-                    id="description"
                     placeholder="Enter Futsal Description"
-                    name="futsal_description"
-                    onChange={(e) => setFutsalDescription(e.target.value)}
-                    required
                   ></textarea>
+                  <p style={{ color: "red", paddingBottom: "0px" }}>
+                    {errors.futsalDescription?.message}
+                  </p>
                 </div>
                 <div
                   style={{
@@ -295,17 +321,12 @@ export default function Futsals() {
                     color: "white",
                   }}
                 >
-                  <button>Add Futsal</button>
+                  <button type="submit">Add Futsal</button>
                 </div>
               </div>
             </form>
           </div>
-          <div
-            style={{
-              position: "relative",
-              bottom: 0,
-            }}
-          >
+          <div>
             <Footer />
           </div>
         </div>

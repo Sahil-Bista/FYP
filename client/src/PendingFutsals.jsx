@@ -28,9 +28,26 @@ export default function PendingFutsals() {
       });
   };
 
+  // const handleDelete = (_id) => {
+  //   const futsalId = _id;
+  //   axios
+  //     .delete(`http://localhost:3001/deleteValidateFutsal/${futsalId}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((result) => {
+  //       console.log(result.data.updatedFutsal.isValid);
+  //       if (result.data.updatedFutsal.isValid == true) {
+  //         Navigate("/home");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   useEffect(() => {
     axios
-      .get("http://localhost:3001/all-futsals", { withCredentials: true })
+      .get("http://localhost:3001/pending-futsals", { withCredentials: true })
       .then((result) => {
         console.log(result);
         setPendingFutsal(result.data);
@@ -59,6 +76,7 @@ export default function PendingFutsals() {
                   ,{address_link},
                 </li>
                 <button onClick={() => handleSubmit(_id)}>Save</button>
+                {/* <button onClick={() => handleDelete(_id)}>Delete</button> */}
               </div>
             </ul>
           )

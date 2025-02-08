@@ -1,7 +1,6 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import axios from "axios";
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -69,13 +68,11 @@ export default function PopupGfg({ futsalId }) {
         }
       })
       .catch((err) => {
-        // console.log(err);
         if (err.response?.data?.message) {
           const message = err.response.data.message;
           console.log(message);
-          toast.error(message, { autoClose: 5000 }); // Display error message via toast
+          toast.error(message, { autoClose: 5000 });
         } else {
-          // If there's no message, show a general error
           toast.error("An unexpected error occurred. Please try again.");
         }
       });
