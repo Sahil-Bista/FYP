@@ -2,20 +2,39 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post(
-        "http://localhost:3001/login",
-        { email, password },
-        { withCredentials: true }
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    password: Yup.string()
+      .required("password id required")
+      .min(8, "Password must be at least 8 characters")
+      .matches(
+        /[!@#$%^&*(),.?":{}|<>]/,
+        "Password must contain at least one special character"
       )
+      .matches(/[0-9]/, "Password must contain at least one number")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(validationSchema) });
+
+  const onSubmit = async (data) => {
+    await axios
+      .post("http://localhost:3001/login", { data }, { withCredentials: true })
       .then((result) => {
         console.log(result);
         if (result.data.data === "Success") {
@@ -40,31 +59,32 @@ function Login() {
         <h2>
           <center>Login</center>
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <label htmlFor="email">
               <strong>Email</strong>
             </label>
             <input
+              {...register("email")}
               type="text"
               placeholder="Enter Email"
-              autoComplete="off"
-              name="email"
-              className=" rounded-0"
-              onChange={(e) => setEmail(e.target.value)}
             />
+            <p style={{ color: "red", paddingBottom: "0px" }}>
+              {errors.email?.message}
+            </p>
           </div>
           <div className="mb-3">
             <label htmlFor="password">
               <strong>Password</strong>
             </label>
             <input
+              {...register("password")}
               type="password"
               placeholder="Enter Password"
-              name="password"
-              className=" rounded-0"
-              onChange={(e) => setPassword(e.target.value)}
             />
+            <p style={{ color: "red", paddingBottom: "0px" }}>
+              {errors.password?.message}
+            </p>
           </div>
           <button type="submit" className="btn btn-success w-100 rounded-0">
             Login

@@ -6,9 +6,11 @@ const saltRounds = 10;
 
 const signup = async (req,res)=>{
     try{
+      console.log(req.body)
         let {name,email,password} = req.body;
         let {userRole} = req.params;
-
+        console.log(name);
+        console.log(email);
         const regexUserEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
         if(!regexUserEmail.test(email)){
@@ -36,7 +38,8 @@ const signup = async (req,res)=>{
 
 const login = async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { email, password } = req.body.data;
+      console.log(email);
       const user = await UserModel.findOne({ email });
       if (!user) {
         return res.json({ message:" Incorrect email or password " });
