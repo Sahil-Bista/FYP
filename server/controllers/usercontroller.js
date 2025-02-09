@@ -39,7 +39,6 @@ const signup = async (req,res)=>{
 const login = async (req, res) => {
     try {
       const { email, password } = req.body.data;
-      console.log(email);
       const user = await UserModel.findOne({ email });
       if (!user) {
         return res.json({ message:" Incorrect email or password " });
