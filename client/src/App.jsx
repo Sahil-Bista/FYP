@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Use c
 import Signup from "./Signup";
 import Login from "./Login";
 import Home from "./Home";
+import Landing from "./Landing";
 import Chat from "./chat";
 // import { Booking } from "./Booking";
 import Payment from "./Payment";
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
   { path: "/registerAs", element: <RegistrationChoice /> },
   { path: "/register/:userRole", element: <Signup /> },
   { path: "/login", element: <Login /> },
-  { path: "/home", element: <Home /> },
+  { path: "/home", element: <Landing /> },
   { path: "/chat/:userId", element: <Chat /> },
   { path: "/futsal", element: <Futsal /> },
   { path: "/futsals/:userId", element: <Futsals /> },

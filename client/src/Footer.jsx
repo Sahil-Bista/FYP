@@ -4,15 +4,15 @@ const Footer = () => {
   return (
     <>
       <div
-        style={{
-          background:
-            "linear-gradient(180deg, #141414 20%, rgba(20, 20, 20, 0.8) 40%, rgba(20, 20, 20, 0.6) 60%, rgba(20, 20, 20, 0.6) 84.25%, rgba(20, 20, 20, 0.2) 95%, rgba(20, 20, 20, 0) 100%)",
-          transform: "rotate(180deg)",
-          position: "relative",
-          height: "40px",
-          width: "100%",
-          zIndex: "0",
-        }}
+      // style={{
+      //   background:
+      //     "linear-gradient(180deg, #141414 20%, rgba(20, 20, 20, 0.8) 40%, rgba(20, 20, 20, 0.6) 60%, rgba(20, 20, 20, 0.6) 84.25%, rgba(20, 20, 20, 0.2) 95%, rgba(20, 20, 20, 0) 100%)",
+      //   transform: "rotate(180deg)",
+      //   position: "relative",
+      //   height: "40px",
+      //   width: "100%",
+      //   zIndex: "0",
+      // }}
       ></div>
       <footer
         style={{
