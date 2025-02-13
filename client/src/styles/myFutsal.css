@@ -1,0 +1,149 @@
+.primary{
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+}
+
+.background{
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 0;
+}
+
+.black-overlay{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.68);
+    z-index: 1;
+}
+
+.reference-div{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header{
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+}
+
+.futsal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 1050px;
+    height: 720px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 40px;
+    padding-top: 40px;
+    margin: auto;
+}
+
+.content-div{
+    display: flex;
+    flex-direction: column;
+    height:500px;
+    width: 937px;
+    border-radius: 12px;
+}
+
+.image-contain{
+    width: 100%;
+    height: 100%;
+    margin:auto;
+    margin-bottom: 20px;
+}
+
+.image{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.futsal-content{
+    justify-content: flex-start;
+    font-family: 'DM Sans', sans-serif;
+    color: white;
+}
+
+.futsal-name{
+    font-size: 24px;
+    font-weight: 600;
+    padding-bottom: 0px;
+}
+
+.futsal-address{
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+}
+
+.futsal-description{
+    margin-bottom: 0px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.buttons-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.open-button{
+    background-color: green;
+    width: 100px;
+    min-width: 100px;
+    height: 35px;
+    border: 1px solid #7C7C7C;
+    border-radius: 40px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+}
+
+.closed-button{
+    background-color: red;
+    width: 100px;
+    min-width: 100px;
+    height: 35px;
+    border: 1px solid #7C7C7C;
+    border-radius: 40px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+}
+
+.else{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #000;
+    color: white;
+    border: 1px solid #555;
+    text-align: center;
+    justify-self: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    padding: 25px;
+    margin: 20px auto;
+    height: 223px;
+    width: 40%;
+    opacity: 0.5;
+}
+
+.footer{
+    margin-top: 10px;
+}

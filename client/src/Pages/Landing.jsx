@@ -6,14 +6,22 @@ import card3 from "../assets/card3.jpg";
 import Header from "../Header";
 import Footer from "../Footer";
 import { useNavigate } from "react-router";
+import VendorHeader from "../VendorHeader";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const userRole = localStorage.getItem("userRole");
+  console.log(userRole);
+
   return (
     <div>
       <div className="section-1">
         <div className="header">
-          <Header />
+          {userRole === "VENDOR" || "PENDING_VENDOR" ? (
+            <VendorHeader />
+          ) : (
+            <Header />
+          )}
         </div>
         <div className="image-foreground-text">
           <h1 className="app-name">

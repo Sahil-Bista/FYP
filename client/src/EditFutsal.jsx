@@ -56,7 +56,7 @@ export default function EditFutsal({ futsalId }) {
   };
 
   return (
-    <div className="main-div">
+    <div>
       <Popup
         contentStyle={{
           position: "absolute",
