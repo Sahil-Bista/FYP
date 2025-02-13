@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import playerImage from "./assets/Fairplay.jpg";
-import Logo from "./assets/logo.png";
-import "./styles/login.css";
-import { LoginForm } from "./components/loginform";
+import playerImage from "../assets/Fairplay.jpg";
+import Logo from "../assets/logo.png";
+import "../styles/login.css";
+import { LoginForm } from "../components/loginform";
 
 function Login() {
   return (

@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Use createBrowserRouter
 import Signup from "./Signup";
-import Login from "./Login";
+import Login from "./Pages/Login";
 import Landing from "./Landing";
 import Chat from "./chat";
 import Payment from "./Payment";
