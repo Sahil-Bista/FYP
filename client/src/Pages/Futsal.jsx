@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
-import backgroundImage from "./assets/background.jpg";
-import VendorHeader from "./VendorHeader";
-import Footer from "./Footer";
+import backgroundImage from "../assets/background.jpg";
+import VendorHeader from "../VendorHeader";
+import Footer from "../Footer";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

@@ -1,0 +1,104 @@
+.popup-content {
+    background: black !important;  
+    border: none !important;       
+    box-shadow: none !important;   
+    padding: 20px;                
+}
+
+
+.pop-up-button{
+    box-sizing: border-box;
+    min-width: 100px;
+    height: 35px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid #7C7C7C;
+    border-radius: 40px;
+    color: white;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.pop-up-card{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    min-width: 55vw;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.form-div{
+    display: flex;
+    padding: 10px;
+    left:20px;
+}
+
+.button-heading-div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.heading-div{
+    margin-bottom: 30px;
+}
+
+.heading{
+    color: white;
+    padding-left: 5px;
+}
+
+.close-button{ 
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    font-size: 25px;
+    margin-inline-start: 5px;
+}
+
+.form-content{
+    display: flex;
+    flex-direction: column ;
+    padding-left: 12px;
+}
+
+.row-1{
+    display: flex;
+    gap: 40px;
+    justify-content: space-around;
+    margin-bottom: 0px;
+    flex-wrap: wrap ;
+}
+
+.label-input{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    gap: 4px;
+}
+
+.select-label{
+    height: 30px;
+    width: 190px;
+}
+
+.error{
+    color: red;
+    padding-bottom: 0px;
+}
+
+.button-div{
+    display: flex;
+    justify-content: right;
+}
+
+.confirm-button{
+    width: 120px;
+    min-width: 100px;
+    height: 42px;
+    border: 1px solid #7C7C7C;
+    border-radius: 40px;
+    background-color: black;
+    color: white;
+}

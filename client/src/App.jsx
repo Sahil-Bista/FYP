@@ -2,14 +2,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Use createBrowserRouter
 import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
-import Landing from "./Landing";
+import Landing from "./Pages/Landing";
 import Chat from "./chat";
 import Payment from "./Payment";
 import Success from "./PaymentSuccess";
 import Failure from "./PaymentFailure";
-import Futsal from "./Futsals";
+import Futsal from "./Pages/Futsals";
 import BookingList from "./BookingList";
-import Futsals from "./Futsal";
+import Futsals from "./Pages/Futsal";
 import RegistrationChoice from "./RegistrationChoices";
 import PendingFutsals from "./PendingFutsals";
 import MyFutsal from "./MyFutsal";

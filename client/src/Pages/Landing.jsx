@@ -1,19 +1,21 @@
 import React from "react";
-import "./styles/landing.css";
-import card1 from "./assets/card1.jpg";
-import card2 from "./assets/card2.jpg";
-import card3 from "./assets/card3.jpg";
-import Header from "./Header";
-import Footer from "./Footer";
+import "../styles/landing.css";
+import card1 from "../assets/card1.jpg";
+import card2 from "../assets/card2.jpg";
+import card3 from "../assets/card3.jpg";
+import Header from "../Header";
+import Footer from "../Footer";
+import { useNavigate } from "react-router";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="section-1">
         <div className="header">
           <Header />
         </div>
-        <div class="image-foreground-text">
+        <div className="image-foreground-text">
           <h1 className="app-name">
             RIVALS<br></br>FUTSAL
           </h1>

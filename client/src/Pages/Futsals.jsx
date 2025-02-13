@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import Header from "./Header";
-import Footer from "./Footer";
-import backgroundImage from "./assets/background.jpg";
-import FutsalBook from "./FutsalBook";
+import Header from "../Header";
+import Footer from "../Footer";
+import backgroundImage from "../assets/background.jpg";
+import FutsalBook from "../components/FutsalBook.jsx";
 
 function Futsal() {
   const userRole = localStorage.getItem("userRole");
