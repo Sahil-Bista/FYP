@@ -2,10 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Use createBrowserRouter
 import Signup from "./Signup";
 import Login from "./Login";
-import Home from "./Home";
 import Landing from "./Landing";
 import Chat from "./chat";
-// import { Booking } from "./Booking";
 import Payment from "./Payment";
 import Success from "./PaymentSuccess";
 import Failure from "./PaymentFailure";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./landing.css";
+import "./styles/landing.css";
 import card1 from "./assets/card1.jpg";
 import card2 from "./assets/card2.jpg";
 import card3 from "./assets/card3.jpg";
@@ -59,7 +59,12 @@ const LandingPage = () => {
                   confirm your booking. Once it's set, you're ready to enjoy the
                   game.
                 </p>
-                <button className="card-button book-now">Book Now</button>
+                <button
+                  className="card-button book-now"
+                  onClick={() => navigate("/futsal")}
+                >
+                  Book Now
+                </button>
               </div>
             </div>
           </div>
