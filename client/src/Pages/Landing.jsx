@@ -12,12 +12,13 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
   console.log(userRole);
+  console.log(userRole === "VENDOR" || "PENDING_VENDOR");
 
   return (
     <div>
       <div className="section-1">
         <div className="header">
-          {userRole === "VENDOR" || "PENDING_VENDOR" ? (
+          {userRole === "VENDOR" || userRole === "PENDING_VENDOR" ? (
             <VendorHeader />
           ) : (
             <Header />

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import Header from "../Header";
 import Footer from "../Footer";
-import backgroundImage from "../assets/background.jpg";
 import FutsalBook from "../components/FutsalBook.jsx";
+import "../styles/FutsalList.css";
 
 function Futsal() {
   const userRole = localStorage.getItem("userRole");
@@ -35,80 +35,17 @@ function Futsal() {
   }, []);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        height: "100%",
-        width: "100%",
-      }}
-    >
-      <div
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: "cover",
-          height: "100%",
-          width: "100%",
-          position: "absolute",
-          zIndex: "0",
-        }}
-      ></div>
-
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          height: "100%",
-          width: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.68)",
-          zIndex: "1",
-        }}
-      ></div>
-      <div
-        style={{
-          position: "relative",
-          zIndex: "2",
-        }}
-      >
-        <div
-          className="Header"
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: "10",
-          }}
-        >
+    <div className="parent-div">
+      <div className="background"></div>
+      <div className="black-overlay"></div>
+      <div className="reference">
+        <div className="header">
           <Header />
         </div>
-        <div
-          style={{
-            color: "white",
-            marginLeft: "60px",
-            fontSize: "28px",
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 600,
-          }}
-        >
-          FUTSAL AVAILABLE FOR BOOKING
-        </div>
+        <div className="page-header-div">FUTSAL AVAILABLE FOR BOOKING</div>
         <br></br>
-        <div
-          className="row-separations"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <div
-            className="horizontal-row"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-evenly",
-              gap: "15px",
-            }}
-          >
+        <div className="row-separation">
+          <div className="horizontal-row">
             {futsals &&
               futsals.map(
                 ({
@@ -120,112 +57,36 @@ function Futsal() {
                   address_link,
                   isOpen,
                 }) => (
-                  <div
-                    className="card"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      padding: "20px",
-                      gap: "10px",
-                      width: "390.33px",
-                      height: "340px",
-                      background: "rgba(0, 0, 0, 0.4)",
-                      borderRadius: "40px",
-                      flex: "none",
-                      order: "0",
-                      flexGrow: "0",
-                    }}
-                    key={_id}
-                  >
-                    <div
-                      className="image-container"
-                      style={{
-                        width: "349.33px",
-                        minHeight: "160px",
-                        height: "160px",
-                        borderRadius: "12px",
-                      }}
-                    >
+                  <div className="card" key={_id}>
+                    <div className="image-container">
                       {image && (
                         <img
                           src={`http://localhost:3001/${image}`}
                           alt={futsal_name}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            borderRadius: "12px",
-                          }}
+                          className="image"
                         />
                       )}
                     </div>
                     <div style={{ marginBottom: "10px", paddingBottom: "3px" }}>
-                      <div
-                        style={{
-                          color: "white",
-                          fontSize: "16px",
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontWeight: 500,
-                        }}
-                      >
-                        <h4
-                          style={{
-                            marginBottom: "4px",
-                            color: "white",
-                            fontSize: "20px",
-                            fontFamily: "'DM Sans', sans-serif",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {futsal_name}
-                        </h4>
-                        <a
-                          style={{ fontSize: "16px", color: "white" }}
-                          href={address_link}
-                        >
+                      <div className="futsal-info-container">
+                        <h4 className="futsall-name">{futsal_name}</h4>
+                        <a className="futsal-addresss" href={address_link}>
                           <i className="fa-solid fa-location-pin"></i>
                           {futsal_address}{" "}
                         </a>
-                        <p style={{ fontSize: "16px", marginBottom: "0px" }}>
-                          {" "}
-                          {futsal_description}
-                        </p>
+                        <p className="description"> {futsal_description}</p>
                         {isOpen === false ? (
-                          <p style={{ color: "red" }}>
-                            Futsal Closed For Today
-                          </p>
+                          <p className="closed">Futsal Closed For Today</p>
                         ) : (
                           <p></p>
                         )}
                       </div>
                     </div>
                     <div>
-                      <div
-                        style={{
-                          display: "flex",
-                          position: "absolute",
-                          right: "15px",
-                          bottom: "0px",
-                          paddingBottom: "10px",
-                        }}
-                      >
+                      <div className="button-div">
                         {userRole === "ADMIN" ? (
                           <button
-                            style={{
-                              boxSizing: "border-box",
-                              width: "120px",
-                              minWidth: "100px",
-                              height: "35px",
-                              background: "rgba(255, 255, 255, 0.2)",
-                              border: "1px solid #7C7C7C",
-                              borderRadius: "40px",
-                              color: "white",
-                              fontSize: "14px",
-                              marginRight: "4px",
-                              fontFamily: "'DM Sans', sans-serif",
-                              fontWeight: 500,
-                            }}
+                            className="delete-button"
                             onClick={() => {
                               handleDelete(_id);
                             }}
@@ -236,19 +97,7 @@ function Futsal() {
                           <FutsalBook futsalId={_id} />
                         )}
                         <button
-                          style={{
-                            boxSizing: "border-box",
-                            width: "132px",
-                            minWidth: "100px",
-                            height: "35px",
-                            background: "rgba(255, 255, 255, 0.2)",
-                            border: "1px solid #7C7C7C",
-                            borderRadius: "40px",
-                            color: "white",
-                            fontSize: "14px",
-                            fontFamily: "'DM Sans', sans-serif",
-                            fontWeight: 500,
-                          }}
+                          className="view-button"
                           onClick={() => navigate(`/bookingList/${_id}`)}
                         >
                           VIEW BOOKINGS

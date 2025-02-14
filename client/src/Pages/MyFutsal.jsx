@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import VendorHeader from "../VendorHeader";
 import Footer from "../Footer";
-import EditFutsal from "../EDitFutsal";
+import EditFutsal from "../components/EditFutsal";
 import "../styles/myFutsal.css";
 
 export default function MyFutsal() {
@@ -55,7 +55,6 @@ export default function MyFutsal() {
       <div className="primary">
         <div className="background"></div>
         <div className="black-overlay"></div>
-
         <div className="reference-div">
           <div className="header">
             <VendorHeader />
