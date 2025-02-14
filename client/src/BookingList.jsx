@@ -8,6 +8,7 @@ import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import "./styles/BookingList.css";
 
 export default function BookingLis() {
   const { futsalId } = useParams();
@@ -109,83 +110,18 @@ export default function BookingLis() {
   };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        height: "100%",
-        width: "100%",
-      }}
-    >
-      <div
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: "cover",
-          height: "100%",
-          width: "100%",
-          position: "absolute",
-          zIndex: "0",
-        }}
-      ></div>
+    <div className="primary-div">
+      <div className="background"></div>
 
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          height: "100%",
-          width: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.68)",
-          zIndex: "1",
-        }}
-      ></div>
-      <div
-        style={{
-          position: "relative",
-          zIndex: "2",
-        }}
-      >
-        <div
-          className="Header"
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: "10",
-          }}
-        >
+      <div className="black-overlay"></div>
+      <div className="reference-div">
+        <div className="Header">
           <Header />
         </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: "28px",
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 600,
-            display: "flex",
-            width: "90%",
-            margin: "auto",
-            justifyContent: "space-between",
-            paddingBottom: "20px",
-          }}
-        >
-          WEEKLY BOOKING LIST
-        </div>
-        <div
-          style={{
-            display: "flex",
-            width: "90%",
-            margin: " auto",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className="page-heading">WEEKLY BOOKING LIST</div>
+        <div className="search-row">
           <Calendar
             className="custom-calendar"
-            style={{
-              background: "rgba(255, 255, 255, 0.2)",
-              border: "1px solid #7C7C7C",
-              borderRadius: "40px",
-              width: "250px",
-              height: "35px",
-            }}
             name="date"
             value={game_date}
             onChange={(e) => setGame_date(e.value)}
@@ -193,14 +129,7 @@ export default function BookingLis() {
             required
           />
           <Calendar
-            style={{
-              width: "250px",
-              minWidth: "100px",
-              height: "35px",
-              background: "rgba(255, 255, 255, 0.2)",
-              border: "1px solid #7C7C7C",
-              borderRadius: "40px",
-            }}
+            className="custom-calendar"
             name="start"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
@@ -214,15 +143,8 @@ export default function BookingLis() {
             maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
           />
           <Calendar
+            className="custom-calendar"
             required
-            style={{
-              width: "250px",
-              minWidth: "100px",
-              height: "35px",
-              background: "rgba(255, 255, 255, 0.2)",
-              border: "1px solid #7C7C7C",
-              borderRadius: "40px",
-            }}
             name="end"
             value={endTime}
             onChange={(e) => setEndTime(e.value)}
@@ -235,78 +157,33 @@ export default function BookingLis() {
             maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
           />
           <select
-            style={{
-              width: "250px",
-              minWidth: "100px",
-              height: "35px",
-              background: "rgba(255, 255, 255, 0.2)",
-              border: "1px solid #7C7C7C",
-              borderRadius: "40px",
-            }}
+            className="status search"
             placeholder="Select Status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
             required
           >
+            <option>Select Status</option>
             <option value="Booked">Booked</option>
             <option value="Waiting to match">Waiting to Match</option>
           </select>
-          <button onClick={handleSubmit}>Submit</button>
-          <button onClick={handleClear}>Clear</button>
+          <button className="button-submit" onClick={handleSubmit}>
+            Search
+          </button>
+          <button className="button-clear" onClick={handleClear}>
+            Clear
+          </button>
         </div>
         <br></br>
-        <div
-          className="Table"
-          style={{
-            width: "90%",
-            margin: " 0px auto",
-            overflowX: "auto",
-          }}
-        >
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "separate",
-              borderSpacing: "0 10px", // Add row spacing
-              tableLayout: "fixed",
-            }}
-          >
+        <div className="Table-div">
+          <table className="table">
             <thead>
-              <tr
-                style={{
-                  background:
-                    "linear-gradient(180deg, #141414 20%, rgba(20, 20, 20, 0.8) 40%, rgba(20, 20, 20, 0.6) 60%, rgba(20, 20, 20, 0.6) 84.25%, rgba(20, 20, 20, 0.2) 95%, rgba(20, 20, 20, 0) 100%)",
-                  color: "white",
-                  height: "50px",
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: "600",
-                }}
-              >
-                <th
-                  style={{ padding: "10px", textAlign: "left", width: "25%" }}
-                >
-                  Name
-                </th>
-                <th
-                  style={{ padding: "10px", textAlign: "left", width: "20%" }}
-                >
-                  Date
-                </th>
-                <th
-                  style={{ padding: "10px", textAlign: "left", width: "20%" }}
-                >
-                  Time
-                </th>
-                <th
-                  style={{ padding: "10px", textAlign: "left", width: "15%" }}
-                >
-                  Status
-                </th>
-                <th
-                  style={{ padding: "10px", textAlign: "left", width: "15%" }}
-                >
-                  Actions
-                </th>
+              <tr className="table-row">
+                <th className="table-heading-1">Name</th>
+                <th className="table-heading-2">Date</th>
+                <th className="table-heading-3">Time</th>
+                <th className="table-heading-4">Status</th>
+                <th className="table-heading-5">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -323,39 +200,14 @@ export default function BookingLis() {
                     team_size,
                     booking_status,
                   }) => (
-                    <tr
-                      key={_id}
-                      style={{
-                        backgroundColor: "#FFFFFF",
-                        opacity: "0.5",
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontWeight: 600,
-                      }}
-                    >
-                      <td
-                        style={{
-                          padding: "10px",
-                          wordBreak: "break-word",
-                          // boxSizing: "border-box",
-                          paddingLeft: "20px", // Add left padding to cells
-                        }}
-                      >
+                    <tr className="table-data-row" key={_id}>
+                      <td className="player-name">
                         {first_name} {last_name}
                       </td>
-                      <td
-                        style={{
-                          padding: "10px",
-                          boxSizing: "border-box",
-                        }}
-                      >
+                      <td className="game-date">
                         {new Date(game_date).toISOString().split("T")[0]}
                       </td>
-                      <td
-                        style={{
-                          padding: "10px",
-                          boxSizing: "border-box",
-                        }}
-                      >
+                      <td className="time">
                         {new Date(startTime)
                           .toISOString()
                           .split("T")[1]
@@ -366,24 +218,11 @@ export default function BookingLis() {
                           .split("T")[1]
                           .slice(0, 5)}
                       </td>
-                      <td
-                        style={{
-                          padding: "10px",
-                          boxSizing: "border-box",
-                        }}
-                      >
-                        {booking_status}
-                      </td>
-                      <td
-                        style={{
-                          padding: "10px",
-                          boxSizing: "border-box",
-                          paddingRight: "20px", // Add right padding to cells
-                        }}
-                      >
+                      <td className="booking-status">{booking_status}</td>
+                      <td className="buttons-td">
                         {team_size === "Half-full" && (
                           <button
-                            style={{ marginRight: "5px" }}
+                            className="match-button"
                             onClick={() => navigate(`/chat/${userId}`)}
                           >
                             Match
@@ -392,7 +231,7 @@ export default function BookingLis() {
                         {userId === loggedInUserId && (
                           <>
                             <button
-                              style={{ marginRight: "5px" }}
+                              className="edit-booking-button"
                               onClick={(e) => handleEdit(e, _id)}
                             >
                               Edit
