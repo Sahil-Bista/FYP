@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import backgroundImage from "./assets/background.jpg";
-import VendorHeader from "./VendorHeader";
-import Footer from "./Footer";
-import EditFutsal from "./EDitFutsal";
-import "./styles/myFutsal.css";
+import VendorHeader from "../VendorHeader";
+import Footer from "../Footer";
+import EditFutsal from "../EDitFutsal";
+import "../styles/myFutsal.css";
 
 export default function MyFutsal() {
   const [myFutsal, setMyFutsal] = useState([]);

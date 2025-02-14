@@ -31,6 +31,7 @@ export const AddFutsalForm = () => {
         },
       })
       .then((result) => {
+        console.log(result);
         navigate("/home");
       })
       .catch((error) => {

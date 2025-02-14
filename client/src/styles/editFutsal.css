@@ -1,0 +1,115 @@
+.popup-content {
+    background: black !important;  
+    border: none !important;       
+    box-shadow: none !important;   
+    padding: 20px;      
+    width: 57% ;          
+}
+
+
+.edit-button{
+    width: 150px;
+    min-width: 100px;
+    height: 35px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid #7C7C7C;
+    border-radius: 40px;
+    color: white;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+}
+
+.pop-up{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    min-width:55vw;
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.form-div{
+    display: flex;
+    padding: 10px;
+}
+
+.heading-button{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-header{
+    color: white;
+}
+
+.cross-button-div{
+    font-size: 24px;
+    color: white;
+}
+
+.cross-button{
+    border:  black;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.input-field-continer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    height: 80%;
+    width: 100%;
+    background-color: black;
+    border: 1px solid black;
+}
+
+.input-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.label-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px;
+    gap: 4px;
+    color: white;
+}
+
+.smaller-input-fields{
+    width: 250px;
+}
+
+.larger-input-fields{
+    width: 630px;
+}
+
+.text-area{
+    width: 630px;
+    height: 90px;
+}
+
+.error{
+    color: red;
+    font-size: 14px;
+}
+
+.save-button-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 24px;
+    color: white;
+}
+
+.save-button{
+    width: 100px;
+    min-width: 100px;
+    height: 40px;
+}
+

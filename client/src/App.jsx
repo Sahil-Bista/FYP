@@ -12,7 +12,7 @@ import BookingList from "./BookingList";
 import Futsals from "./Pages/Futsal";
 import RegistrationChoice from "./RegistrationChoices";
 import PendingFutsals from "./PendingFutsals";
-import MyFutsal from "./MyFutsal";
+import MyFutsal from "./Pages/MyFutsal";
 
 // Define your routes
 const router = createBrowserRouter([
