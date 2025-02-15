@@ -1,5 +1,5 @@
 import VendorHeader from "../components/VendorHeader";
-import Footer from "../Footer";
+import Footer from "../components/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/AddFutsal.css";
 import { AddFutsalForm } from "../components/addFutsalForm";

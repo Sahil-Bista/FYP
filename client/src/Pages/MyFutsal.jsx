@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import VendorHeader from "../components/VendorHeader";
-import Footer from "../Footer";
+import Footer from "../components/Footer";
 import EditFutsal from "../components/EditFutsal";
 import "../styles/myFutsal.css";
 

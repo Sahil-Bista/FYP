@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import Header from "../components/Header.jsx";
-import Footer from "../Footer";
+import Footer from "../components/Footer";
 import FutsalBook from "../components/FutsalBook.jsx";
 import "../styles/FutsalList.css";
 
