@@ -1,4 +1,4 @@
-import VendorHeader from "../VendorHeader";
+import VendorHeader from "../components/VendorHeader";
 import Footer from "../Footer";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/AddFutsal.css";

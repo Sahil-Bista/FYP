@@ -8,7 +8,7 @@ import Payment from "./Payment";
 import Success from "./PaymentSuccess";
 import Failure from "./PaymentFailure";
 import Futsal from "./Pages/Futsals";
-import BookingList from "./BookingList";
+import BookingList from "./Pages/BookingList";
 import Futsals from "./Pages/Futsal";
 import RegistrationChoice from "./RegistrationChoices";
 import PendingFutsals from "./PendingFutsals";

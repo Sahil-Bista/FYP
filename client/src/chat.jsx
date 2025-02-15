@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
 import notificationSound from "./assets/notification.mp3";
-import Header from "./Header";
+import Header from "./components/Header";
 
 const socket = io("http://localhost:3001");
 
