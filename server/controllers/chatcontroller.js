@@ -1,3 +1,7 @@
+import ChatModel from "../model/Chat.js";
+import UserModel from "../model/User.js";
+import mongoose, {Types} from "mongoose";
+ 
 const searchChatMembers = async(req, res) =>{
     try {
         const myUserId = req.userId;
