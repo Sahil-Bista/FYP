@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaExclamationCircle } from "react-icons/fa";
 import "../styles/signup.css";
@@ -19,21 +19,19 @@ export const SignUp = () => {
   } = useForm({ resolver: yupResolver(signUpValidationSchema) });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     await axios
       .post(`http://localhost:3001/api/user/register/${userRole}`, data)
       .then((result) => {
+        console.log("result", result);
         if (result.status === 201) {
           navigate("/login");
         }
-        if (result.status === 422) {
-          setError(result.data.msg);
-          console.log(result.data.msg);
-        }
       })
       .catch((err) => {
-        if (err.response?.data?.message) {
-          const message = err.response.data.message;
+        console.log(err.response.data);
+        if (err.response?.data?.msg) {
+          const message = err.response.data.msg;
           console.log(message);
           toast.error(message, { autoClose: 5000 });
         } else {
@@ -44,6 +42,7 @@ export const SignUp = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <ToastContainer />
       <div className="label-input">
         <label className="label" htmlFor="name">
           Username

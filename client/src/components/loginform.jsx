@@ -35,8 +35,8 @@ export const LoginForm = () => {
         }
       })
       .catch((err) => {
-        if (err.response?.data?.message) {
-          const message = err.response.data.message;
+        if (err.response?.data?.msg) {
+          const message = err.response.data.msg;
           console.log(message);
           toast.error(message, { autoClose: 5000 });
         } else {

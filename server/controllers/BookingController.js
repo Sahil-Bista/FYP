@@ -31,7 +31,7 @@ const createBooking = async (req, res) => {
     const verified_email = verified_user.email;
 
     if (!verified_email) {
-      return res.status(201).json({ message: "Your email id seems incorrect" });
+      return res.status(400).json({ message: "Your email id seems incorrect" });
     }
 
     if (verified_email !== email) {
@@ -74,7 +74,7 @@ const createBooking = async (req, res) => {
     const gameDuration = endTimeDate - startTimeDate;
     if(gameDuration < 3600000){
       console.log("Less than 1 hour cannot be the game time")
-      return res.status(402).json({message : "Game duration cannot be less than an hour"})
+      return res.status(400).json({message : "Game duration cannot be less than an hour"})
     }
 
     if (team_size === "Half-full" && gameDuration > 3600000) {
@@ -127,6 +127,7 @@ const createBooking = async (req, res) => {
     const alreadyBooked = await bookingModel.findOne({
       futsalId: futsalId,
       game_date: gameDate,
+      booking_status : "Booked",
       $or: [
         {
           startTime: { $lt: endTimeDate },
@@ -139,15 +140,11 @@ const createBooking = async (req, res) => {
       ],
     });
 
+    console.log("ok",alreadyBooked);
+
     if (alreadyBooked) {
-      const bookedBookingId = alreadyBooked._id;
-      const bookedBookingPayment = await PaymentModel.findOne({
-         booking_id: bookedBookingId,
-      });
-      if (alreadyBooked && ((bookedBookingPayment && bookedBookingPayment.status !== "PENDING"))) {
-        console.log("alreadyBooked and paid for LOL");
-        return res.status(201).json({ message: "The time is not available" });
-      }
+      console.log("Hello");
+        return res.status(400).json({ message: "The time is not available" });
     }
     const booking_status =
       team_size === "Full" ? "Payment pending" : "Waiting to match";
@@ -207,8 +204,7 @@ const deleteBooking = async (req, res) => {
       console.log(deleted_bookig);
       return res.status(200).json({ message: "Booking deleted successfully" });
     } else {
-      console.log("HI");
-      return res.json({
+      return res.status(403).json({
         message: "You are not authorized to delete this booking",
       });
     }
@@ -301,12 +297,13 @@ const getFilteredBooking = async(req,res)=>{
       res.status(200).send(bookingList);
     }
   }catch(error){
-    console.log("Error ir fetching products",error)
+    console.log("Error ir fetching bookings",error)
     res.status(500).send(error);
   }
 }
 
 const getFutsalSpecificBooking = async (req,res) =>{
+  try{
   const logged_in_user_id = req.userId;
   const {futsalId} = req.params;
   const futsal = await futsalModel.findOne({_id:futsalId});
@@ -321,6 +318,10 @@ const getFutsalSpecificBooking = async (req,res) =>{
     }
   }
   return res.send(bookingList);
+}catch{
+  console.log("Error ir fetching bookings",error)
+    res.status(500).send(error);
+}
 }
 
 export { getFutsalSpecificBooking,createBooking, deleteBooking, getParticularBooking, editBooking,getFilteredBooking };
