@@ -306,6 +306,23 @@ const getFilteredBooking = async(req,res)=>{
   }
 }
 
-export { createBooking, deleteBooking, getParticularBooking, editBooking,getFilteredBooking };
+const getFutsalSpecificBooking = async (req,res) =>{
+  const logged_in_user_id = req.userId;
+  const {futsalId} = req.params;
+  const futsal = await futsalModel.findOne({_id:futsalId});
+  const futsal_id = futsal?._id || null;
+  const bookings = await bookingModel.find({futsalId : futsal_id});
+  const bookingList = [];
+  for(const booking of bookings){
+    const booking_payment = await PaymentModel.findOne({booking_id : booking._id});
+    const booking_payment_status = booking_payment?.status || null;
+    if(booking_payment_status === "COMPLETE" || (booking.team_size==="Half-full" && booking.userId != logged_in_user_id)){
+      bookingList.push(booking);
+    }
+  }
+  return res.send(bookingList);
+}
+
+export { getFutsalSpecificBooking,createBooking, deleteBooking, getParticularBooking, editBooking,getFilteredBooking };
 
 
