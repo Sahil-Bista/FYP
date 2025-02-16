@@ -18,7 +18,7 @@ const Success = () => {
   const verifyPayment = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/check-payment-status",
+        "http://localhost:3001/api/payment/check-payment-status",
         {
           product_id: decoded.transaction_uuid,
         }

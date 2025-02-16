@@ -6,20 +6,8 @@ import { Server } from "socket.io";
 import { fileURLToPath } from "url";
 import path from "path";
 import cors from "cors";
-import authentication from "./middlewares/authentication.js";
 import cookieParser from "cookie-parser";
-
-import {
-  checkPaymentStatus,
-  initiatePayment,
-} from "./controllers/paymentController.js";
-import {
-  findConnectedUsers,
-  findUsersMessages,
-  searchChatMembers,
-} from "./controllers/chatcontroller.js";
 import routesSetup from "./routes/index.js";
-
 import socketService from "./services/socketService.js";
 
 dotenv.config();
@@ -54,19 +42,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 mongoose.connect("mongodb://127.0.0.1:27017/user");
 
-
-
 routesSetup(app);
-
-app.get("/message/:userId", authentication, findUsersMessages);
-
-app.get("/room/:myUserId", authentication, findConnectedUsers);
-
-app.post("/chat/search", authentication, searchChatMembers);
-
-app.post("/check-payment-status", checkPaymentStatus);
-
-app.post("/esewa-payment/:bookingId", initiatePayment);
 
 socketService(io);
 

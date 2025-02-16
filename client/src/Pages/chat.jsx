@@ -49,7 +49,7 @@ function Chat() {
 
     usersToFetch.forEach((user) => {
       axios
-        .get(`http://localhost:3001/message/${user._id}`, {
+        .get(`http://localhost:3001/api/chat/message/${user._id}`, {
           withCredentials: true,
         })
         .then((result) => {
@@ -115,7 +115,9 @@ function Chat() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/message/${userId}`, { withCredentials: true })
+      .get(`http://localhost:3001/api/chat/message/${userId}`, {
+        withCredentials: true,
+      })
       .then((result) => {
         setMessages(result.data);
       })
@@ -131,7 +133,9 @@ function Chat() {
       .catch((err) => console.log(err));
 
     axios
-      .get(`http://localhost:3001/room/${myUserId}`, { withCredentials: true })
+      .get(`http://localhost:3001/api/chat/room/${myUserId}`, {
+        withCredentials: true,
+      })
       .then((result) => {
         console.log(result);
         setMatchedUsers(result.data);
@@ -149,7 +153,7 @@ function Chat() {
     if (!searchQuery.trim()) {
       console.log("if");
       axios
-        .get(`http://localhost:3001/room/${myUserId}`, {
+        .get(`http://localhost:3001/api/chat/room/${myUserId}`, {
           withCredentials: true,
         })
         .then((result) => {
@@ -163,7 +167,7 @@ function Chat() {
     console.log("hi");
     axios
       .post(
-        `http://localhost:3001/chat/search`,
+        `http://localhost:3001/api/chat/search`,
         { searchQuery },
         { withCredentials: true }
       )

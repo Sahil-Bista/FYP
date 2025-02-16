@@ -25,6 +25,7 @@ function safeStringify(obj) {
   const initiatePayment = async (req, res) => {
     const { amount , productId} = req.body;
     const { bookingId } = req.params;
+    console.log("Hello");
 
     if (!mongoose.Types.ObjectId.isValid(bookingId)) {
       return res.status(400).json({ error: "Invalid bookingId format" });

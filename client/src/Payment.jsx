@@ -26,7 +26,7 @@ const Payment = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:3001/esewa-payment/${bookingId}`,
+        `http://localhost:3001/api/payment/esewa-payment/${bookingId}`,
         {
           amount,
           productId: generateUniqueId(),
