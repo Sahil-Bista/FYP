@@ -25,7 +25,7 @@ export const AddFutsalForm = () => {
     formData.append("futsalContact", data.futsalContact);
 
     await axios
-      .post(`http://localhost:3001/addFutsal/${userId}`, formData, {
+      .post(`http://localhost:3001/api/futsal/addFutsal/${userId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data", // This is required for file uploads
         },

@@ -11,7 +11,7 @@ export default function PendingFutsals() {
     const futsalId = _id;
     axios
       .post(
-        `http://localhost:3001/validateFutsal/${futsalId}`,
+        `http://localhost:3001/api/futsal/validateFutsal/${futsalId}`,
         {},
         {
           withCredentials: true,
@@ -47,7 +47,9 @@ export default function PendingFutsals() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/pending-futsals", { withCredentials: true })
+      .get("http://localhost:3001/api/futsal/pending-futsals", {
+        withCredentials: true,
+      })
       .then((result) => {
         console.log(result);
         setPendingFutsal(result.data);

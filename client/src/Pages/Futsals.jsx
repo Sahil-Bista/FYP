@@ -12,7 +12,7 @@ function Futsal() {
   const navigate = useNavigate();
   const handleDelete = (_id) => {
     axios
-      .delete(`http://localhost:3001/deleteFutsal/${_id}`, {
+      .delete(`http://localhost:3001/api/futsal/deleteFutsal/${_id}`, {
         withCredentials: true,
       })
       .then((result) => {
@@ -26,7 +26,7 @@ function Futsal() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/futsal", { withCredentials: true })
+      .get("http://localhost:3001/api/futsal", { withCredentials: true })
       .then((result) => {
         console.log(result.data);
         setFutsals(result.data.futsals);

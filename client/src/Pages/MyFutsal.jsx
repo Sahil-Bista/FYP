@@ -13,7 +13,7 @@ export default function MyFutsal() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/futsal/${user}`, {
+      .get(`http://localhost:3001/api/futsal/futsalOwner/${user}`, {
         withCredentials: true,
       })
       .then((result) => {
@@ -37,7 +37,7 @@ export default function MyFutsal() {
     const futsalId = _id;
     axios
       .patch(
-        `http://localhost:3001/futsal/editStatus/${futsalId}`,
+        `http://localhost:3001/api/futsal/editStatus/${futsalId}`,
         {},
         { withCredentials: true }
       )

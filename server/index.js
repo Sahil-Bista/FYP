@@ -8,10 +8,8 @@ import path from "path";
 import cors from "cors";
 import authentication from './middlewares/authentication.js'
 import cookieParser from "cookie-parser";
-import { getAllUsers, getSpecificUser, login, signup } from "./controllers/usercontroller.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-import { createFutsal, upload, getAllFutsals,editStatus, getVendorSpecificFutsal, deleteFutsal, getFutsalById, editFutsal, getPendingFutsals, validateFutsal } from "./controllers/futsalController.js";
 import { createBooking, deleteBooking, getFilteredBooking, getFutsalSpecificBooking, getParticularBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
 import { findConnectedUsers, findUsersMessages, searchChatMembers } from "./controllers/chatcontroller.js";
@@ -96,20 +94,9 @@ chatEvents.on('saveMessage', async ({msg, sender, reciever,room}) => {
   })
 })
 
-
-// app.post("/login", login);
-
-// app.post("/register/:userRole", signup);
-
-// app.get('/all-users',authentication,getAllUsers)
-
-// app.get('/:userId', authentication,getSpecificUser);
-
 routesSetup(app);
 
-app.get('/pending-futsals',authentication,getPendingFutsals)
 
-app.get('/futsal/:user',authentication, getVendorSpecificFutsal)
 
 app.get('/all-bookings/:futsalId',authentication,getFutsalSpecificBooking)
 
@@ -117,7 +104,26 @@ app.get('/booking/:bookingId', authentication, getParticularBooking)
 
 app.post('/searchBookings/:futsalId',authentication, getFilteredBooking)
 
-app.post("/validateFutsal/:futsalId", authentication,validateFutsal)
+
+
+// app.post("/validateFutsal/:futsalId", authentication,validateFutsal)
+
+// app.get("/futsal", authentication, getAllFutsals)
+
+// app.get('/pending-futsals',authentication,getPendingFutsals)
+
+// app.get('/futsal/:user',authentication, getVendorSpecificFutsal)
+
+// app.get("/futsals/:futsalId", authentication, getFutsalById)
+
+// app.patch("/futsal/:futsalId", authentication, editFutsal)
+
+// app.delete("/deleteFutsal/:futsalId", authentication, deleteFutsal)
+
+// app.post("/addFutsal/:userId",upload.single("image"), createFutsal);
+
+// app.patch("/futsal/editStatus/:futsalId", authentication, editStatus)
+
 
 app.get('/message/:userId',authentication,findUsersMessages)
 
@@ -126,17 +132,6 @@ app.get('/room/:myUserId', authentication, findConnectedUsers)
 
 app.post("/chat/search",authentication, searchChatMembers);
 
-app.get("/futsal", authentication, getAllFutsals)
-
-app.get("/futsals/:futsalId", authentication, getFutsalById)
-
-app.patch("/futsal/:futsalId", authentication, editFutsal)
-
-app.delete("/deleteFutsal/:futsalId", authentication, deleteFutsal)
-
-app.post("/addFutsal/:userId",upload.single("image"), createFutsal);
-
-app.patch("/futsal/editStatus/:futsalId", authentication, editStatus)
 
 app.post("/check-payment-status",checkPaymentStatus)
 

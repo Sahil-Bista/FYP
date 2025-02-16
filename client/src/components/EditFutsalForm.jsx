@@ -24,9 +24,13 @@ export const EditFutsalForm = ({ futsalId, close }) => {
       futsal_contact: data.futsalContact,
     };
     await axios
-      .patch(`http://localhost:3001/futsal/${futsalId}`, updatedData, {
-        withCredentials: true,
-      })
+      .patch(
+        `http://localhost:3001/api/futsal/editFutsal/${futsalId}`,
+        updatedData,
+        {
+          withCredentials: true,
+        }
+      )
       .then((result) => {
         console.log(result);
         close();
@@ -44,11 +48,11 @@ export const EditFutsalForm = ({ futsalId, close }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/futsals/${futsalId}`, {
+      .get(`http://localhost:3001/api/futsal/${futsalId}`, {
         withCredentials: true,
       })
       .then((result) => {
-        console.log(result.data);
+        console.log("data", result.data);
         reset({
           futsalName: result.data.futsal.futsal_name,
           futsalAddress: result.data.futsal.futsal_address,
@@ -62,7 +66,6 @@ export const EditFutsalForm = ({ futsalId, close }) => {
       });
   }, [futsalId]);
 
-  console.log(errors);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ToastContainer />
