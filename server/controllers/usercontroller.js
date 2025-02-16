@@ -7,8 +7,7 @@ const saltRounds = 10;
 const signup = async (req, res) => {
   try {
     console.log(req.body);
-    let { name, email, password } = req.body;
-    let { userRole } = req.params;
+    let { name, email, password, role } = req.body;
     const regexUserEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
     if (!regexUserEmail.test(email)) {
@@ -28,7 +27,7 @@ const signup = async (req, res) => {
       name: `${name}`,
       email: `${email}`,
       password: `${hashedPassword}`,
-      role: `${userRole}`,
+      role: `${role}`,
     });
     res.status(201).json({ msg: "User signed in successfully", user });
   } catch (error) {

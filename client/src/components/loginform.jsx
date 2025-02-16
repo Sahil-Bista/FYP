@@ -30,7 +30,7 @@ export const LoginForm = () => {
           localStorage.setItem("userRole", result.data.userRole);
           navigate("/home");
         } else {
-          navigate("/registerAs");
+          navigate("/register");
           alert("You are not registered to this service");
         }
       })

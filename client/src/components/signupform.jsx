@@ -21,7 +21,7 @@ export const SignUp = () => {
   const onSubmit = async (data) => {
     // console.log(data);
     await axios
-      .post(`http://localhost:3001/api/user/register/${userRole}`, data)
+      .post(`http://localhost:3001/api/user/register`, data)
       .then((result) => {
         console.log("result", result);
         if (result.status === 201) {
@@ -90,6 +90,29 @@ export const SignUp = () => {
           className="input"
         />
         <span className="error">{errors.rePassword?.message}</span>
+      </div>
+      <div className="label-input-radio">
+        <label className="label">Register As: </label>
+        <div className="radio-options">
+          <div className="radio-option">
+            <input type="radio" {...register("role")} value="USER" id="user" />
+            <label htmlFor="user" className="label">
+              User
+            </label>
+          </div>
+          <div className="radio-option">
+            <input
+              type="radio"
+              {...register("role")}
+              value="PENDING_VENDOR"
+              id="vendor"
+            />
+            <label htmlFor="vendor" className="label">
+              Vendor
+            </label>
+          </div>
+        </div>
+        {errors.role && <FaExclamationCircle className="exclamation-icon" />}
       </div>
       <div className="agreement-div">
         <input type="checkbox" {...register("terms")} />

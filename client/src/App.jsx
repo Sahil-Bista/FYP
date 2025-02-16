@@ -10,14 +10,12 @@ import Failure from "./PaymentFailure";
 import Futsal from "./Pages/Futsals";
 import BookingList from "./Pages/BookingList";
 import Futsals from "./Pages/Futsal";
-import RegistrationChoice from "./RegistrationChoices";
 import PendingFutsals from "./PendingFutsals";
 import MyFutsal from "./Pages/MyFutsal";
 
 // Define your routes
 const router = createBrowserRouter([
-  { path: "/registerAs", element: <RegistrationChoice /> },
-  { path: "/register/:userRole", element: <Signup /> },
+  { path: "/register", element: <Signup /> },
   { path: "/login", element: <Login /> },
   { path: "/home", element: <Landing /> },
   { path: "/chat/:userId", element: <Chat /> },

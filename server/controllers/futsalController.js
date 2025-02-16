@@ -238,7 +238,7 @@ const validateFutsal = async (req, res) => {
       { new: true }
     );
     return res
-      .status(200)
+      .status(201)
       .json({ msg: "Futsal updated successfully", updatedFutsal });
   } catch (error) {
     console.log(error);

@@ -5,6 +5,6 @@ import authentication from '../middlewares/authentication.js';
 export const userRouter = Router();
 
 userRouter.post('/login', login)
-userRouter.post('/register/:userRole',signup)
+userRouter.post('/register',signup)
 userRouter.get('/all-users',authentication, getAllUsers)
 userRouter.get('/:userId', authentication, getSpecificUser)

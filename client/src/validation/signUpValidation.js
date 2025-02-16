@@ -21,4 +21,5 @@ export const signUpValidationSchema = Yup.object().shape({
     terms: Yup.bool()
       .isTrue("You must agree to the terms and policies")
       .required("You must agree to the terms and policies"),
+    role:Yup.string().required("Role is required")
   });
