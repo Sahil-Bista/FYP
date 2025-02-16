@@ -12,7 +12,7 @@ import { login, signup } from "./controllers/usercontroller.js";
 import UserModel from "./model/User.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-import { createFutsal, upload, getAllFutsals,editStatus, getVendorSpecificFutsal, deleteFutsal, getFutsalById, editFutsal } from "./controllers/futsalController.js";
+import { createFutsal, upload, getAllFutsals,editStatus, getVendorSpecificFutsal, deleteFutsal, getFutsalById, editFutsal, getPendingFutsals, validateFutsal } from "./controllers/futsalController.js";
 import { createBooking, deleteBooking, getFilteredBooking, getParticularBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
 import futsalModel from "./model/Futsal.js";
@@ -110,10 +110,7 @@ app.get('/all-users',authentication,async (req,res)=>{
   res.json(users)
 })
 
-app.get('/pending-futsals',authentication,async(req,res)=>{
-  const futsals = await futsalModel.find({isValid:false});
-  res.json(futsals);
-})
+app.get('/pending-futsals',authentication,getPendingFutsals)
 
 app.get('/futsal/:user',authentication, getVendorSpecificFutsal)
 
@@ -139,22 +136,7 @@ app.get('/booking/:bookingId', authentication, getParticularBooking)
 app.post('/searchBookings/:futsalId',authentication, getFilteredBooking)
 
 
-app.post("/validateFutsal/:futsalId", authentication, async(req,res)=>{
-  try{
-    const {futsalId} = req.params;
-    const futsal = await futsalModel.findOne({_id: futsalId});
-    if(!futsal){
-      return res.status(404).json({ error: "Futsal not found" });
-    }
-    const updatedFutsal = await futsalModel.findByIdAndUpdate(futsalId, {isValid :true}, {new:true});
-    const vendor = futsal.vendorId;
-    const user = await UserModel.findByIdAndUpdate({_id:vendor},{role:"VENDOR"},{new:true}); 
-    return res.status(200).json({ msg: "Futsal updated successfully", updatedFutsal });
-  }catch(error){
-    console.log(error);
-    return res.status(500),json({error});
-  }
-})
+app.post("/validateFutsal/:futsalId", authentication,validateFutsal)
 
 app.get('/message/:userId',authentication,findUsersMessages)
 

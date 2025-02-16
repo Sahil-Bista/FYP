@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router";
 import VendorHeader from "../components/VendorHeader";
+import AdminHeader from "../components/AdminHeader";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ const LandingPage = () => {
     <div>
       <div className="section-1">
         <div className="header">
-          {userRole === "VENDOR" || userRole === "PENDING_VENDOR" ? (
+          {userRole === "ADMIN" ? (
+            <AdminHeader />
+          ) : userRole === "VENDOR" || userRole === "PENDING_VENDOR" ? (
             <VendorHeader />
           ) : (
             <Header />
