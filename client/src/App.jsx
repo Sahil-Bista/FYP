@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Use c
 import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 import Landing from "./Pages/Landing";
-import Chat from "./chat";
+import Chat from "./Pages/chat";
 import Payment from "./Payment";
 import Success from "./PaymentSuccess";
 import Failure from "./PaymentFailure";
