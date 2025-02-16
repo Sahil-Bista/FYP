@@ -17,9 +17,9 @@ function Login() {
         <div>
           <div className="logo-container">
             {" "}
-            <img src={Logo} alt="logo" className="logo" />
+            <img src={Logo} alt="logo" className="logos" />
           </div>
-          <h1 className="futsal-name">
+          <h1 className="futsals-name">
             <center>RIVALS FUTSAL</center>
           </h1>
           <h2 className="sign-in-text">

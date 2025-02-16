@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
-import notificationSound from "./assets/notification.mp3";
-import Header from "./components/Header";
+import notificationSound from "../assets/notification.mp3";
+import "../styles/chat.css";
+import ChatHeader from "../components/chatHeader";
 
 const socket = io("http://localhost:3001");
 
@@ -180,64 +181,27 @@ function Chat() {
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        overflowY: "hidden",
-      }}
-    >
-      <Header />
-      <div style={{ flex: 1, display: "flex", height: "calc(100vh - 60px)" }}>
-        <div
-          style={{
-            width: "300px",
-            borderRight: "1px solid white",
-            padding: "10px",
-            overflowY: "auto",
-            backgroundColor: "#121212",
-            color: "#DADADA",
-          }}
-        >
-          <div style={{ position: "relative" }}>
+    <div className="chat-page-div">
+      <div className="header">
+        <ChatHeader />
+      </div>
+
+      <div className="chat-box-div">
+        <div className="messages-div">
+          <div className="search-people">
             <input
               type="text"
               placeholder="Search people"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyPress}
-              style={{
-                width: "100%",
-                padding: "10px",
-                fontSize: "14px",
-                borderRadius: "50px",
-                border: "1px solid #4A4B4B",
-                marginBottom: "10px",
-                color: "#6E7072",
-                backgroundColor: "#121212",
-              }}
+              className="search-people-input"
             />
-            <button
-              onClick={handleSubmit}
-              style={{
-                position: "absolute",
-                top: "40%",
-                right: "10px",
-                transform: "translateY(-50%)",
-                fontSize: "18px",
-                color: "#6E7072ii",
-                cursor: "pointer",
-                background: "none",
-                border: "none",
-              }}
-            >
+            <button onClick={handleSubmit} className="search-user-button">
               <i className="fas fa-search"></i>
             </button>
           </div>
-          <div
-            style={{ padding: "10px", paddingBottom: "0px", fontSize: "12px" }}
-          >
+          <div className="all-messages-div">
             <p>
               <i className="fa-solid fa-message"></i> &nbsp;
               <b>ALL MESSAGES</b>
@@ -246,79 +210,29 @@ function Chat() {
           {(searchQuery.trim() ? searchedUser : matchedUsers).map((user) => (
             <div key={user._id}>
               <div
-                style={{
-                  cursor: "pointer",
-                }}
+                className="messged-users"
                 onClick={() => navigate(`/chat/${user._id}`)}
               >
-                <div
-                  className="Parent1"
-                  style={{
-                    position: "relative",
-                    borderBottom: "1px solid white",
-                    height: "60px",
-                    marginBottom: "5px",
-                  }}
-                >
-                  <div
-                    className="parent2"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
+                <div className="Parent1">
+                  <div className="Parent2">
                     <div>
                       <i className="fa-regular fa-circle-user"></i> &nbsp;
                     </div>
                     <div>
-                      <p style={{ margin: 0, fontWeight: "bold" }}>
-                        {user.name}
-                      </p>
+                      <p className="user-name">{user.name}</p>
                     </div>
                   </div>
                   {lastMessages[user._id]?.message ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: "5px",
-                      }}
-                    >
-                      <div
-                        className="lastMessage"
-                        style={{
-                          fontSize: "12px",
-                          color: "#6c757d",
-                          marginBottom: "5px",
-                          position: "absolute",
-                          left: "25px",
-                        }}
-                      >
+                    <div className="last-message-div">
+                      <div className="last-message">
                         {lastMessages[user._id]?.message.message}
                       </div>
-                      <div
-                        className="messageTime"
-                        style={{
-                          position: "absolute",
-                          top: "7px",
-                          right: "0px",
-                          fontSize: "10px",
-                          color: "#aaa",
-                          textAlign: "right",
-                        }}
-                      >
+                      <div className="message-time">
                         {lastMessages[user._id]?.time}
                       </div>
                     </div>
                   ) : (
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        color: "#6c757d",
-                        position: "absolute",
-                        bottom: "15px",
-                        left: "25px",
-                      }}
-                    >
-                      No messages yet
-                    </div>
+                    <div className="no-last-message-div">No messages yet</div>
                   )}
                 </div>
               </div>
@@ -326,85 +240,43 @@ function Chat() {
           ))}
         </div>
 
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <div className="right-div">
           {currentUser && (
-            <div
-              className="username-box"
-              style={{
-                position: "sticky",
-                backgroundColor: "#121212",
-                padding: "5px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                borderBottom: "2px solid black",
-                color: "#F0F0F0",
-                height: "50px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "20px",
-                  marginLeft: "20px",
-                }}
-              >
+            <div className="username-box">
+              <div className="user-name-profile">
                 <i className="fa-regular fa-circle-user"></i>
                 &nbsp;&nbsp;
                 {currentUser?.name}
               </div>
 
-              <div style={{ marginRight: "10px" }}>
+              <div className="three-dots">
                 <i className="fas fa-ellipsis-v"></i>
               </div>
             </div>
           )}
 
-          <div
-            className="messages"
-            style={{
-              flex: 1,
-              overflowY: "auto",
-              padding: "10px 20px 10px 20px ",
-              backgroundColor: "#181818",
-            }}
-          >
+          <div className="messages">
             {messages
               .filter(({ type }) => type !== "Room-joined message")
               .map(({ message, senderId, createdAt }, index) => (
                 <div
                   key={index}
-                  style={{
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    maxWidth: "70%",
-                    justifyContent: senderId == myUserId ? "right" : "left",
-                    width: "fit-content",
-                    justifySelf: senderId == myUserId ? "right" : "left",
-                  }}
+                  className={
+                    senderId === myUserId
+                      ? "sent-messages"
+                      : "received-messages"
+                  }
                 >
                   {createdAt && (
                     <span
-                      style={{
-                        display: "flex",
-                        fontSize: "7px",
-                        justifyContent: senderId == myUserId ? "right" : "left",
-                        justifySelf: senderId == myUserId ? "right" : "left",
-                        paddingLeft: "10px",
-                        paddingRight: "10px",
-                        color: "#A0A0A0",
-                      }}
+                      className={
+                        senderId === myUserId
+                          ? "created-At-div-sender"
+                          : "created-At-div-receiver"
+                      }
                     >
                       {senderId != myUserId && (
-                        <span
-                          style={{
-                            paddingRight: "5px",
-                            fontSize: "12px",
-                            color: "#DADADA",
-                          }}
-                        >
+                        <span className="sender-name">
                           <b>{currentUser?.name}</b>
                         </span>
                       )}
@@ -419,14 +291,11 @@ function Chat() {
                   )}
                   <div
                     key={index}
-                    style={{
-                      backgroundColor:
-                        senderId == myUserId ? "#007bff" : "lightgray",
-                      color: senderId == myUserId ? "white" : "black",
-                      borderRadius: "10px",
-                      padding: ".5rem",
-                    }}
-                    className="message"
+                    className={
+                      senderId === myUserId
+                        ? "chat-box-sender-messages"
+                        : "chat-box-receiver-messages"
+                    }
                   >
                     {message}
                   </div>
@@ -434,57 +303,16 @@ function Chat() {
               ))}
           </div>
 
-          <div
-            style={{
-              position: "sticky",
-              bottom: "0",
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              boxSizing: "border-box",
-              backgroundColor: "#121212",
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                display: "flex",
-                width: "100%",
-              }}
-            >
+          <div className="bottom-message-sending-div">
+            <div className="input-field-divison">
               <input
                 type="text"
-                className="input-wrapper"
+                className="message-input"
                 placeholder="           Type message..."
                 value={currentMessage}
                 onChange={(e) => setCurrentMessage(e.target.value)}
-                style={{
-                  flex: 1,
-                  padding: "10px",
-                  fontSize: "16px",
-                  color: "#A0A0A0",
-                  backgroundColor: "#121212",
-                  paddingRight: "50px", // Space for the button on the right
-                }}
               />
-              <button
-                onClick={sendMessage}
-                style={{
-                  position: "absolute",
-                  right: "15px",
-                  top: "45%",
-                  transform: "translateY(-50%)", // Center the button vertically
-                  backgroundColor: "#007bff",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "10px",
-                  cursor: "pointer",
-                  marginTop: "2.25px",
-                  padding: "3px",
-                  width: "100px",
-                }}
-              >
+              <button onClick={sendMessage} className="send-message-button">
                 Send &nbsp;
                 <i className="fa-regular fa-paper-plane"></i>{" "}
               </button>

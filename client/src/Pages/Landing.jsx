@@ -37,7 +37,7 @@ const LandingPage = () => {
       <div className="section-2">
         <div className="overlay-2"></div>
         <div className="card-row-1">
-          <div className="card">
+          <div className="cards">
             <div>
               <img src={card1} alt="Card 1" className="card-image" />
             </div>
@@ -57,7 +57,7 @@ const LandingPage = () => {
         </div>
 
         <div className="card-row-2">
-          <div className="card">
+          <div className="cards">
             <div>
               <img src={card2} alt="Card 2" className="card-image" />
             </div>
@@ -82,7 +82,7 @@ const LandingPage = () => {
         </div>
 
         <div className="card-row-3">
-          <div className="card">
+          <div className="cards">
             <div>
               <img src={card3} alt="Card 3" className="card-image" />
             </div>

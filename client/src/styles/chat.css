@@ -1,0 +1,252 @@
+.header{
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 300;
+}
+
+.chat-page-div {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+  }
+  
+  .chat-box-div {
+    flex: 1;
+    display: flex;
+    height: calc(100vh - 60px);
+  }
+  
+  .messages-div {
+    width: 300px;
+    border-right: 1px solid white;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #121212;
+    color: #DADADA;
+  }
+  
+  .search-people {
+    position: relative;
+  }
+  
+  .search-people-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 50px;
+    border: 1px solid #4A4B4B;
+    margin-bottom: 10px;
+    color: #6E7072;
+    background-color: #121212;
+  }
+  
+  .search-user-button {
+    position: absolute;
+    top: 40%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #6E7072;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  
+  .all-messages-div {
+    padding: 10px;
+    padding-bottom: 0px;
+    font-size: 12px;
+  }
+  
+  .messged-users {
+    cursor: pointer;
+  }
+  
+  .Parent1 {
+    position: relative;
+    border-bottom: 1px solid white;
+    height: 60px;
+    margin-bottom: 5px;
+  }
+  
+  .Parent2 {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-name {
+    font-weight: bold;
+    margin: 0px;
+  }
+  
+  .last-message-div{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+  }
+
+  .last-message{
+    font-size:12px ;
+    color: #6c757d;
+    margin-bottom: 5px;
+    position: absolute;
+    left: 25px;
+  }
+
+  .message-time{
+    position: absolute;
+    top: 7px;
+    right: 0px;
+    font-size: 10px;
+    color: #aaa;
+    text-align: right;
+  }
+
+  .no-last-message-div{
+    font-size: 12px;
+    color: #6c757d;
+    position: absolute;
+    bottom: 15px;
+    left: 25px;
+  }
+
+
+  .right-div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .username-box {
+    position: sticky;
+    background-color: #121212;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+    color: #F0F0F0;
+    height: 50px;
+  }
+  
+  .user-name-profile {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    margin-left: 20px;
+  }
+  
+  .three-dots {
+    margin-right: 20px;
+  }
+  
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 20px;
+    background-color: #181818;
+  }
+  
+  .sent-messages {
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    max-width: 70%;
+    width: fit-content;
+    justify-content: right;
+    justify-self: right;
+  }
+
+  .received-messages{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    width: fit-content;
+    justify-content: left;
+    justify-self: left;
+  }
+  
+  .created-At-div-sender {
+    display: flex;
+    font-size: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #A0A0A0;
+    justify-content: right;
+    justify-self: right;
+  }
+
+  .created-At-div-receiver{
+    display: flex;
+    justify-content: left;
+    justify-self: left;
+    font-size: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #A0A0A0;
+    
+  }
+  
+  .sender-name {
+    padding-right: 5px;
+    font-size: 12px;
+    color: #DADADA;
+  }
+  
+  .chat-box-sender-messages {
+    border-radius: 10px;
+    padding: 0.3rem;
+    background-color: #007bff;
+    color: white;
+  }
+
+  .chat-box-receiver-messages {
+    border-radius: 10px;
+    padding: 0.3rem;
+    background-color: lightgray;
+    color: black;
+  }
+  
+  .bottom-message-sending-div {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #121212;
+  }
+  
+  .input-field-divison {
+    position: relative;
+    display: flex;
+    width: 100%;
+  }
+  
+  .message-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    color: #A0A0A0;
+    background-color: #121212;
+    padding-right: 50px;
+  }
+  
+  .send-message-button {
+    position: absolute;
+    right: 15px;
+    top: 45%;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 3px;
+    width: 100px;
+  }
+  
