@@ -12,6 +12,7 @@ import BookingList from "./Pages/BookingList";
 import Futsals from "./Pages/Futsal";
 import PendingFutsals from "./PendingFutsals";
 import MyFutsal from "./Pages/MyFutsal";
+import ErrorPage from "./Pages/ErrorPage";
 
 // Define your routes
 const router = createBrowserRouter([
@@ -28,7 +29,8 @@ const router = createBrowserRouter([
   { path: "/payment-success", element: <Success /> },
   { path: "/payment-failure", element: <Failure /> },
   { path: "/pending-futsals", element: <PendingFutsals /> },
-  { path: "my-futsal", element: <MyFutsal /> },
+  { path: "/my-futsal", element: <MyFutsal /> },
+  { path: "*", element: <ErrorPage /> },
 ]);
 
 function App() {
