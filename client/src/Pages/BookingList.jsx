@@ -22,7 +22,7 @@ export default function BookingLis() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/all-bookings/${futsalId}`, {
+      .get(`http://localhost:3001/api/booking/futsal/${futsalId}`, {
         withCredentials: true,
       })
       .then((result) => {
@@ -36,7 +36,7 @@ export default function BookingLis() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:3001/deleteBooking/${bookingId}`,
+        `http://localhost:3001/api/booking/deleteBooking/${bookingId}`,
         {},
         { withCredentials: true }
       );
@@ -62,7 +62,7 @@ export default function BookingLis() {
     if (status) params.append("status", status);
     axios
       .post(
-        `http://localhost:3001/searchBookings/${futsalId}/?${params.toString()}`,
+        `http://localhost:3001/api/booking/searchBookings/${futsalId}/?${params.toString()}`,
         {},
         { withCredentials: true }
       )
@@ -82,7 +82,7 @@ export default function BookingLis() {
     setEndTime("");
     setStatus("");
     axios
-      .get(`http://localhost:3001/all-bookings/${futsalId}`, {
+      .get(`http://localhost:3001/api/booking/futsal/${futsalId}`, {
         withCredentials: true,
       })
       .then((result) => {
@@ -96,7 +96,7 @@ export default function BookingLis() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:3001/editBooking/${bookingId}`,
+        `http://localhost:3001/api/booking/editBooking/${bookingId}`,
         {},
         { withCredentials: true }
       );

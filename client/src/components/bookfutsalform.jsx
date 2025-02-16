@@ -27,7 +27,7 @@ export const BookFutsalForm = ({ futsalId, close }) => {
     console.log("futsal", futsalId);
     await axios
       .post(
-        `http://localhost:3001/book`,
+        `http://localhost:3001/api/booking/createBooking`,
         {
           futsalId,
           ...data,

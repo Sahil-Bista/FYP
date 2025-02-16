@@ -10,7 +10,7 @@ const Payment = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/booking/${bookingId}`, {
+      .get(`http://localhost:3001/api/booking/${bookingId}`, {
         withCredentials: true,
       })
       .then((result) => {

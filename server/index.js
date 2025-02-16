@@ -1,5 +1,5 @@
 import http from "http";
-import express, { raw } from "express";
+import express from "express";
 import mongoose, { Types } from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
@@ -10,7 +10,6 @@ import authentication from './middlewares/authentication.js'
 import cookieParser from "cookie-parser";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
-import { createBooking, deleteBooking, getFilteredBooking, getFutsalSpecificBooking, getParticularBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
 import { findConnectedUsers, findUsersMessages, searchChatMembers } from "./controllers/chatcontroller.js";
 import routesSetup from "./routes/index.js";
@@ -98,13 +97,6 @@ routesSetup(app);
 
 
 
-app.get('/all-bookings/:futsalId',authentication,getFutsalSpecificBooking)
-
-app.get('/booking/:bookingId', authentication, getParticularBooking)
-
-app.post('/searchBookings/:futsalId',authentication, getFilteredBooking)
-
-
 app.get('/message/:userId',authentication,findUsersMessages)
 
 
@@ -117,9 +109,9 @@ app.post("/check-payment-status",checkPaymentStatus)
 
 app.post("/esewa-payment/:bookingId",initiatePayment)
 
-app.post("/book",authentication,createBooking);
 
-app.post("/deleteBooking/:bookingId",authentication,deleteBooking);
+
+
 
 
 server.listen(port, () => {
