@@ -59,4 +59,19 @@ const login = async (req, res) => {
     }
   }
 
- export {login , signup}
+  const getAllUsers = async(req,res) =>{
+    const users = await UserModel.find({_id: {$ne: new Types.ObjectId(req.userId)}})
+    res.json(users)
+  }
+
+  const getSpecificUser = async(req,res) =>{
+    const { userId } = req.params;
+  const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  }
+
+ export {login , signup , getAllUsers , getSpecificUser}
