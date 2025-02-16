@@ -8,17 +8,14 @@ import path from "path";
 import cors from "cors";
 import authentication from './middlewares/authentication.js'
 import cookieParser from "cookie-parser";
-import { getAllUser, getSpecificUser, login, signup } from "./controllers/usercontroller.js";
-import UserModel from "./model/User.js";
+import { getAllUsers, getSpecificUser, login, signup } from "./controllers/usercontroller.js";
 import ChatModel from "./model/Chat.js";
 import EventEmitter from "events";
 import { createFutsal, upload, getAllFutsals,editStatus, getVendorSpecificFutsal, deleteFutsal, getFutsalById, editFutsal, getPendingFutsals, validateFutsal } from "./controllers/futsalController.js";
 import { createBooking, deleteBooking, getFilteredBooking, getFutsalSpecificBooking, getParticularBooking } from "./controllers/BookingController.js";
 import {checkPaymentStatus, initiatePayment} from "./controllers/paymentController.js"
-import futsalModel from "./model/Futsal.js";
-import bookingModel from "./model/Booking.js";
-import PaymentModel from "./model/payment.js";
 import { findConnectedUsers, findUsersMessages, searchChatMembers } from "./controllers/chatcontroller.js";
+import routesSetup from "./routes/index.js";
 dotenv.config();
 
 
@@ -100,11 +97,15 @@ chatEvents.on('saveMessage', async ({msg, sender, reciever,room}) => {
 })
 
 
-app.post("/login", login);
+// app.post("/login", login);
 
-app.post("/register/:userRole", signup);
+// app.post("/register/:userRole", signup);
 
-app.get('/all-users',authentication,getAllUsers)
+// app.get('/all-users',authentication,getAllUsers)
+
+// app.get('/:userId', authentication,getSpecificUser);
+
+routesSetup(app);
 
 app.get('/pending-futsals',authentication,getPendingFutsals)
 
@@ -120,7 +121,6 @@ app.post("/validateFutsal/:futsalId", authentication,validateFutsal)
 
 app.get('/message/:userId',authentication,findUsersMessages)
 
-app.get('/user/:userId', authentication,getSpecificUser);
 
 app.get('/room/:myUserId', authentication, findConnectedUsers)
 

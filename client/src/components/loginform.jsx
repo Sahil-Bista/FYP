@@ -18,7 +18,11 @@ export const LoginForm = () => {
 
   const onSubmit = async (data) => {
     await axios
-      .post("http://localhost:3001/login", { data }, { withCredentials: true })
+      .post(
+        "http://localhost:3001/api/user/login",
+        { data },
+        { withCredentials: true }
+      )
       .then((result) => {
         console.log(result);
         if (result.data.data === "Success") {

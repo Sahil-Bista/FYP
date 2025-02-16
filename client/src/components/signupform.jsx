@@ -21,7 +21,7 @@ export const SignUp = () => {
   const onSubmit = async (data) => {
     console.log(data);
     await axios
-      .post(`http://localhost:3001/register/${userRole}`, data)
+      .post(`http://localhost:3001/api/user/register/${userRole}`, data)
       .then((result) => {
         if (result.status === 201) {
           navigate("/login");
