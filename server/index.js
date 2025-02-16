@@ -18,7 +18,7 @@ import {checkPaymentStatus, initiatePayment} from "./controllers/paymentControll
 import futsalModel from "./model/Futsal.js";
 import bookingModel from "./model/Booking.js";
 import PaymentModel from "./model/payment.js";
-import { auth } from "google-auth-library";
+import { findConnectedUsers, findUsersMessages, searchChatMembers } from "./controllers/chatcontroller.js";
 dotenv.config();
 
 
@@ -156,15 +156,7 @@ app.post("/validateFutsal/:futsalId", authentication, async(req,res)=>{
   }
 })
 
-app.get('/message/:userId',authentication,async (req,res)=>{
-  const {userId} = req.params
-  const myId = req.userId
-  const chats = await ChatModel.find({
-    receiverId: {$in: [new Types.ObjectId(userId), new Types.ObjectId(myId)]},
-    senderId: {$in: [new Types.ObjectId(userId), new Types.ObjectId(myId)]}
-  })
-  res.json(chats)
-})
+app.get('/message/:userId',authentication,findUsersMessages)
 
 app.get('/user/:userId', async (req, res) => {
   const { userId } = req.params;
@@ -176,89 +168,9 @@ app.get('/user/:userId', async (req, res) => {
     res.json(user);
 });
 
-app.get('/room/:myUserId', async(req,res)=>{
-  const {myUserId} = req.params;
-  const userInvolvedMessages = await ChatModel.find({
-    $and: [
-      { 
-        $or: [
-          { senderId: new Types.ObjectId(myUserId) },
-          { receiverId: new Types.ObjectId(myUserId) }
-        ]
-      },
-      { type: "Room-joined message"}
-    ]
-  });
-  const matchedUserIds = userInvolvedMessages.reduce((uniqueUserIds, message) => {
-    const otherUserId = message.senderId.toString() === myUserId 
-      ? message.receiverId.toString() 
-      : message.senderId.toString();
+app.get('/room/:myUserId', authentication, findConnectedUsers)
 
-    if (!uniqueUserIds.includes(otherUserId)) {
-      uniqueUserIds.push(otherUserId);
-    }
-
-    return uniqueUserIds;
-  }, []);
-
-  // Fetch details of the matched users
-  const matchedUsers = await UserModel.find({ _id: { $in: matchedUserIds } }).exec();
-
-  // Respond with the list of matched users
-  res.json(matchedUsers);
-})
-
-app.post("/chat/search",authentication, async (req, res) => {
-  try {
-    const myUserId = req.userId;
-    const { searchQuery } = req.body;
-    const user = searchQuery.trim();
-    if (!user) {
-      return res.status(400).json({ error: "User name is required" });
-    }
-    const foundUser = await UserModel.find({
-      name: { $regex: new RegExp(user, "i") },
-    });
-    const foundUserIds = foundUser.map(user => user._id.toString());
-    const userInvolvedMessages = await ChatModel.find({
-      $and: [
-        { 
-          $or: [
-            { senderId: new Types.ObjectId(myUserId) },
-            { receiverId: new Types.ObjectId(myUserId) }
-          ]
-        },
-        { type: "Room-joined message"}
-      ]
-    });
-    const matchedUserIds = userInvolvedMessages.reduce((uniqueUserIds, message) => {
-      const otherUserId = message.senderId.toString() === myUserId 
-        ? message.receiverId.toString() 
-        : message.senderId.toString();
-  
-      if (!uniqueUserIds.includes(otherUserId)) {
-        uniqueUserIds.push(otherUserId);
-      }
-      return uniqueUserIds;
-    }, []);
-    const matchedUserIdsWithChat = foundUserIds
-    .filter(userId => matchedUserIds.includes(userId))
-    .map(userId => new Types.ObjectId(userId))
-    console.log("matchedUserIdsWithChat",matchedUserIdsWithChat);
-    const foundUsers = [];
-    for (var mUsers of matchedUserIdsWithChat){
-      const mUsersFull = await UserModel.find({_id:mUsers})
-      for (var element of mUsersFull){
-        foundUsers.push(element);
-      }
-    }
-    console.log("foundUser", foundUsers)
-    res.json(foundUsers);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error });
-  }
-});
+app.post("/chat/search",authentication, searchChatMembers);
 
 app.get("/futsal", authentication, getAllFutsals)
 
