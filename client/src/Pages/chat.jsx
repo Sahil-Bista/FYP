@@ -122,7 +122,9 @@ function Chat() {
       .catch((err) => console.log(err));
 
     axios
-      .get(`http://localhost:3001/user/${userId}`, { withCredentials: true })
+      .get(`http://localhost:3001/api/user/${userId}`, {
+        withCredentials: true,
+      })
       .then((result) => {
         setCurrentUser(result.data);
       })
