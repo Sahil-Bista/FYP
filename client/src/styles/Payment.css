@@ -1,0 +1,74 @@
+.main-page-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  .blurred-black-overlay {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  
+  .pop-up-like-div {
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    height: 60%;
+    background-color: white;
+  }
+  
+  .image-div {
+    flex: 1;
+    background-image: url("../assets/Fairplay.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  .image-div-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  .right-form-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #001C1E;
+    flex: 1;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .crosss-button {
+    position: absolute;
+    top: 5px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+    z-index: 1;
+    margin-bottom: 10px;
+  }
+  

@@ -1,0 +1,42 @@
+.entire-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    position: relative;
+    z-index: 0; 
+  }
+
+  .form-heading {
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .amount-input-div {
+    width: 90%;
+  }
+  
+  .amount-input {
+    width: 100%; 
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  .pay-button {
+    padding: 12px 20px;
+    background-color: #324b4d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+  }
+  

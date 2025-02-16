@@ -4,7 +4,7 @@ import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 import Landing from "./Pages/Landing";
 import Chat from "./Pages/chat";
-import Payment from "./Payment";
+import Payment from "./Pages/Payment";
 import Success from "./PaymentSuccess";
 import Failure from "./PaymentFailure";
 import Futsal from "./Pages/Futsals";
