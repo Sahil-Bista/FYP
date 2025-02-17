@@ -320,7 +320,7 @@ const getFutsalSpecificBooking = async (req,res) =>{
   return res.send(bookingList);
 }catch{
   console.log("Error ir fetching bookings",error)
-    res.status(500).send(error);
+  res.status(500).send(error);
 }
 }
 

@@ -71,7 +71,6 @@ function safeStringify(obj) {
       }
 };
 
-
 const checkPaymentStatus = async(req,res) =>{
   const {product_id} = req.body;
   try{
