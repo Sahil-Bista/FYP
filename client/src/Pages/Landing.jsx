@@ -105,7 +105,7 @@ const LandingPage = () => {
         </div>
         <div className="overlay-1"></div>
       </div>
-      <div className="footer">
+      <div>
         <Footer />
       </div>
     </div>
