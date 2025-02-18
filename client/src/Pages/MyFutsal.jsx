@@ -112,6 +112,10 @@ export default function MyFutsal() {
             <div className="else">
               <p>Your futsal is yet to be reviewed by the admin</p>
               <p>Thank you for your patience!</p>
+              <p>
+                Note: If your request is cancelled you will again see a form
+                here
+              </p>
             </div>
           )}
           <div className="footer">

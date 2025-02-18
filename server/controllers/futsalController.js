@@ -246,6 +246,27 @@ const validateFutsal = async (req, res) => {
   }
 };
 
+const deletePendingFutsal = async(req,res) =>{
+  try{
+    const userRole = req.userRole;
+    const {futsalId} = req.params;
+    console.log(futsalId);
+    const futsal = await bookingModel.findOne({_id:futsalId});
+    if(userRole == 'ADMIN'){
+      const deleted_futsal = await futsalModel.deleteOne({_id:futsalId});
+      console.log(deleted_futsal);
+      return res.status(200).json({messsage:"Futsal deleted "});
+    }else {
+      return res.status(403).json({
+        message: "You are not authorized to delete this booking",
+      });
+    }
+  }catch(error){
+    console.log(error);
+    return res.status(500).json({ message: "Internal Server error" });
+  }
+}
+
 export {
   validateFutsal,
   getPendingFutsals,
@@ -257,4 +278,5 @@ export {
   deleteFutsal,
   getFutsalById,
   editStatus,
+  deletePendingFutsal
 };

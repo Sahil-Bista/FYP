@@ -28,7 +28,7 @@ function Login() {
           <LoginForm />
           <span className="not-registered-text">
             Not registered yet?{" "}
-            <Link className="link" to="/registerAs">
+            <Link className="link" to="/register">
               Sign Up
             </Link>
           </span>

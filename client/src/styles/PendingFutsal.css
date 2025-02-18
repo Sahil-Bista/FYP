@@ -1,0 +1,154 @@
+
+.primary-div {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .backgroundd {
+    background-image: url("../assets/background.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    z-index: 0;
+    position: fixed;
+  }
+  
+  .black-overllay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.68);
+    z-index: 1;
+    position: fixed;
+  }
+  
+  .reference-div {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .Header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .page-heading {
+    color: white;
+    font-size: 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    display: flex;
+    width: 90%;
+    margin: auto;
+    justify-content: space-between;
+    padding-bottom: 20px;
+  }
+  
+  /* Search Row */
+  .search-row {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    justify-content: space-between;
+    gap:20px;
+  }
+  
+  .custom-calendar .p-inputtext
+ {
+    height: 35px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid #7c7c7c !important;
+    border-radius: 40px !important;
+  }
+
+  .custom-calendar .p-button-icon{
+    right: 10px;
+  }
+
+  
+  .status.search {
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #7c7c7c;
+    border-radius: 40px;
+  }
+  
+
+  .button-submit,
+.button-clear {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: black;
+  cursor: pointer;
+  height: 40px;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+  
+  .clear-button {
+    background-color: #dc3545;
+  }
+  
+  .Table-div {
+    width: 90%;
+    margin: 0px auto;
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    table-layout: fixed;
+  }
+  
+  .table-row {
+    color: white;
+    opacity: 0.5;
+    height: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .table-data-row {
+    background-Color: #FFFFFF;
+    opacity: 0.5;
+    font-Family: 'DM Sans', sans-serif;
+    font-Weight: 600;
+  }
+  
+  .table-heading-1,
+  .table-heading-2,
+  .table-heading-3,
+  .table-heading-4,
+  .table-heading-5 {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .futsal_name,
+  .futsal_address,
+  .address_link,
+  .futsal_description,
+  .buttons-td {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .match-button {
+    color: black;
+    margin-right: 5px;
+  }
+  
+  .edit-booking-button {
+    margin-right: 5px;
+    color: black;
+  }
