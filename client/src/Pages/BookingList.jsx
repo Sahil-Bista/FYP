@@ -110,9 +110,8 @@ export default function BookingLis() {
 
   return (
     <div className="primary-div">
-      <div className="background"></div>
-
-      <div className="black-overlay"></div>
+      <div className="backgroundd"></div>
+      <div className="black-overllay"></div>
       <div className="reference-div">
         <div className="Header">
           <Header />
