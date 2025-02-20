@@ -267,6 +267,21 @@ const deletePendingFutsal = async(req,res) =>{
   }
 }
 
+const searchFutsal = async(req,res)=>{
+  try{
+    const {searchQuery} = req.body;
+    const futsal = searchQuery.trim();
+    if(!futsal){
+      return res.status(400).json({ error: "Futsal name/ address is required" });
+    }
+    const foundFutsal = await futsalModel.find({$or: [{futsal_name:{ $regex : new RegExp(futsal,"i")}},{futsal_address:{ $regex : new RegExp(futsal,"i")}}]})
+    return res.status(200).json({message:"Futsal found", data:foundFutsal});
+  }catch(err){
+    console.log(err);
+    return res.status(500).json({message:"Internal server error"})
+  }
+}
+
 export {
   validateFutsal,
   getPendingFutsals,
@@ -278,5 +293,6 @@ export {
   deleteFutsal,
   getFutsalById,
   editStatus,
-  deletePendingFutsal
+  deletePendingFutsal,
+  searchFutsal
 };

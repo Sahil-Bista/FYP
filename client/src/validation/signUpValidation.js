@@ -6,7 +6,7 @@ export const signUpValidationSchema = Yup.object().shape({
       .email("Invalid email format")
       .required("Email is required"),
     password: Yup.string()
-      .required("password id required")
+      .required("Password is required")
       .min(8, "Password must be at least 8 characters")
       .matches(
         /[!@#$%^&*(),.?":{}|<>]/,
@@ -17,7 +17,7 @@ export const signUpValidationSchema = Yup.object().shape({
       .matches(/[a-z]/, "Password must contain at least one lowercase letter"),
     rePassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords do not match")
-      .required(),
+      .required("Re-type password"),
     terms: Yup.bool()
       .isTrue("You must agree to the terms and policies")
       .required("You must agree to the terms and policies"),

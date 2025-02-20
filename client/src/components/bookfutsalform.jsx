@@ -51,15 +51,16 @@ export const BookFutsalForm = ({ futsalId, close }) => {
       .catch((err) => {
         if (err.response?.data?.message) {
           const message = err.response.data.message;
-          toast.error(message, { autoClose: 5000 });
+          toast.error(message, { autoClose: 5000 }, { theme: "dark" });
         } else {
-          toast.error("An unexpected error occurred. Please try again.");
+          toast.error("An unexpected error occurred. Please try again.", {
+            theme: "dark",
+          });
         }
       });
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ToastContainer />
       <div className="button-heading-div">
         <div className="heading-div">
           <h2 className="heading">Book your game!!</h2>

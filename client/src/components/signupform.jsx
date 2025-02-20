@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaExclamationCircle } from "react-icons/fa";
 import "../styles/signup.css";
@@ -33,16 +33,17 @@ export const SignUp = () => {
         if (err.response?.data?.msg) {
           const message = err.response.data.msg;
           console.log(message);
-          toast.error(message, { autoClose: 5000 });
+          toast.error(message, { theme: "light" });
         } else {
-          toast.error("An unexpected error occurred. Please try again.");
+          toast.error("An unexpected error occurred. Please try again.", {
+            theme: "light",
+          });
         }
       });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ToastContainer />
       <div className="label-input">
         <label className="label" htmlFor="name">
           Username
