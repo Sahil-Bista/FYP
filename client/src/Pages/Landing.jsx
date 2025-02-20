@@ -45,7 +45,7 @@ const LandingPage = () => {
               <img src={card1} alt="Card 1" className="card-image" />
             </div>
             <div className="card-content">
-              <h2 className="card-heading">About Rivals Futsal</h2>
+              <h2 className="card-heading">ABOUT RIVALS FUTSAL</h2>
               <div className="content-button">
                 <p className="card-description">
                   Rival Futsal brings the thrill of futsal to you! Book our
@@ -65,7 +65,7 @@ const LandingPage = () => {
               <img src={card2} alt="Card 2" className="card-image" />
             </div>
             <div className="card-content">
-              <h2 className="card-heading">Book With Us</h2>
+              <h2 className="card-heading">BOOK WITH US</h2>
               <div className="content-button">
                 <p className="card-description">
                   Booking at Rival Futsal is quick and easy! Simply select your
@@ -90,7 +90,7 @@ const LandingPage = () => {
               <img src={card3} alt="Card 3" className="card-image" />
             </div>
             <div className="card-content">
-              <h2 className="card-heading">MatchUps</h2>
+              <h2 className="card-heading">MATCHUPS</h2>
               <div className="content-button">
                 <p className="card-description">
                   Challenge other teams to a match and put your skills to the

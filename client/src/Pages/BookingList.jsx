@@ -176,7 +176,7 @@ export default function BookingLis() {
         <div className="Table-div">
           <table className="table">
             <thead>
-              <tr className="table-row">
+              <tr className="table-rowz">
                 <th className="table-heading-1">Name</th>
                 <th className="table-heading-2">Date</th>
                 <th className="table-heading-3">Time</th>
@@ -220,7 +220,7 @@ export default function BookingLis() {
                       <td className="buttons-td">
                         {team_size === "Half-full" && (
                           <button
-                            className="match-button"
+                            className="match-buttons"
                             onClick={() => navigate(`/chat/${userId}`)}
                           >
                             Match
@@ -229,12 +229,15 @@ export default function BookingLis() {
                         {userId === loggedInUserId && (
                           <>
                             <button
-                              className="edit-booking-button"
+                              className="edit-booking-buttons"
                               onClick={(e) => handleEdit(e, _id)}
                             >
                               Edit
                             </button>
-                            <button onClick={(e) => handleDelete(e, _id)}>
+                            <button
+                              className="delete-booking-buttons"
+                              onClick={(e) => handleDelete(e, _id)}
+                            >
                               Delete
                             </button>
                           </>

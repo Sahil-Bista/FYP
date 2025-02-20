@@ -140,7 +140,7 @@ export const EditFutsalForm = ({ futsalId, close }) => {
       </div>
       <div className="save-button-div">
         <button type="submit" className="save-button">
-          Save Changes
+          Save
         </button>
       </div>
     </form>

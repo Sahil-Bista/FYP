@@ -109,13 +109,13 @@
     table-layout: fixed;
   }
   
-  .table-row {
+  .table-rowz {
     color: white;
     opacity: 0.5;
     height: 50px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .table-data-row {
@@ -143,12 +143,32 @@
     box-sizing: border-box;
   }
   
-  .match-button {
-    color: black;
+  .match-buttons {
     margin-right: 5px;
+    color: white;
+    width: 72px;
+    height: 30px;
+    background: #2C2C2C;
+    border: 1px solid #2C2C2C;
+    border-radius: 8px;
   }
   
-  .edit-booking-button {
+  .edit-booking-buttons {
     margin-right: 5px;
-    color: black;
+    color: white;
+    width: 72px;
+    height: 30px;
+    background: #2C2C2C;
+    border: 1px solid #2C2C2C;
+    border-radius: 8px;
+  }
+
+  .delete-booking-buttons {
+    margin-right: 5px;
+    color: white;
+    width: 72px;
+    height: 30px;
+    background: #2C2C2C;
+    border: 1px solid #2C2C2C;
+    border-radius: 8px;
   }

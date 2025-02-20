@@ -114,6 +114,7 @@ function Futsal() {
                       <h4 className="futsall-name">{futsal_name}</h4>
                       <a className="futsal-addresss" href={address_link}>
                         <i className="fa-solid fa-location-pin"></i>
+                        &nbsp;
                         {futsal_address}{" "}
                       </a>
                       <p className="description"> {futsal_description}</p>
@@ -133,7 +134,7 @@ function Futsal() {
                             handleDelete(_id);
                           }}
                         >
-                          Delete Futsal
+                          Remove
                         </button>
                       ) : (
                         <FutsalBook futsalId={_id} />
