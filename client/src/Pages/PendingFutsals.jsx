@@ -25,7 +25,7 @@ export default function PendingFutsals() {
       .then((result) => {
         console.log(result.data.updatedFutsal.isValid);
         if (result.data.updatedFutsal.isValid == true) {
-          Navigate("/home");
+          Navigate("/");
         }
       })
       .catch((err) => {

@@ -14,7 +14,7 @@ const Success = () => {
 
   if (!token) {
     toast.error("Invalid payment token.");
-    navigate("/home");
+    navigate("/");
     return;
   }
 
@@ -36,7 +36,7 @@ const Success = () => {
       }
     } catch (error) {
       toast.error("Payment confirmation failed! Please try again");
-      navigate(`/home`);
+      navigate(`/`);
     }
   };
   useEffect(() => {

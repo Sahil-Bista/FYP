@@ -11,7 +11,7 @@ export default function ErrorPage() {
         <p className="page-not-found-paragraph">
           Oops! The page you are looking for does not exist.
         </p>
-        <NavLink className="back-to-home" to="/home">
+        <NavLink className="back-to-home" to="/">
           Go Back Home
         </NavLink>
       </div>

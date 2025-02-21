@@ -16,7 +16,7 @@ import ErrorPage from "../Pages/ErrorPage";
 export const router = createBrowserRouter([
   { path: "/register", element: <Signup /> },
   { path: "/login", element: <Login /> },
-  { path: "/home", element: <Landing /> },
+  { path: "/", element: <Landing /> },
   { path: "/chat/:userId", element: <Chat /> },
   { path: "/futsal", element: <Futsal /> },
   { path: "/futsals/:userId", element: <Futsals /> },

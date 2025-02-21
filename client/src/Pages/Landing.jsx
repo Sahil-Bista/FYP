@@ -12,8 +12,7 @@ import AdminHeader from "../components/AdminHeader";
 const LandingPage = () => {
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
-  console.log(userRole);
-  console.log(userRole === "VENDOR" || "PENDING_VENDOR");
+  console.log("landing", userRole);
 
   return (
     <div>

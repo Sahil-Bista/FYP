@@ -144,7 +144,7 @@ const createBooking = async (req, res) => {
 
     if (alreadyBooked) {
       console.log("Hello");
-        return res.status(400).json({ message: "The time is not available" });
+        return res.status(400).json({ message: "This time slot is already booked" });
     }
     const booking_status =
       team_size === "Full" ? "Payment pending" : "Waiting to match";

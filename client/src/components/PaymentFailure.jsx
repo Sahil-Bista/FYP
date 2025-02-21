@@ -11,13 +11,13 @@ const PaymentFailure = () => {
 
   if (!token) {
     toast.error("Invalid payment token.");
-    navigate("/home");
+    navigate("/");
     return;
   }
 
   const handleFailure = () => {
     toast.error("Payment failed! Please try again.");
-    navigate("/home");
+    navigate("/");
   };
 
   useEffect(() => {
