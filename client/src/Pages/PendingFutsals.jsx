@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import "../styles/PendingFutsal.css";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminHeader from "../components/AdminHeader";
 
 export default function PendingFutsals() {
   const [pendingFutsal, setPendingFutsal] = useState([]);
@@ -84,7 +84,7 @@ export default function PendingFutsals() {
       <div className="black-overllay"></div>
       <div className="reference-div">
         <div className="Header">
-          <Header />
+          <AdminHeader />
         </div>
         <div className="page-heading">PENDING FUTSALS</div>
         <div className="Table-div">

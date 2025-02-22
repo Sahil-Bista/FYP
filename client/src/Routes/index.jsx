@@ -14,12 +14,14 @@ import MyFutsal from "../Pages/MyFutsal";
 import ErrorPage from "../Pages/ErrorPage";
 import MyBookings from "../Pages/MyBookings";
 import VendorLandingPage from "../Pages/VendorLanding";
+import AdminLandingPage from "../Pages/AdminLanding";
 
 export const router = createBrowserRouter([
   { path: "/register", element: <Signup /> },
   { path: "/login", element: <Login /> },
   { path: "/", element: <Landing /> },
   { path: "/vendor-landing", element: <VendorLandingPage /> },
+  { path: "/admin-landing", element: <AdminLandingPage /> },
   { path: "/chat/:userId", element: <Chat /> },
   { path: "/futsal", element: <Futsal /> },
   { path: "/futsals/:userId", element: <Futsals /> },

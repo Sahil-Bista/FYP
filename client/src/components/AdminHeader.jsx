@@ -2,14 +2,16 @@ import React from "react";
 import logo from "../assets/logo.png";
 import "../styles/header.css";
 
-function Header() {
+function AdminHeader() {
+  const userRole = localStorage.getItem("userRole");
+  console.log("Role", userRole);
   return (
     <div className="header-div">
       <img src={logo} alt="logo" className="logo"></img>
       <nav>
         <ul className="navigation-list">
           <li className="list-item">
-            <a href="#" className="link-item">
+            <a href="/admin-landing" className="link-item">
               HOME
             </a>
           </li>
@@ -23,15 +25,23 @@ function Header() {
               PENDING FUTSALS
             </a>
           </li>
-          <li>
-            <a href="#" className="log-out-link">
-              LOG OUT
-            </a>
-          </li>
+          {userRole ? (
+            <li>
+              <a href="#" className="log-out-link">
+                LOG OUT
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a href="/login" className="log-out-link">
+                LOG IN
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
   );
 }
 
-export default Header;
+export default AdminHeader;

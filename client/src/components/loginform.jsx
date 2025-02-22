@@ -30,6 +30,8 @@ export const LoginForm = () => {
           localStorage.setItem("userRole", result.data.userRole);
           if (result.data.userRole === "VENDOR") {
             navigate("/vendor-landing");
+          } else if (result.data.userRole === "ADMIN") {
+            navigate("/admin-landing");
           } else {
             navigate("/");
           }
