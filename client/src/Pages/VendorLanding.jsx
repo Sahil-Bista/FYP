@@ -3,13 +3,11 @@ import "../styles/landing.css";
 import card1 from "../assets/card1.jpg";
 import card2 from "../assets/card2.jpg";
 import card3 from "../assets/card3.jpg";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { useNavigate } from "react-router";
 import VendorHeader from "../components/VendorHeader";
-import AdminHeader from "../components/AdminHeader";
+import VendorFooter from "../components/VendorFooter";
 
-const LandingPage = () => {
+const VendorLandingPage = () => {
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
   console.log("landing", userRole);
@@ -18,7 +16,7 @@ const LandingPage = () => {
     <div>
       <div className="section-1">
         <div className="header">
-          {userRole === "ADMIN" ? <AdminHeader /> : <Header />}
+          <VendorHeader />
         </div>
         <div className="image-foreground-text">
           <h1 className="app-name">
@@ -41,10 +39,11 @@ const LandingPage = () => {
               <h2 className="card-heading">ABOUT RIVALS FUTSAL</h2>
               <div className="content-button">
                 <p className="card-description">
-                  Rival Futsal brings the thrill of futsal to you! Book our
-                  high-quality court for your next match, gather your team, and
-                  enjoy a seamless playing experience. Convenient, quick, and
-                  built for passionate players!
+                  Rivals Futsal is a platform designed to connect futsal vendors
+                  and players. We help vendors list and manage their futsal
+                  courts, while players can easily find and book the perfect
+                  spot. Join us to take your futsal bookings to a whole new
+                  level!
                 </p>
                 <button className="card-button">Learn More</button>
               </div>
@@ -58,19 +57,19 @@ const LandingPage = () => {
               <img src={card2} alt="Card 2" className="card-image" />
             </div>
             <div className="card-content">
-              <h2 className="card-heading">BOOK WITH US</h2>
+              <h2 className="card-heading">MY FUTSAL</h2>
               <div className="content-button">
                 <p className="card-description">
-                  Booking at Rival Futsal is quick and easy! Simply select your
-                  preferred date and time for the court, invite your team, and
-                  confirm your booking. Once it's set, you're ready to enjoy the
-                  game.
+                  Vendors can have control over thier specific futsals. In case
+                  of manual bookings, vendor can add the booking, can edit thier
+                  futsal's description in case of any changes and also mark
+                  thier futsal closed in unavoidable circumstances.
                 </p>
                 <button
-                  className="card-button book-now"
-                  onClick={() => navigate("/futsal")}
+                  className="card-button"
+                  onClick={() => navigate("/my-futsal")}
                 >
-                  Book Now
+                  MY FUTSAL
                 </button>
               </div>
             </div>
@@ -83,15 +82,20 @@ const LandingPage = () => {
               <img src={card3} alt="Card 3" className="card-image" />
             </div>
             <div className="card-content">
-              <h2 className="card-heading">MATCHUPS</h2>
+              <h2 className="card-heading">BOOKINGS</h2>
               <div className="content-button">
                 <p className="card-description">
-                  Challenge other teams to a match and put your skills to the
-                  test! After booking the court, simply browse available teams
-                  and send a matchup request. Once accepted, your match is
-                  set—get ready to play and compete!
+                  Futsal onwers can view their bookings here! Owners can also
+                  remove the bookings and search for specific bookings based on
+                  date , time and status. No more need ot manage your bookings
+                  in your old-fashioned registers.
                 </p>
-                <button className="card-button">Learn More</button>
+                <button
+                  className="card-button book-now"
+                  onClick={() => navigate("/my-bookings")}
+                >
+                  MY BOOKINGS
+                </button>
               </div>
             </div>
           </div>
@@ -99,10 +103,10 @@ const LandingPage = () => {
         <div className="overlay-1"></div>
       </div>
       <div>
-        <Footer />
+        <VendorFooter />
       </div>
     </div>
   );
 };
 
-export default LandingPage;
+export default VendorLandingPage;

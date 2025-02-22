@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import VendorHeader from "../components/VendorHeader";
 import Footer from "../components/Footer";
 import EditFutsal from "../components/EditFutsal";
+import FutsalBook from "../components/FutsalBook.jsx";
 import "../styles/myFutsal.css";
 
 export default function MyFutsal() {
@@ -99,6 +100,9 @@ export default function MyFutsal() {
                         >
                           {isOpen ? "OPEN" : "CLOSED"}
                         </button>
+                      </div>
+                      <div>
+                        <FutsalBook futsalId={_id} />
                       </div>
                       <div>
                         <EditFutsal futsalId={_id} />

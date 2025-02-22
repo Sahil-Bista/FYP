@@ -3,6 +3,8 @@ import logo from "../assets/logo.png";
 import "../styles/header.css";
 
 function Header() {
+  const userRole = localStorage.getItem("userRole");
+  console.log("Role", userRole);
   return (
     <div className="header-div">
       <img className="logo" src={logo} alt="logo"></img>
@@ -28,11 +30,19 @@ function Header() {
               CHAT
             </a>
           </li>
-          <li>
-            <a className="log-out-link" href="#">
-              LOG OUT
-            </a>
-          </li>
+          {userRole ? (
+            <li>
+              <a href="#" className="log-out-link">
+                LOG OUT
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a href="/login" className="log-out-link">
+                LOG IN
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

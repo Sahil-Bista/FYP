@@ -12,14 +12,18 @@ import Futsals from "../Pages/Futsal";
 import PendingFutsals from "../Pages/PendingFutsals";
 import MyFutsal from "../Pages/MyFutsal";
 import ErrorPage from "../Pages/ErrorPage";
+import MyBookings from "../Pages/MyBookings";
+import VendorLandingPage from "../Pages/VendorLanding";
 
 export const router = createBrowserRouter([
   { path: "/register", element: <Signup /> },
   { path: "/login", element: <Login /> },
   { path: "/", element: <Landing /> },
+  { path: "/vendor-landing", element: <VendorLandingPage /> },
   { path: "/chat/:userId", element: <Chat /> },
   { path: "/futsal", element: <Futsal /> },
   { path: "/futsals/:userId", element: <Futsals /> },
+  { path: "/my-bookings", element: <MyBookings /> },
   { path: "/editBookingList/:bookingId", element: <Futsals /> },
   { path: "/bookingList", element: <BookingList /> },
   { path: "/bookingList/:futsalId", element: <BookingList /> },

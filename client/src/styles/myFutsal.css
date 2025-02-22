@@ -48,6 +48,7 @@
     border-radius: 40px;
     padding-top: 40px;
     margin: auto;
+    margin-bottom: 10px;
 }
 
 .content-div{
@@ -112,6 +113,7 @@
     font-size: 14px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
+    margin-right: 5px;
 }
 
 .closed-button{
@@ -124,6 +126,7 @@
     font-size: 14px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
+    margin-right: 5px;
 }
 
 .else{
@@ -143,6 +146,16 @@
     width: 40%;
 }
 
+.overlay-1 {
+    bottom: 0px;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    background: linear-gradient(180deg, #141414 20%, rgba(20, 20, 20, 0.8) 40%, rgba(20, 20, 20, 0.6) 60%, rgba(20, 20, 20, 0.6) 84.25%, rgba(20, 20, 20, 0.2) 95%, rgba(20, 20, 20, 0) 100%);
+    transform: rotate(180deg);
+    position: absolute;
+  }
+  
 .footer{
     margin-top: 10px;
 }

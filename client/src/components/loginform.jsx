@@ -28,7 +28,11 @@ export const LoginForm = () => {
         if (result.data.data === "Success") {
           localStorage.setItem("userId", result.data.userId);
           localStorage.setItem("userRole", result.data.userRole);
-          navigate("/");
+          if (result.data.userRole === "VENDOR") {
+            navigate("/vendor-landing");
+          } else {
+            navigate("/");
+          }
         } else {
           navigate("/register");
           alert("You are not registered to this service");

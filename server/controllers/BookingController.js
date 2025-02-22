@@ -324,6 +324,24 @@ const getFutsalSpecificBooking = async (req,res) =>{
 }
 }
 
-export { getFutsalSpecificBooking,createBooking, deleteBooking, getParticularBooking, editBooking,getFilteredBooking };
+const getVendorSpecificFutsalBookings = async(req,res)=>{
+  try{
+    const {userId} = req.params;
+    console.log(userId,"vendor");
+    const vendorFutsal = await futsalModel.findOne({vendorId:userId});
+    if(!vendorFutsal){
+      return res.status(401).json({msg:"Your futsal is yet to be listed on the website"});
+    }
+    const futsalId = vendorFutsal._id;
+    console.log("futsal",futsalId);
+    const bookings = await bookingModel.find({futsalId:futsalId});
+    return res.status(200).send(bookings);
+  }catch(err){
+    console.log("Error ir fetching bookings",err)
+    res.status(500).send(err);
+  }
+}
+
+export {getVendorSpecificFutsalBookings, getFutsalSpecificBooking,createBooking, deleteBooking, getParticularBooking, editBooking,getFilteredBooking };
 
 
