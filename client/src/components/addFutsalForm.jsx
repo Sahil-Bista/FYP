@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { addFutsalValidationSchema } from "../validation/addFutsalValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "../styles/AddFutsal.css";
 
 export const AddFutsalForm = () => {
@@ -32,21 +32,27 @@ export const AddFutsalForm = () => {
       })
       .then((result) => {
         console.log(result);
+        toast.success("Add futsal request sent to the admin", {
+          theme: "dark",
+          autoClose: 5000,
+        });
         navigate("/");
       })
       .catch((error) => {
         if (error.response?.data?.message) {
           const message = error.response.data.message;
-          toast.error(message, { autoClose: 5000 });
+          toast.error(message, { autoClose: 5000, theme: "dark" });
         } else {
-          toast.error("An unexpected error occured.Please try again");
+          toast.error("An unexpected error occured.Please try again", {
+            autoClose: 5000,
+            theme: "dark",
+          });
         }
       });
   };
 
   return (
     <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
-      <ToastContainer />
       <div className="input-fields-container">
         <div className="form-heading">
           <h2> &nbsp; Enter Futsal Details Below:</h2>
