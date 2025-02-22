@@ -9,7 +9,7 @@ function ChatHeader() {
       <nav>
         <ul className="navigation-list">
           <li className="list-item">
-            <a className="link-item" href="/home">
+            <a className="link-item" href="/">
               HOME
             </a>
           </li>

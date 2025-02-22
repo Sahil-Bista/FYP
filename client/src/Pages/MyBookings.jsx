@@ -1,32 +1,34 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import axios from "axios";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "../styles/BookingList.css";
+import VendorHeader from "../components/VendorHeader";
 
-export default function BookingLis() {
-  const { futsalId } = useParams();
+export default function MyBookings() {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
   const [game_date, setGame_date] = useState();
   const [status, setStatus] = useState();
-  const loggedInUserId = localStorage.getItem("userId");
-  console.log(loggedInUserId);
+  const userId = localStorage.getItem("userId");
   const [pendingbookings, setPendingBookings] = useState([]);
+  const [futsalId, setFutsalId] = useState();
+  console.log("futsal", futsalId);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/booking/futsal/${futsalId}`, {
+      .get(`http://localhost:3001/api/booking/vendorFutsal/${userId}`, {
         withCredentials: true,
       })
       .then((result) => {
+        console.log(result.data);
         setPendingBookings(result.data);
+        setFutsalId(result.data[1].futsalId);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -114,7 +116,7 @@ export default function BookingLis() {
       <div className="black-overllay"></div>
       <div className="reference-div">
         <div className="Header">
-          <Header />
+          <VendorHeader />
         </div>
         <div className="page-heading">WEEKLY BOOKING LIST</div>
         <div className="search-row">
@@ -218,30 +220,12 @@ export default function BookingLis() {
                       </td>
                       <td className="booking-status">{booking_status}</td>
                       <td className="buttons-td">
-                        {team_size === "Half-full" && (
-                          <button
-                            className="match-buttons"
-                            onClick={() => navigate(`/chat/${userId}`)}
-                          >
-                            Match
-                          </button>
-                        )}
-                        {userId === loggedInUserId && (
-                          <>
-                            <button
-                              className="edit-booking-buttons"
-                              onClick={(e) => handleEdit(e, _id)}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              className="delete-booking-buttons"
-                              onClick={(e) => handleDelete(e, _id)}
-                            >
-                              Delete
-                            </button>
-                          </>
-                        )}
+                        <button
+                          className="delete-booking-buttons"
+                          onClick={(e) => handleDelete(e, _id)}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   )

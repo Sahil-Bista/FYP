@@ -4,7 +4,7 @@ import authentication from "../middlewares/authentication.js";
 
 export const futsalRouter = Router();
 
-futsalRouter.get('/', authentication, getAllFutsals);
+futsalRouter.get('/', getAllFutsals);
 futsalRouter.get('/pending-futsals',authentication,getPendingFutsals)
 futsalRouter.get('/futsalOwner/:user',authentication, getVendorSpecificFutsal)
 futsalRouter.get('/:futsalId', authentication, getFutsalById)

@@ -29,6 +29,7 @@
     list-style: none;
     display: flex;
     padding: 0;
+    margin-left:32px;
   }
   
   .footer-list-item {

@@ -92,9 +92,9 @@ export default function PendingFutsals() {
             <thead>
               <tr className="table-row">
                 <th className="table-heading-1">Futsal Name</th>
-                <th className="table-heading-2">Futsal Address</th>
                 <th className="table-heading-3">Address Link</th>
                 <th className="table-heading-4">Futsal Description</th>
+                <th className="table-heading-4">Futsal contact</th>
                 <th className="table-heading-5">Actions</th>
               </tr>
             </thead>
@@ -105,18 +105,18 @@ export default function PendingFutsals() {
                     futsal_name,
                     _id,
                     image,
-                    futsal_address,
                     futsal_description,
                     address_link,
+                    futsal_contact,
                   }) => (
                     <tr className="table-data-row" key={_id}>
                       <td className="futsal_name">{futsal_name}</td>
-                      <td className="futsal_address"> {futsal_address}</td>
                       <td className="address_link"> {address_link}</td>
                       <td className="futsal_description">
                         {" "}
                         {futsal_description}
                       </td>
+                      <td className="futsal_description"> {futsal_contact}</td>
                       <td className="buttons-td">
                         <button onClick={() => handleSubmit(_id)}>Save</button>{" "}
                         <button onClick={() => handleDelete(_id)}>

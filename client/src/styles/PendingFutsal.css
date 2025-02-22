@@ -144,11 +144,21 @@
   }
   
   .match-button {
-    color: black;
     margin-right: 5px;
+    color: white;
+    width: 72px;
+    height: 30px;
+    background: #2C2C2C;
+    border: 1px solid #2C2C2C;
+    border-radius: 8px;
   }
   
   .edit-booking-button {
     margin-right: 5px;
-    color: black;
+    color: white;
+    width: 72px;
+    height: 30px;
+    background: #2C2C2C;
+    border: 1px solid #2C2C2C;
+    border-radius: 8px;
   }

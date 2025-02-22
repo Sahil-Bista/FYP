@@ -32,7 +32,7 @@ export const AddFutsalForm = () => {
       })
       .then((result) => {
         console.log(result);
-        navigate("/home");
+        navigate("/");
       })
       .catch((error) => {
         if (error.response?.data?.message) {

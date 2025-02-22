@@ -6,9 +6,8 @@
     width: 57% ;          
 }
 
-
 .edit-button{
-    width: 150px;
+    width: 120px;
     min-width: 100px;
     height: 35px;
     background: rgba(255,255,255,0.2);
@@ -111,5 +110,9 @@
     width: 100px;
     min-width: 100px;
     height: 40px;
+    border: 1px solid #7C7C7C;
+    border-radius: 40px;
+    background-color: black;
+    color: white;
 }
 
