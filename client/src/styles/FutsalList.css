@@ -165,11 +165,11 @@ input::placeholder{
     width: 120px;
     min-width: 100px;
     height: 35px;
-    background-color: rbga(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.2);
     border: 1px solid #7C7C7C;
     border-radius: 40px;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 4px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;

@@ -25,7 +25,14 @@ export default function PendingFutsals() {
       .then((result) => {
         console.log(result.data.updatedFutsal.isValid);
         if (result.data.updatedFutsal.isValid == true) {
-          Navigate("/home");
+          toast.success(
+            "Futsal saved successfully",
+            { theme: "dark" },
+            { autoclose: 5000 }
+          );
+          setPendingFutsal((pendingFutsal) =>
+            pendingFutsal.filter((futsal) => futsal._id != futsalId)
+          );
         }
       })
       .catch((err) => {
@@ -45,7 +52,11 @@ export default function PendingFutsals() {
         setPendingFutsal((pendingFutsals) =>
           pendingFutsals.filter((pendingFutsal) => pendingFutsal._id !== _id)
         );
-        toast.success("Futsal deleted successfully!");
+        toast.success(
+          "Futsal deleted successfully!",
+          { theme: "dark" },
+          { autoclode: 5000 }
+        );
       }
     } catch (error) {
       console.log("error deleting futsal", error);

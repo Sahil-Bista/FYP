@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import Header from "../components/Header.jsx";
+import AdminHeader from "../components/AdminHeader.jsx";
 import Footer from "../components/Footer";
 import FutsalBook from "../components/FutsalBook.jsx";
 import "../styles/FutsalList.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Futsal() {
   const userRole = localStorage.getItem("userRole");
@@ -42,6 +45,11 @@ function Futsal() {
       .then((result) => {
         console.log(result.data.message);
         setFutsals((futsals) => futsals.filter((futsal) => futsal._id !== _id));
+        toast.success(
+          "Futsal deleted successfully",
+          { theme: "dark" },
+          { autoclode: 5000 }
+        );
       })
       .catch((err) => {
         console.log("Error deleting futsal:", err.message);
@@ -64,7 +72,7 @@ function Futsal() {
       <div className="black-overlay"></div>
       <div className="reference">
         <div className="header">
-          <Header />
+          {userRole === "ADMIN" ? <AdminHeader /> : <Header />}
         </div>
         <div className="header-search-input-div">
           <div className="page-header-div">FUTSAL AVAILABLE FOR BOOKING</div>
@@ -138,12 +146,14 @@ function Futsal() {
                       ) : (
                         <FutsalBook futsalId={_id} />
                       )}
-                      <button
-                        className="view-button"
-                        onClick={() => navigate(`/bookingList/${_id}`)}
-                      >
-                        VIEW BOOKINGS
-                      </button>
+                      {userRole === "USER" ? (
+                        <button
+                          className="view-button"
+                          onClick={() => navigate(`/bookingList/${_id}`)}
+                        >
+                          VIEW BOOKINGS
+                        </button>
+                      ) : null}
                     </div>
                   </div>
                 </div>

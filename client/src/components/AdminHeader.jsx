@@ -9,7 +9,7 @@ function Header() {
       <nav>
         <ul className="navigation-list">
           <li className="list-item">
-            <a href="#" className="home-link">
+            <a href="#" className="link-item">
               HOME
             </a>
           </li>
@@ -21,11 +21,6 @@ function Header() {
           <li className="list-item">
             <a href="/pending-futsals" className="link-item">
               PENDING FUTSALS
-            </a>
-          </li>
-          <li className="list-item">
-            <a href="#" className="link-item">
-              CHAT
             </a>
           </li>
           <li>
