@@ -7,7 +7,10 @@ import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/BookingList.css";
+import EditBooking from "../components/EditBookingPopUp";
 
 export default function BookingLis() {
   const { futsalId } = useParams();
@@ -19,6 +22,19 @@ export default function BookingLis() {
   console.log(loggedInUserId);
   const [pendingbookings, setPendingBookings] = useState([]);
   const navigate = useNavigate();
+  const currentDate = new Date();
+  console.log(
+    "present",
+    new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
+      parseInt(currentDate.getHours() + 5),
+      parseInt(currentDate.getMinutes() + 45),
+      0,
+      0
+    )
+  );
 
   useEffect(() => {
     axios
@@ -26,6 +42,7 @@ export default function BookingLis() {
         withCredentials: true,
       })
       .then((result) => {
+        console.log(result.data);
         setPendingBookings(result.data);
       })
       .catch((err) => console.log(err));
@@ -43,6 +60,11 @@ export default function BookingLis() {
       if (response.status === 200) {
         setPendingBookings((Bookings) =>
           Bookings.filter((booking) => booking._id !== _id)
+        );
+        toast.success(
+          "Booking deleted successfully",
+          { theme: "dark" },
+          { autoclose: 5000 }
         );
         navigate(`/bookingList/${futsalId}`);
       }
@@ -89,23 +111,6 @@ export default function BookingLis() {
         setPendingBookings(result.data);
       })
       .catch((err) => console.log(err));
-  };
-
-  const handleEdit = async (e, _id) => {
-    const bookingId = _id;
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        `http://localhost:3001/api/booking/editBooking/${bookingId}`,
-        {},
-        { withCredentials: true }
-      );
-      if (response.status === 200) {
-        navigate(`/editBookingList/${bookingId}`);
-      }
-    } catch (error) {
-      console.log("error sending request", error);
-    }
   };
 
   return (
@@ -226,22 +231,23 @@ export default function BookingLis() {
                             Match
                           </button>
                         )}
-                        {userId === loggedInUserId && (
-                          <>
-                            <button
-                              className="edit-booking-buttons"
-                              onClick={(e) => handleEdit(e, _id)}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              className="delete-booking-buttons"
-                              onClick={(e) => handleDelete(e, _id)}
-                            >
-                              Delete
-                            </button>
-                          </>
-                        )}
+                        {userId === loggedInUserId &&
+                          new Date() <
+                            new Date(
+                              game_date.split("T")[0] +
+                                "T" +
+                                startTime.split("T")[1]
+                            ) && (
+                            <>
+                              <EditBooking bookingId={_id} />
+                              <button
+                                className="delete-booking-buttons"
+                                onClick={(e) => handleDelete(e, _id)}
+                              >
+                                Delete
+                              </button>
+                            </>
+                          )}
                       </td>
                     </tr>
                   )

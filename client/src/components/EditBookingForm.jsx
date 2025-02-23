@@ -1,70 +1,81 @@
 import axios from "axios";
-import { useNavigate } from "react-router";
 import { Calendar } from "primereact/calendar";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast, ToastContainer } from "react-toastify";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { bookFutsalValidationSchema } from "../validation/bookFutsalValidation";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { editBookingValidationSchema } from "../validation/editBookingValidation";
+import { useEffect, useState } from "react";
 
-export const BookFutsalForm = ({ futsalId, close }) => {
-  const navigate = useNavigate();
-
+export const EditBookingForm = ({ bookingId, close }) => {
+  const [futsalId, setFutsalId] = useState("");
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm({
-    resolver: yupResolver(bookFutsalValidationSchema),
+    resolver: yupResolver(editBookingValidationSchema),
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log("futsal", futsalId);
+    const updatedData = {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      contact_number: data.contact_Number,
+      game_date: data.game_date,
+      startTime: data.startTime,
+      endTime: data.endTime,
+    };
     await axios
-      .post(
-        `http://localhost:3001/api/booking/createBooking`,
-        {
-          futsalId,
-          ...data,
-        },
+      .patch(
+        `http://localhost:3001/api/booking/editBooking/${bookingId}`,
+        { futsalId, updatedData },
         { withCredentials: true }
       )
       .then((result) => {
-        const team_size = result.data.booking
-          ? result.data.booking.team_size
-          : null;
-        if (team_size === "Half-full") {
-          return navigate(`/bookingList/${futsalId}`);
-        }
-        const bookingId = result.data.booking ? result.data.booking._id : null;
-        if (bookingId) {
-          navigate(`/payment/${bookingId}`);
-        } else {
-          console.error("Booking ID not found in the response.");
-        }
+        console.log(result);
+        window.location.reload();
       })
-      .catch((err) => {
-        if (err.response?.data?.message) {
-          const message = err.response.data.message;
-          toast.error(message, { theme: "dark", autoClose: 5000 });
+      .catch((error) => {
+        if (error.response?.data?.message) {
+          const message = error.response.data.message;
+          toast.error(message, { autoClose: 5000 }, { theme: "dark" });
         } else {
-          toast.error("An unexpected error occurred. Please try again.", {
+          toast.error("An unexpected error occured.Please try again", {
             theme: "dark",
+            autoClose: 5000,
           });
         }
       });
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/booking/${bookingId}`, {
+        withCredentials: true,
+      })
+      .then((result) => {
+        console.log("data", result.data);
+        setFutsalId(result.data.booking.futsalId);
+        reset({
+          first_name: result.data.booking.first_name,
+          last_name: result.data.booking.last_name,
+          contact_number: result.data.booking.contact_Number,
+        });
+      });
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ToastContainer />
       <div className="button-heading-div">
         <div className="heading-div">
-          <h2 className="heading">Book your game!!</h2>
+          <h2 className="heading">Edit Booking!!</h2>
         </div>
         <div>
           <button className="close-button" onClick={() => close()}>
@@ -94,41 +105,12 @@ export const BookFutsalForm = ({ futsalId, close }) => {
             <p className="error">{errors.last_name?.message}</p>
           </div>
           <div className="label-input">
-            <label htmlFor="address">Address</label>
-            <input
-              {...register("address")}
-              type="text"
-              placeholder="Enter your address here"
-            ></input>
-            <p className="error">{errors.address?.message}</p>
-          </div>
-        </div>
-        <div className="row-1">
-          <div className="label-input">
-            <label htmlFor="email">Email</label>
-            <input
-              {...register("email")}
-              placeholder="Enter your email here"
-              type="email"
-            ></input>
-            <p className="error">{errors.email?.message}</p>
-          </div>
-          <div className="label-input">
             <label htmlFor="contact_number">Contact Number</label>
             <input
               {...register("contact_number")}
               placeholder="Enter Contact Number"
             ></input>
             <p className="error">{errors.contact_number?.message}</p>
-          </div>
-          <div className="label-input">
-            <label htmlFor="team_size">Team Size</label>
-            <select {...register("team_size")} className="select-label">
-              <option value="">Select Team Size</option>
-              <option value="Full">Full</option>
-              <option value="Half-full">Half-full</option>
-            </select>
-            <p className="error">{errors.team_size?.message}</p>
           </div>
         </div>
         <div className="row-1">

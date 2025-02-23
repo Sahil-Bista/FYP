@@ -171,22 +171,143 @@ const createBooking = async (req, res) => {
 };
 
 const editBooking = async (req, res) => {
-  const logged_in_user_id = req.userId;
-  const { bookingId } = req.params;
-  const booking = await bookingModel.findOne({ _id: bookingId });
-  const booking_email = booking?.email || null;
-  const booker_user = await UserModel.findOne({ email: booking_email });
-  const booker_user_id = booker_user?._id || null;
-  console.log(booker_user_id);
-  console.log("logged", logged_in_user_id);
-  if (logged_in_user_id == booker_user_id) {
-    return res.status(200).json({ booking });
-  } else {
-    console.log("HI");
-    return res.json({
-      message: "You are not authorized to delete this booking",
+  try{
+  const userId = req.userId;
+  console.log("hello");
+  const {bookingId} = req.params;
+  const {first_name, last_name, contact_number,game_date, startTime, endTime} = req.body.updatedData;
+  const {futsalId} = req.body;
+
+  const booking = await bookingModel.findOne({_id:bookingId});
+  if(!booking){
+    return res.status(400).json({message:"Booking bot found"});
+  }
+  const bookerId = booking.userId;
+
+  if(bookerId !== userId){
+    return res.status(401).json({message:"User not authorized for this process"});
+  }
+
+  const gameDate = new Date(game_date);
+  gameDate.setHours(0, 0, 0, 0); // Set time to 00:00:00
+  gameDate.setDate(gameDate.getDate() + 1); // This was done because while logging the date was seen one day earlier than the input date
+
+  const starttimePart = startTime.split("T")[1].split("Z")[0]; // This gives you "06:00:00.000"
+  const startTimeParts = starttimePart.split(":");
+  const endtimePart = endTime.split("T")[1].split("Z")[0];
+  const endTimeParts = endtimePart.split(":");
+  //Subtracted 12 hours 30 minutes to be able to operate on the exact input time as the time it was showing while logging was 12 hours 30 minutes ahead of the input time
+  const startTimeDate = new Date(
+    2004,
+    10,
+    6,
+    parseInt(startTimeParts[0]-12) ,
+    parseInt(startTimeParts[1]-30) ,
+    0,
+    0
+  );
+  const endTimeDate = new Date(
+    2004,
+    10,
+    6,
+    parseInt(endTimeParts[0] -12),
+    parseInt(endTimeParts[1]-30),
+    0,
+    0
+  );
+
+  const gameDuration = endTimeDate - startTimeDate;
+  if(gameDuration < 3600000){
+    console.log("Less than 1 hour cannot be the game time")
+    return res.status(400).json({message : "Game duration cannot be less than an hour"})
+  }
+
+  const gameStartTimeDate = new Date(
+    gameDate.getFullYear(),
+    gameDate.getMonth(),
+    gameDate.getDate(),
+    parseInt(startTimeParts[0] - 12),
+    parseInt(startTimeParts[1] - 30),
+    0,
+    0
+  );
+
+  const currentDate = new Date();
+
+  const finalLocalCurrentDateTime = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate(),
+    parseInt(currentDate.getHours() + 5),
+    parseInt(currentDate.getMinutes() + 45),
+    0,
+    0
+  );
+
+  const timeGap = gameStartTimeDate - finalLocalCurrentDateTime;
+ 
+  if (timeGap <= 3600000) {
+    console.log(
+      "The booking time must be at least an hour away from now"
+    );
+    return res
+      .status(400)
+      .json({
+        message:
+          "The current time must be at least an hour before the game start time.",
     });
   }
+
+  const alreadyBooked = await bookingModel.findOne({
+    futsalId: futsalId,
+    game_date: gameDate,
+    booking_status : "Booked",
+    $or: [
+      {
+        startTime: { $lt: endTimeDate },
+        endTime: { $gt: startTimeDate },
+      },
+      {
+        startTime: { $lte: startTimeDate },
+        endTime: { $gte: endTimeDate },
+      },
+    ],
+  });
+
+  console.log("ok",alreadyBooked);
+
+  if (alreadyBooked) {
+    console.log("Hello");
+      return res.status(400).json({ message: "This time slot is already booked" });
+  }
+
+  const finalUpdatedData = {
+    first_name: first_name,
+      last_name: last_name,
+      contact_number: contact_number,
+      game_date: gameDate,
+      startTime: startTimeDate,
+      endTime: endTimeDate,
+  }
+  const updatedBooking = await bookingModel.findByIdAndUpdate(
+    bookingId,
+    finalUpdatedData,
+    {
+      new: true,
+    }
+  );
+
+  console.log(updatedBooking, 'UB')
+  if (!updatedBooking) {
+    return res.status(404).json({ message: "Booking not found" });
+  }
+  res
+    .status(200)
+    .json({ message: "Futsal updated successfully", booking: updatedBooking , timeGap});
+} catch (error) {
+  console.log(error);
+  res.status(500).json({ message: "Internal server error" });
+}
 };
 
 const deleteBooking = async (req, res) => {
