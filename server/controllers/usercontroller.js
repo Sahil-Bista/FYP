@@ -65,6 +65,21 @@ const login = async (req, res) => {
   }
 };
 
+const logout = async(req,res)=>{
+  try{
+    res.clearCookie("token",{
+      httpOnly:false,
+      secure : true,
+      sameSite:"None",
+    });
+    res.status(200).json({msg:"User logged out successfully"});
+
+  }catch(error){
+    console.log(error);
+    res.status(500).json({ msg: "Internal server error" });
+  }
+}
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find({
@@ -90,4 +105,4 @@ const getSpecificUser = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error", error });
   }
 };
-export { login, signup, getAllUsers, getSpecificUser };
+export { login, signup, getAllUsers, getSpecificUser, logout };

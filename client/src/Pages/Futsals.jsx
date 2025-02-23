@@ -139,12 +139,15 @@ function Futsal() {
                       ) : (
                         <FutsalBook futsalId={_id} />
                       )}
-                      <button
-                        className="view-button"
-                        onClick={() => navigate(`/bookingList/${_id}`)}
-                      >
-                        VIEW BOOKINGS
-                      </button>
+                      {userRole === "USER" ? (
+                        <button
+                          className="view-button"
+                          onClick={() => navigate(`/bookingList/${_id}`)}
+                        >
+                          VIEW BOOKINGS
+                        </button>
+                      ) : null}
+                      ;
                     </div>
                   </div>
                 </div>

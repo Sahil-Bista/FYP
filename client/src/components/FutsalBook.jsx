@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import "../styles/BookFutsal.css";
 import { BookFutsalForm } from "./bookfutsalform";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PopupGfg({ futsalId }) {
   const [open, setOpen] = useState(false);
@@ -11,7 +12,10 @@ export default function PopupGfg({ futsalId }) {
 
   const handleTriggerClick = () => {
     if (!userRole) {
-      toast.error("Please login to book a futsal.");
+      toast.error("Please login to book a futsal match", {
+        theme: "dark",
+        autoClose: 5000,
+      });
       return;
     }
     setOpen(true);
