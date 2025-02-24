@@ -44,13 +44,8 @@ function ChatHeader() {
             </a>
           </li>
           <li className="list-item">
-            <a href="#" className="link-item">
-              MATCHUP
-            </a>
-          </li>
-          <li className="list-item">
-            <a className="link-item" href="#">
-              BOOKING
+            <a href="/futsal" className="link-item">
+              FUTSALS
             </a>
           </li>
           <li className="list-item">

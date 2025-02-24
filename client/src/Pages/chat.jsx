@@ -328,7 +328,7 @@ function Chat() {
             </>
           ) : (
             <div className="no-chats">
-              <span>No messages yet</span>
+              <span>No messages to show</span>
             </div>
           )}
         </div>

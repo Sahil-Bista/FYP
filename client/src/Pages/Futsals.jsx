@@ -23,7 +23,8 @@ function Futsal() {
         const result = await axios.get("http://localhost:3001/api/futsal", {
           withCredentials: true,
         });
-        setFutsals(result.data);
+        console.log("empty", result.data.futsals);
+        setFutsals(result.data.futsals);
       } else {
         const result = await axios.post(
           `http://localhost:3001/api/futsal/searchFutsal`,
