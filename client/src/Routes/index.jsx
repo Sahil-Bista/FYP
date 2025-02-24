@@ -1,3 +1,4 @@
+index.jsx;
 import { createBrowserRouter } from "react-router-dom";
 import Signup from "../Pages/Signup";
 import Login from "../Pages/Login";
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
   { path: "/vendor-landing", element: <VendorLandingPage /> },
   { path: "/admin-landing", element: <AdminLandingPage /> },
+  { path: "/chat", element: <Chat /> },
   { path: "/chat/:userId", element: <Chat /> },
   { path: "/futsal", element: <Futsal /> },
   { path: "/futsals/:userId", element: <Futsals /> },

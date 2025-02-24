@@ -245,85 +245,92 @@ function Chat() {
             </div>
           ))}
         </div>
-
         <div className="right-div">
-          {currentUser && (
-            <div className="username-box">
-              <div className="user-name-profile">
-                <i className="fa-regular fa-circle-user"></i>
-                &nbsp;&nbsp;
-                {currentUser?.name}
-              </div>
+          {messages.length > 0 ? (
+            <>
+              {currentUser && (
+                <div className="username-box">
+                  <div className="user-name-profile">
+                    <i className="fa-regular fa-circle-user"></i>
+                    &nbsp;&nbsp;
+                    {currentUser?.name}
+                  </div>
 
-              <div className="three-dots">
-                <i className="fas fa-ellipsis-v"></i>
-              </div>
-            </div>
-          )}
-
-          <div className="messages">
-            {messages
-              .filter(({ type }) => type !== "Room-joined message")
-              .map(({ message, senderId, createdAt }, index) => (
-                <div
-                  key={index}
-                  className={
-                    senderId === myUserId
-                      ? "sent-messages"
-                      : "received-messages"
-                  }
-                >
-                  {createdAt && (
-                    <span
-                      className={
-                        senderId === myUserId
-                          ? "created-At-div-sender"
-                          : "created-At-div-receiver"
-                      }
-                    >
-                      {senderId != myUserId && (
-                        <span className="sender-name">
-                          <b>{currentUser?.name}</b>
-                        </span>
-                      )}
-                      {new Date(createdAt).getFullYear() +
-                        " " +
-                        (new Date(createdAt).getHours() > 12
-                          ? new Date(createdAt).getHours() - 12
-                          : new Date(createdAt).getHours()) +
-                        ":" +
-                        new Date(createdAt).getMinutes()}
-                    </span>
-                  )}
-                  <div
-                    key={index}
-                    className={
-                      senderId === myUserId
-                        ? "chat-box-sender-messages"
-                        : "chat-box-receiver-messages"
-                    }
-                  >
-                    {message}
+                  <div className="three-dots">
+                    <i className="fas fa-ellipsis-v"></i>
                   </div>
                 </div>
-              ))}
-          </div>
+              )}
 
-          <div className="bottom-message-sending-div">
-            <div className="input-field-divison">
-              <input
-                type="text"
-                className="message-input"
-                placeholder="           Type message..."
-                value={currentMessage}
-                onChange={(e) => setCurrentMessage(e.target.value)}
-              />
-              <button onClick={sendMessage} className="send-message-button">
-                Send &nbsp;
-                <i className="fa-regular fa-paper-plane"></i>{" "}
-              </button>
+              <div className="messages">
+                {messages
+                  .filter(({ type }) => type !== "Room-joined message")
+                  .map(({ message, senderId, createdAt }, index) => (
+                    <div
+                      key={index}
+                      className={
+                        senderId === myUserId
+                          ? "sent-messages"
+                          : "received-messages"
+                      }
+                    >
+                      {createdAt && (
+                        <span
+                          className={
+                            senderId === myUserId
+                              ? "created-At-div-sender"
+                              : "created-At-div-receiver"
+                          }
+                        >
+                          {senderId !== myUserId && (
+                            <span className="sender-name">
+                              <b>{currentUser?.name}</b>
+                            </span>
+                          )}
+                          {new Date(createdAt).getFullYear() +
+                            " " +
+                            (new Date(createdAt).getHours() > 12
+                              ? new Date(createdAt).getHours() - 12
+                              : new Date(createdAt).getHours()) +
+                            ":" +
+                            new Date(createdAt).getMinutes()}
+                        </span>
+                      )}
+                      <div
+                        key={index}
+                        className={
+                          senderId === myUserId
+                            ? "chat-box-sender-messages"
+                            : "chat-box-receiver-messages"
+                        }
+                      >
+                        {message}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+
+              <div className="bottom-message-sending-div">
+                <div className="input-field-divison">
+                  <input
+                    type="text"
+                    className="message-input"
+                    placeholder="           Type message..."
+                    value={currentMessage}
+                    onChange={(e) => setCurrentMessage(e.target.value)}
+                  />
+                  <button onClick={sendMessage} className="send-message-button">
+                    Send &nbsp;
+                    <i className="fa-regular fa-paper-plane"></i>{" "}
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="no-chats">
+              <span>No messages yet</span>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
