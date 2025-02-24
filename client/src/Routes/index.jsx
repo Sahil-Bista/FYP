@@ -1,4 +1,3 @@
-index.jsx;
 import { createBrowserRouter } from "react-router-dom";
 import Signup from "../Pages/Signup";
 import Login from "../Pages/Login";

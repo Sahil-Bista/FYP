@@ -34,6 +34,7 @@
   font-size: 14px;
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .log-out-link {

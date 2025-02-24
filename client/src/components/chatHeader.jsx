@@ -30,6 +30,9 @@ function ChatHeader() {
         toast.error("Error logging out", { theme: "dark", autoClose: 5000 });
       });
   };
+
+  const userRole = localStorage.getItem("userRole");
+  console.log("Role", userRole);
   return (
     <div className="chat-header-div">
       <img className="logo" src={logo} alt="logo"></img>
@@ -55,11 +58,19 @@ function ChatHeader() {
               CHAT
             </a>
           </li>
-          <li>
-            <a className="log-out-link" onClick={handleSubmit}>
-              LOG OUT
-            </a>
-          </li>
+          {userRole ? (
+            <li>
+              <a className="log-out-link" onClick={handleSubmit}>
+                LOG OUT
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a href="/login" className="log-out-link">
+                LOG IN
+              </a>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

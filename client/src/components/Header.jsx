@@ -31,6 +31,14 @@ function Header() {
       });
   };
 
+  const handleChatNavigation = async () => {
+    if (userRole) {
+      navigate("/chat");
+    } else {
+      toast.info("Log in first to get started with chats");
+    }
+  };
+
   const userRole = localStorage.getItem("userRole");
   console.log("Role", userRole);
   return (
@@ -44,17 +52,12 @@ function Header() {
             </a>
           </li>
           <li className="list-item">
-            <a href="#" className="link-item">
-              MATCHUP
+            <a href="/futsal" className="link-item">
+              FUTSALS
             </a>
           </li>
           <li className="list-item">
-            <a className="link-item" href="#">
-              BOOKING
-            </a>
-          </li>
-          <li className="list-item">
-            <a className="link-item" href="/chat">
+            <a className="link-item" onClick={handleChatNavigation}>
               CHAT
             </a>
           </li>
