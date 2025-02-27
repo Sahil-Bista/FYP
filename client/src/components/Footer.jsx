@@ -14,18 +14,18 @@ const Footer = () => {
             <div>
               <ul className="footer-navigation-bar">
                 <li className="footer-list-item">
-                  <a href="#" className="footer-link">
-                    BOOKING
+                  <a href="/" className="footer-link">
+                    HOME
+                  </a>
+                </li>
+                <li className="footer-list-item">
+                  <a href="/futsal" className="footer-link">
+                    BOOK WITH US
                   </a>
                 </li>
                 <li className="footer-list-item">
                   <a href="#" className="footer-link">
                     CONTACT US
-                  </a>
-                </li>
-                <li className="footer-list-item">
-                  <a href="#" className="footer-link">
-                    MATCH UPS
                   </a>
                 </li>
                 <li className="footer-list-item">

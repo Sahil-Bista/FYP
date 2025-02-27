@@ -84,10 +84,10 @@ const LandingPage = () => {
               <h2 className="card-heading">MATCHUPS</h2>
               <div className="content-button">
                 <p className="card-description">
-                  Challenge other teams to a match and put your skills to the
-                  test! After booking the court, simply browse available teams
-                  and send a matchup request. Once accepted, your match is
-                  set—get ready to play and compete!
+                  Insufficient team members? We have got you covered. Just go
+                  through the booking list of the futsal you want to play in.
+                  Check in on other teams with insufficient players that are
+                  waiting to play at the same time and hit the match button.
                 </p>
                 <button className="card-button">Learn More</button>
               </div>

@@ -137,10 +137,16 @@
   .player-name,
   .game-date,
   .time,
-  .booking-status,
-  .buttons-td {
+  .booking-status{
     padding: 10px;
     box-sizing: border-box;
+  }
+
+  .buttons-td{
+    display: flex;
+    padding: 10px;
+    box-sizing: border-box;
+    gap:2px;
   }
   
   .match-buttons {

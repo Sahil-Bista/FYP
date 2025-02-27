@@ -1,57 +1,59 @@
 .header-div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 30px;
-    gap: 60px;
-    position: sticky;
-    width: 100%;
-    height: 82px;
-    background: linear-gradient(
-      180deg,
-      #141414 32.52%,
-      rgba(20, 20, 20, 0.8) 40%,
-      rgba(20, 20, 20, 0.6) 60%,
-      rgba(20, 20, 20, 0.6) 84.25%,
-      rgba(20, 20, 20, 0.2) 95.81%,
-      rgba(20, 20, 20, 0) 100%
-    );
-    z-index: 10;
-  }
-  
-  .logo {
-    height: 35px;
-    width: 40px;
-  }
-  
-  .navigation-list {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .list-item {
-    margin-right: 20px;
-  }
-  
-  .link-item {
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    font-family: "DM Sans", sans-serif;
-    font-weight: 500;
-  }
-  
-  .log-out-link {
-    font-size: 14px;
-    font-family: "DM Sans", sans-serif; 
-    font-weight: 500;
-    color: #fff;
-    text-decoration: none;
-    background: #121212;
-    padding: 10px 20px;
-    border: 1px white solid;
-    border-radius: 40px;
-  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  gap: 60px;
+  position: sticky;
+  width: 100%;
+  height: 82px;
+  background: linear-gradient(
+    180deg,
+    #141414 32.52%,
+    rgba(20, 20, 20, 0.8) 40%,
+    rgba(20, 20, 20, 0.6) 60%,
+    rgba(20, 20, 20, 0.6) 84.25%,
+    rgba(20, 20, 20, 0.2) 95.81%,
+    rgba(20, 20, 20, 0) 100%
+  );
+  z-index: 10;
+}
+
+.logo {
+  height: 35px;
+  width: 40px;
+}
+
+.navigation-list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.list-item {
+  margin-right: 20px;
+}
+
+.link-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.log-out-link {
+  font-size: 14px;
+  font-family: "DM Sans", sans-serif; 
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: #121212;
+  padding: 10px 20px;
+  border: 1px white solid;
+  border-radius: 40px;
+  cursor: pointer;
+}
