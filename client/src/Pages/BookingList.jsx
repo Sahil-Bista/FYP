@@ -128,6 +128,7 @@ export default function BookingLis() {
             name="date"
             value={game_date}
             onChange={(e) => setGame_date(e.value)}
+            placeholder="Select game date"
             showIcon
             required
           />
@@ -141,6 +142,7 @@ export default function BookingLis() {
             icon="pi pi-clock"
             hideOnRangeSelection
             stepMinute={60}
+            placeholder="Select start-time"
             required
             minDate={new Date(new Date().setHours(6, 0, 0, 0))}
             maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
@@ -154,13 +156,14 @@ export default function BookingLis() {
             timeOnly
             showIcon
             icon="pi pi-clock"
+            placeholder="Select end-time"
             hideOnRangeSelection
             stepMinute={60}
             minDate={new Date(new Date().setHours(7, 0, 0, 0))}
             maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
           />
           <select
-            className="status search"
+            className="status-search"
             placeholder="Select Status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -170,10 +173,10 @@ export default function BookingLis() {
             <option value="Booked">Booked</option>
             <option value="Waiting to match">Waiting to Match</option>
           </select>
-          <button className="button-submit" onClick={handleSubmit}>
+          <button className="button-submits" onClick={handleSubmit}>
             Search
           </button>
-          <button className="button-clear" onClick={handleClear}>
+          <button className="button-clears" onClick={handleClear}>
             Clear
           </button>
         </div>

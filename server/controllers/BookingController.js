@@ -19,6 +19,9 @@ const createBooking = async (req, res) => {
     } = req.body;
 
     const logged_in_user_id = req.userId;
+    if(!userId){
+      res.status(404).json({message:"User unauthorized"})
+    }
     const contact_Number_Validity = /^98\d{8}$/.test(contact_number);
     if(!contact_Number_Validity){
       console.log("Must start with 98 and be upto 10 digits");
@@ -377,7 +380,7 @@ const getFilteredBooking = async(req,res)=>{
         console.log(gameDate);
       }
       if (req.query.startTime) 
-        {const starttimePart = req.query.startTime.split(" ")[4]; 
+        {const starttimePart = req.query.startTime.split(" ")[4];  cli
         const startTimeParts = starttimePart.split(":");
         const startTimeDate = new Date(
           Date.UTC(

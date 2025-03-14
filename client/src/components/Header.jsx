@@ -35,7 +35,8 @@ function Header() {
     if (userRole) {
       navigate("/chat");
     } else {
-      toast.info("Log in first to get started with chats");
+      toast.info("Log in first to get started with chats", { autoClose: 5000 });
+      navigate("/");
     }
   };
 

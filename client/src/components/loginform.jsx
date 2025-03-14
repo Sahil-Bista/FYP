@@ -28,7 +28,10 @@ export const LoginForm = () => {
         if (result.data.data === "Success") {
           localStorage.setItem("userId", result.data.userId);
           localStorage.setItem("userRole", result.data.userRole);
-          if (result.data.userRole === "VENDOR") {
+          if (
+            result.data.userRole === "VENDOR" ||
+            result.data.userRole === "PENDING_VENDOR"
+          ) {
             navigate("/vendor-landing");
           } else if (result.data.userRole === "ADMIN") {
             navigate("/admin-landing");

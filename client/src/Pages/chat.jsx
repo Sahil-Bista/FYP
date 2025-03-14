@@ -102,6 +102,7 @@ function Chat() {
       audio.play();
     });
 
+    //cleanup function to make sure one event handler for one message
     return () => {
       socket.off("message", (message) =>
         messageHandler({
