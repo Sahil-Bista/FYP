@@ -59,6 +59,7 @@ function Chat() {
 
           const lastMessage =
             sortedMessages.length > 0 ? sortedMessages[0] : null;
+          console.log("last", lastMessage);
 
           const formattedTime = lastMessage
             ? new Date(lastMessage.createdAt).toLocaleTimeString([], {
@@ -69,6 +70,11 @@ function Chat() {
               })
             : null;
 
+          console.log("Last Messages:", lastMessages);
+          console.log(
+            "Users:",
+            searchQuery.trim() ? searchedUser : matchedUsers
+          );
           setLastMessages((prevMessages) => ({
             ...prevMessages,
             [user._id]: {
@@ -91,6 +97,7 @@ function Chat() {
     socket.emit("join-room", roomId, userId, myUserId);
 
     socket.on("message", (message) => {
+      console.log("received message", message);
       messageHandler({
         senderId: userId,
         receiverId: myUserId,
@@ -138,7 +145,7 @@ function Chat() {
         withCredentials: true,
       })
       .then((result) => {
-        console.log(result);
+        console.log("Matched users", result);
         setMatchedUsers(result.data);
       })
       .catch((err) => {

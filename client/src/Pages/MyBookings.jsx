@@ -8,6 +8,8 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "../styles/BookingList.css";
 import VendorHeader from "../components/VendorHeader";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function MyBookings() {
   const [startTime, setStartTime] = useState();
@@ -46,6 +48,10 @@ export default function MyBookings() {
         setPendingBookings((Bookings) =>
           Bookings.filter((booking) => booking._id !== _id)
         );
+        toast.success("User Booking Deleted", {
+          theme: "dark",
+          autoClose: 5000,
+        });
         navigate(`/bookingList/${futsalId}`);
       }
     } catch (error) {

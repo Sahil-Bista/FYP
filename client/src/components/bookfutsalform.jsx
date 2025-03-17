@@ -162,8 +162,8 @@ export const BookFutsalForm = ({ futsalId, close }) => {
                   icon="pi pi-clock"
                   hideOnRangeSelection
                   stepMinute={60}
-                  minDate={new Date(new Date().setHours(6, 0, 0, 0))}
-                  maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
+                  // minDate={new Date(new Date().setHours(6, 0, 0, 0))}
+                  // maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
                   onChange={(e) => field.onChange(e.value)}
                 />
               )}
@@ -184,8 +184,8 @@ export const BookFutsalForm = ({ futsalId, close }) => {
                   icon="pi pi-clock"
                   hideOnRangeSelection
                   stepMinute={60}
-                  minDate={new Date(new Date().setHours(7, 0, 0, 0))}
-                  maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
+                  // minDate={new Date(new Date().setHours(7, 0, 0, 0))}
+                  // maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
                   onChange={(e) => field.onChange(e.value)}
                 />
               )}

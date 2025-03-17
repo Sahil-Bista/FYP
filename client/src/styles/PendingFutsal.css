@@ -27,6 +27,8 @@
   }
   
   .reference-div {
+    display: flex;
+    min-height: 100vh;
     position: relative;
     z-index: 2;
   }
@@ -100,6 +102,7 @@
     width: 90%;
     margin: 0px auto;
     overflow-x: auto;
+    flex:1
   }
   
   .table {
@@ -141,6 +144,8 @@
   .buttons-td {
     padding: 10px;
     box-sizing: border-box;
+    word-wrap: break-word;
+    white-space: normal;
   }
   
   .match-button {
@@ -161,4 +166,9 @@
     background: #2C2C2C;
     border: 1px solid #2C2C2C;
     border-radius: 8px;
+  }
+
+  .footer-div {
+    position: relative; 
+    bottom: 0;
   }

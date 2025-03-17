@@ -57,7 +57,7 @@
   }
 
   
- .p-inputtext
+ .custom-calendar .p-inputtext
  {
     height: 35px ;
     background: rgba(255, 255, 255, 0.2) ;
@@ -66,7 +66,7 @@
     color: black;
   }
 
-  .p-inputtext::placeholder{
+  .custom-calendar .p-inputtext::placeholder{
     color: grey;
     font-size: 14px;
     font-family: "DM Sans", sans-serif;

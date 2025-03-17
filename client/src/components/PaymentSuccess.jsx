@@ -31,7 +31,7 @@ const Success = () => {
       if (response.status === 200) {
         console.log(response.data);
         setFutsalId(response.data);
-        toast.success("Payment successful! Yuor booking is confirmed");
+        toast.success("Payment successful! Your booking is confirmed");
         navigate(`/bookingList/${response.data}`);
       }
     } catch (error) {

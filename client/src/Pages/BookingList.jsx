@@ -7,7 +7,7 @@ import { Calendar } from "primereact/calendar";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/BookingList.css";
 import EditBooking from "../components/EditBookingPopUp";
@@ -115,6 +115,7 @@ export default function BookingLis() {
 
   return (
     <div className="primary-div">
+      <ToastContainer />
       <div className="backgroundd"></div>
       <div className="black-overllay"></div>
       <div className="reference-div">

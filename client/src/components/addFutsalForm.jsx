@@ -36,7 +36,7 @@ export const AddFutsalForm = () => {
           theme: "dark",
           autoClose: 5000,
         });
-        navigate("/");
+        navigate("/vendor-landing");
       })
       .catch((error) => {
         if (error.response?.data?.message) {

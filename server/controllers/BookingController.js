@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import bookingModel from "../model/Booking.js";
 import futsalModel from "../model/Futsal.js";
 import PaymentModel from "../model/payment.js";
@@ -19,7 +20,7 @@ const createBooking = async (req, res) => {
     } = req.body;
 
     const logged_in_user_id = req.userId;
-    if(!userId){
+    if(!logged_in_user_id){
       res.status(404).json({message:"User unauthorized"})
     }
     const contact_Number_Validity = /^98\d{8}$/.test(contact_number);
@@ -187,7 +188,7 @@ const editBooking = async (req, res) => {
   }
   const bookerId = booking.userId;
 
-  if(bookerId !== userId){
+  if(bookerId.toString() !== userId){
     return res.status(401).json({message:"User not authorized for this process"});
   }
 
@@ -277,8 +278,6 @@ const editBooking = async (req, res) => {
     ],
   });
 
-  console.log("ok",alreadyBooked);
-
   if (alreadyBooked) {
     console.log("Hello");
       return res.status(400).json({ message: "This time slot is already booked" });
@@ -300,7 +299,6 @@ const editBooking = async (req, res) => {
     }
   );
 
-  console.log(updatedBooking, 'UB')
   if (!updatedBooking) {
     return res.status(404).json({ message: "Booking not found" });
   }
@@ -316,14 +314,17 @@ const editBooking = async (req, res) => {
 const deleteBooking = async (req, res) => {
   try {
     const logged_in_user_id = req.userId;
+    const logged_in_user_role = req.userRole;
+    console.log(logged_in_user_role);
     const { bookingId } = req.params;
     const booking = await bookingModel.findOne({ _id: bookingId });
     const booking_email = booking?.email || null;
     const booker_user = await UserModel.findOne({ email: booking_email });
     const booker_user_id = booker_user?._id || null;
-    console.log(booker_user_id);
-    console.log("logged", logged_in_user_id);
-    if (logged_in_user_id == booker_user_id) {
+    const futsal_id = booking?.futsalId || null;
+    const bookedfutsal = await futsalModel.findOne({_id:futsal_id});
+    const vendorId = bookedfutsal?.vendorId;
+    if (logged_in_user_id == booker_user_id || logged_in_user_id == vendorId) {
       const deleted_bookig = await bookingModel.deleteOne({ _id: bookingId });
       console.log(deleted_bookig);
       return res.status(200).json({ message: "Booking deleted successfully" });
@@ -380,7 +381,7 @@ const getFilteredBooking = async(req,res)=>{
         console.log(gameDate);
       }
       if (req.query.startTime) 
-        {const starttimePart = req.query.startTime.split(" ")[4];  cli
+        {const starttimePart = req.query.startTime.split(" ")[4];  
         const startTimeParts = starttimePart.split(":");
         const startTimeDate = new Date(
           Date.UTC(

@@ -8,12 +8,17 @@ const socketService = (io) =>{
      io.on("connection", (socket) => {
         console.log("a user connected");
     socket.on("message", ({ room, msg, sender, reciever }) => {
-      console.log({ room, msg });
+      console.log("Server received message:", { room, msg, sender, reciever }); 
       socket.to(room).emit("message", msg);
       chatEvents.emit("saveMessage", { msg, sender, reciever, room });
     });
   
     socket.on("join-room", async (room, userId, myUserId) => {
+      if (!userId  || userId === "null"  || userId === "undefined" ||  userId.trim() === "" ) {
+        console.log("Missing userId. Cannot join room.", { userId});
+        return;
+    }
+    
       socket.join(room);
       try {
         const existingRoom = await ChatModel.findOne({

@@ -44,7 +44,7 @@ const login = async (req, res) => {
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ msg: "The password is incorrect" });
+      return res.status(401).json({ msg: "Incorrect email or password" });
     }
     const token = createSecretToken({ userId: user._id, userRole: user.role });
     res.cookie("token", token, {

@@ -4,7 +4,6 @@ import "../styles/Footer.css";
 const Footer = () => {
   return (
     <>
-      <div></div>
       <footer className="footer-main-div">
         <div className="footer-content-div">
           <div className="footer-app-name-div" style={{ flex: "1" }}>

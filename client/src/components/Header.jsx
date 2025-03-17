@@ -36,7 +36,7 @@ function Header() {
       navigate("/chat");
     } else {
       toast.info("Log in first to get started with chats", { autoClose: 5000 });
-      navigate("/");
+      navigate("/login");
     }
   };
 
