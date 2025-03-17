@@ -69,6 +69,13 @@ const createFutsal = async (req, res) => {
       futsalContact,
     } = req.body;
     const { userId } = req.params;
+
+    const user = await UserModel.findOne({_id:userId});
+    const userRole = user?.role;
+    console.log("userRole", userRole);
+    if( userRole !== "PENDING_VENDOR"){
+      return res.status(401).json({message:"You are unaothorized to perfrorm this action"})
+    }
     console.log("file", req.file);
     const image = req.file.path;
 

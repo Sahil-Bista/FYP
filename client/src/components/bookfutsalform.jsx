@@ -39,6 +39,13 @@ export const BookFutsalForm = ({ futsalId, close }) => {
           ? result.data.booking.team_size
           : null;
         if (team_size === "Half-full") {
+          toast.success(
+            "You will see a new chat inbox in your chat page if matched with an opponent",
+            {
+              theme: "dark",
+              autoClose: 5000,
+            }
+          );
           return navigate(`/bookingList/${futsalId}`);
         }
         const bookingId = result.data.booking ? result.data.booking._id : null;
@@ -60,145 +67,147 @@ export const BookFutsalForm = ({ futsalId, close }) => {
       });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
       <ToastContainer />
-      <div className="button-heading-div">
-        <div className="heading-div">
-          <h2 className="heading">Book your game!!</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="button-heading-div">
+          <div className="heading-div">
+            <h2 className="heading">Book your game!!</h2>
+          </div>
+          <div>
+            <button className="close-button" onClick={() => close()}>
+              {" "}
+              <i className="fa-solid fa-x"></i>
+            </button>
+          </div>
         </div>
-        <div>
-          <button className="close-button" onClick={() => close()}>
-            {" "}
-            <i className="fa-solid fa-x"></i>
+        <div className="form-content">
+          <div className="row-1">
+            <div className="label-input">
+              <label htmlFor="first_name">First Name</label>
+              <input
+                {...register("first_name")}
+                type="text"
+                placeholder="Enter your first name here"
+              ></input>
+              <p className="error">{errors.first_name?.message}</p>
+            </div>
+            <div className="label-input">
+              <label htmlFor="last_name">Last Name</label>
+              <input
+                {...register("last_name")}
+                type="text"
+                placeholder="Enter your last name here"
+              ></input>
+              <p className="error">{errors.last_name?.message}</p>
+            </div>
+            <div className="label-input">
+              <label htmlFor="address">Address</label>
+              <input
+                {...register("address")}
+                type="text"
+                placeholder="Enter your address here"
+              ></input>
+              <p className="error">{errors.address?.message}</p>
+            </div>
+          </div>
+          <div className="row-1">
+            <div className="label-input">
+              <label htmlFor="email">Email</label>
+              <input
+                {...register("email")}
+                placeholder="Enter your email here"
+                type="email"
+              ></input>
+              <p className="error">{errors.email?.message}</p>
+            </div>
+            <div className="label-input">
+              <label htmlFor="contact_number">Contact Number</label>
+              <input
+                {...register("contact_number")}
+                placeholder="Enter Contact Number"
+              ></input>
+              <p className="error">{errors.contact_number?.message}</p>
+            </div>
+            <div className="label-input">
+              <label htmlFor="team_size">Team Size</label>
+              <select {...register("team_size")} className="select-label">
+                <option value="">Select Team Size</option>
+                <option value="Full">Full</option>
+                <option value="Half-full">Half-full</option>
+              </select>
+              <p className="error">{errors.team_size?.message}</p>
+            </div>
+          </div>
+          <div className="row-1">
+            <div className="label-input">
+              <label htmlFor="date">Date</label>
+              <Controller
+                name="game_date"
+                control={control}
+                render={({ field }) => (
+                  <Calendar
+                    {...field}
+                    className="select-label"
+                    showIcon
+                    onChange={(e) => field.onChange(e.value)}
+                  />
+                )}
+              />
+              <p className="error">{errors.game_date?.message}</p>
+            </div>
+            <div className="label-input">
+              <label htmlFor="start">Start Time</label>
+              <Controller
+                name="startTime"
+                control={control}
+                render={({ field }) => (
+                  <Calendar
+                    {...field}
+                    className="select-label"
+                    timeOnly
+                    showIcon
+                    icon="pi pi-clock"
+                    hideOnRangeSelection
+                    stepMinute={60}
+                    // minDate={new Date(new Date().setHours(6, 0, 0, 0))}
+                    // maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
+                    onChange={(e) => field.onChange(e.value)}
+                  />
+                )}
+              />
+              <p className="error">{errors.startTime?.message}</p>
+            </div>
+            <div className="label-input">
+              <label htmlFor="end">End time</label>
+              <Controller
+                name="endTime"
+                control={control}
+                render={({ field }) => (
+                  <Calendar
+                    {...field}
+                    className="select-label"
+                    timeOnly
+                    showIcon
+                    icon="pi pi-clock"
+                    hideOnRangeSelection
+                    stepMinute={60}
+                    // minDate={new Date(new Date().setHours(7, 0, 0, 0))}
+                    // maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
+                    onChange={(e) => field.onChange(e.value)}
+                  />
+                )}
+              />
+              <p className="error">{errors.endTime?.message}</p>
+            </div>
+          </div>
+        </div>
+        <div className="button-div">
+          <button className="confirm-button" type="Submit">
+            Confirm
           </button>
         </div>
-      </div>
-      <div className="form-content">
-        <div className="row-1">
-          <div className="label-input">
-            <label htmlFor="first_name">First Name</label>
-            <input
-              {...register("first_name")}
-              type="text"
-              placeholder="Enter your first name here"
-            ></input>
-            <p className="error">{errors.first_name?.message}</p>
-          </div>
-          <div className="label-input">
-            <label htmlFor="last_name">Last Name</label>
-            <input
-              {...register("last_name")}
-              type="text"
-              placeholder="Enter your last name here"
-            ></input>
-            <p className="error">{errors.last_name?.message}</p>
-          </div>
-          <div className="label-input">
-            <label htmlFor="address">Address</label>
-            <input
-              {...register("address")}
-              type="text"
-              placeholder="Enter your address here"
-            ></input>
-            <p className="error">{errors.address?.message}</p>
-          </div>
-        </div>
-        <div className="row-1">
-          <div className="label-input">
-            <label htmlFor="email">Email</label>
-            <input
-              {...register("email")}
-              placeholder="Enter your email here"
-              type="email"
-            ></input>
-            <p className="error">{errors.email?.message}</p>
-          </div>
-          <div className="label-input">
-            <label htmlFor="contact_number">Contact Number</label>
-            <input
-              {...register("contact_number")}
-              placeholder="Enter Contact Number"
-            ></input>
-            <p className="error">{errors.contact_number?.message}</p>
-          </div>
-          <div className="label-input">
-            <label htmlFor="team_size">Team Size</label>
-            <select {...register("team_size")} className="select-label">
-              <option value="">Select Team Size</option>
-              <option value="Full">Full</option>
-              <option value="Half-full">Half-full</option>
-            </select>
-            <p className="error">{errors.team_size?.message}</p>
-          </div>
-        </div>
-        <div className="row-1">
-          <div className="label-input">
-            <label htmlFor="date">Date</label>
-            <Controller
-              name="game_date"
-              control={control}
-              render={({ field }) => (
-                <Calendar
-                  {...field}
-                  className="select-label"
-                  showIcon
-                  onChange={(e) => field.onChange(e.value)}
-                />
-              )}
-            />
-            <p className="error">{errors.game_date?.message}</p>
-          </div>
-          <div className="label-input">
-            <label htmlFor="start">Start Time</label>
-            <Controller
-              name="startTime"
-              control={control}
-              render={({ field }) => (
-                <Calendar
-                  {...field}
-                  className="select-label"
-                  timeOnly
-                  showIcon
-                  icon="pi pi-clock"
-                  hideOnRangeSelection
-                  stepMinute={60}
-                  // minDate={new Date(new Date().setHours(6, 0, 0, 0))}
-                  // maxDate={new Date(new Date().setHours(20, 0, 0, 0))}
-                  onChange={(e) => field.onChange(e.value)}
-                />
-              )}
-            />
-            <p className="error">{errors.startTime?.message}</p>
-          </div>
-          <div className="label-input">
-            <label htmlFor="end">End time</label>
-            <Controller
-              name="endTime"
-              control={control}
-              render={({ field }) => (
-                <Calendar
-                  {...field}
-                  className="select-label"
-                  timeOnly
-                  showIcon
-                  icon="pi pi-clock"
-                  hideOnRangeSelection
-                  stepMinute={60}
-                  // minDate={new Date(new Date().setHours(7, 0, 0, 0))}
-                  // maxDate={new Date(new Date().setHours(21, 0, 0, 0))}
-                  onChange={(e) => field.onChange(e.value)}
-                />
-              )}
-            />
-            <p className="error">{errors.endTime?.message}</p>
-          </div>
-        </div>
-      </div>
-      <div className="button-div">
-        <button className="confirm-button" type="Submit">
-          Confirm
-        </button>
-      </div>
-    </form>
+      </form>
+    </>
   );
 };

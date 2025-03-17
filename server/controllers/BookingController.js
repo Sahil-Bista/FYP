@@ -436,9 +436,8 @@ const getFutsalSpecificBooking = async (req,res) =>{
   const bookings = await bookingModel.find({futsalId : futsal_id});
   const bookingList = [];
   for(const booking of bookings){
-    const booking_payment = await PaymentModel.findOne({booking_id : booking._id});
-    const booking_payment_status = booking_payment?.status || null;
-    if(booking_payment_status === "COMPLETE" || (booking.team_size==="Half-full" && booking.userId != logged_in_user_id)){
+    const booking_status = booking?.booking_status || null;
+    if(booking_status === "Booked" || (booking.team_size==="Half-full" && booking.userId != logged_in_user_id)){
       bookingList.push(booking);
     }
   }
@@ -455,11 +454,14 @@ const getVendorSpecificFutsalBookings = async(req,res)=>{
     console.log(userId,"vendor");
     const vendorFutsal = await futsalModel.findOne({vendorId:userId});
     if(!vendorFutsal){
-      return res.status(401).json({msg:"Your futsal is yet to be listed on the website"});
+      return res.status(401).json({msg:"Your do not have a futsal registered to edit thier bookings"});
     }
     const futsalId = vendorFutsal._id;
     console.log("futsal",futsalId);
-    const bookings = await bookingModel.find({futsalId:futsalId});
+    const bookings = await bookingModel.find({
+      futsalId: futsalId,
+      booking_status: { $in: ["Booked", "Waiting to match"] },
+    });
     return res.status(200).send(bookings);
   }catch(err){
     console.log("Error ir fetching bookings",err)

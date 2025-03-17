@@ -42,7 +42,7 @@ export default function BookingLis() {
         withCredentials: true,
       })
       .then((result) => {
-        console.log(result.data);
+        console.log("futsal bookings", result.data);
         setPendingBookings(result.data);
       })
       .catch((err) => console.log(err));
