@@ -97,7 +97,7 @@ export const AddFutsalForm = () => {
             <p className="error">{errors.futsalAddress?.message}</p>
           </div>
         </div>
-        <div classname="row-3">
+        <div className="row-3">
           <div className="label-input">
             <label htmlFor="link">Address link(from google maps)</label>
             <input

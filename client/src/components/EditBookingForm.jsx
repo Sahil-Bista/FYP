@@ -44,7 +44,7 @@ export const EditBookingForm = ({ bookingId, close }) => {
       .catch((error) => {
         if (error.response?.data?.message) {
           const message = error.response.data.message;
-          toast.error(message, { autoClose: 5000 }, { theme: "dark" });
+          toast.error(message, { theme: "dark", autoClose: 5000 });
         } else {
           toast.error("An unexpected error occured.Please try again", {
             theme: "dark",

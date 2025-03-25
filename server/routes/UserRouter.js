@@ -7,5 +7,5 @@ export const userRouter = Router();
 userRouter.post('/login', login)
 userRouter.post('/register',signup)
 userRouter.get('/all-users',authentication, getAllUsers)
-userRouter.get('/:userId', authentication, getSpecificUser)
+userRouter.get('/:userId',authentication, getSpecificUser)
 userRouter.post('/logout', logout )

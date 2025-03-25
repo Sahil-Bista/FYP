@@ -99,23 +99,6 @@ export default function MyBookings() {
       .catch((err) => console.log(err));
   };
 
-  const handleEdit = async (e, _id) => {
-    const bookingId = _id;
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        `http://localhost:3001/api/booking/editBooking/${bookingId}`,
-        {},
-        { withCredentials: true }
-      );
-      if (response.status === 200) {
-        navigate(`/editBookingList/${bookingId}`);
-      }
-    } catch (error) {
-      console.log("error sending request", error);
-    }
-  };
-
   return (
     <div className="primary-div">
       <div className="backgroundd"></div>

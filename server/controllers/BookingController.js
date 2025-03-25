@@ -226,6 +226,16 @@ const editBooking = async (req, res) => {
     return res.status(400).json({message : "Game duration cannot be less than an hour"})
   }
 
+  const payment = await PaymentModel.findOne({booking_id: bookingId, status: "COMPLETE" });
+  if(!payment){
+    return res.status(400).json({message:"There is no payment for this booking, so you cant edit this."})
+  };
+  const amount = payment.amount;
+  const preGameDuration = (3600000/500)*amount;
+  if(preGameDuration < gameDuration){
+    return res.status(400).json({message:"Your booking time after editing cannot exceed your earlier game duration"})
+  }
+
   const gameStartTimeDate = new Date(
     gameDate.getFullYear(),
     gameDate.getMonth(),
