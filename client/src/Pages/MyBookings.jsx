@@ -169,7 +169,8 @@ export default function MyBookings() {
             <thead>
               <tr className="table-rowz">
                 <th className="table-heading-1">Name</th>
-                <th className="table-heading-2">Date</th>
+                <th className="table-heading-3">Contact_number</th>
+                <th className="table-heading-2">Game Date</th>
                 <th className="table-heading-3">Time</th>
                 <th className="table-heading-4">Status</th>
                 <th className="table-heading-5">Actions</th>
@@ -185,14 +186,14 @@ export default function MyBookings() {
                     game_date,
                     startTime,
                     endTime,
-                    userId,
-                    team_size,
+                    contact_Number,
                     booking_status,
                   }) => (
                     <tr className="table-data-row" key={_id}>
                       <td className="player-name">
                         {first_name} {last_name}
                       </td>
+                      <td className="booking-status">{contact_Number}</td>
                       <td className="game-date">
                         {new Date(game_date).toISOString().split("T")[0]}
                       </td>
