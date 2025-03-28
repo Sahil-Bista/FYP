@@ -52,7 +52,7 @@ export default function MyBookings() {
           theme: "dark",
           autoClose: 5000,
         });
-        navigate(`/bookingList/${futsalId}`);
+        navigate("/my-bookings");
       }
     } catch (error) {
       console.log("error sending request", error);

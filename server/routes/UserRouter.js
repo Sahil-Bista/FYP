@@ -9,3 +9,4 @@ userRouter.post('/register',signup)
 userRouter.get('/all-users',authentication, getAllUsers)
 userRouter.get('/:userId',authentication, getSpecificUser)
 userRouter.post('/logout', logout )
+
