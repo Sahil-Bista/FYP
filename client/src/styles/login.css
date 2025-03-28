@@ -89,7 +89,18 @@
     width: 400px;
     height: 40px;
     color: white;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+.new-account-button{
+    background-color: #324B4B;
+    border: 1px solid #7C7C7C;
+    border-radius: 12px;
+    width: 400px;
+    height: 40px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .error{
@@ -97,9 +108,9 @@
     font-size: 14px;
 }
 
-.link{
+.register-link{
     color: white;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .not-registered-text{
@@ -107,7 +118,13 @@
     font-size: 12px;
     font-family: 'DM Sans', sans-serif;
     padding-left: 4px;
-    padding-bottom: 30px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-links{
+    display: flex;
+    justify-content: space-between;
 }
 
 

@@ -8,4 +8,10 @@ const createSecretToken = (id,role) =>{
     });
 }
 
-export default createSecretToken;
+const forgetPasswordToken = (id) =>{
+    return jwt.sign({id}, process.env.SECRET_KEY,{
+        expiresIn:"10m"
+    })
+}
+
+export  {createSecretToken, forgetPasswordToken};

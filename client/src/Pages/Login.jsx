@@ -5,6 +5,7 @@ import playerImage from "../assets/Fairplay.jpg";
 import Logo from "../assets/logo.png";
 import "../styles/login.css";
 import { LoginForm } from "../components/loginform";
+import { ForgetPassword } from "../components/ForgetPassword";
 
 function Login() {
   return (
@@ -26,12 +27,16 @@ function Login() {
             <center>Sign In</center>
           </h2>
           <LoginForm />
-          <span className="not-registered-text">
-            Not registered yet?{" "}
-            <Link className="link" to="/register">
-              Sign Up
-            </Link>
-          </span>
+          <div className="login-links">
+            <span className="not-registered-text">
+              <ForgetPassword />
+            </span>
+            <span className="not-registered-text">
+              <Link className="register-link" to="/register">
+                Register Account
+              </Link>
+            </span>
+          </div>
         </div>
       </div>
     </div>

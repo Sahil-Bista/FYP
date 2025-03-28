@@ -15,6 +15,8 @@ import ErrorPage from "../Pages/ErrorPage";
 import MyBookings from "../Pages/MyBookings";
 import VendorLandingPage from "../Pages/VendorLanding";
 import AdminLandingPage from "../Pages/AdminLanding";
+import { ForgetPassword } from "../components/ForgetPassword";
+import { ResetPassword } from "../components/ResetPassword";
 
 export const router = createBrowserRouter([
   { path: "/register", element: <Signup /> },
@@ -24,6 +26,7 @@ export const router = createBrowserRouter([
   { path: "/admin-landing", element: <AdminLandingPage /> },
   { path: "/chat", element: <Chat /> },
   { path: "/chat/:userId", element: <Chat /> },
+  { path: "/reset-password/:token", element: <ResetPassword /> },
   { path: "/futsal", element: <Futsal /> },
   { path: "/futsals/:userId", element: <Futsals /> },
   { path: "/my-bookings", element: <MyBookings /> },
@@ -35,5 +38,6 @@ export const router = createBrowserRouter([
   { path: "/payment-failure", element: <Failure /> },
   { path: "/pending-futsals", element: <PendingFutsals /> },
   { path: "/my-futsal", element: <MyFutsal /> },
+  { path: "/forgot-password", element: <ForgetPassword /> },
   { path: "*", element: <ErrorPage /> },
 ]);
